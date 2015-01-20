@@ -1,0 +1,252 @@
+17 December 2014
+   released version 0.0.934 of TSA_GAME_2
+
+     Change log:
+        -Removed: Sqlite DB for highscores, replaced with MySql/PHP on web server
+        -Cleaned: HighScores implementation
+        -New: Player is now textured
+
+11 December 2014
+   released version 0.0.915 of TSA_GAME_2
+
+     Change log:
+        -Cleaned: Thread Handling
+        -Added: Quit button to lvlEndMenu
+        -Added: Start Over Button on lvl fail to lvlEndMenu
+        -Updated: Health and Score Handling
+        -Added: Various Headers to lvlEndMenu
+        -Added: Link to website from main menu
+
+18 November 2014
+   released version 0.0.812 of TSA_GAME_2
+
+     Change log:
+        -Fixed: Old Highscores being added to the highscore table
+        -Fixed: Entering levels that are not defined
+        -Removed: PauseScreen from main as that is handled by the LevelHandler
+        -Added: LevelEndMenu for each level
+        -Added: Highscores table
+
+13 November 2014
+   released version 0.0.759 of TSA_GAME_2
+
+     Change log:
+        -New: gameDB adds a new score record after each level to that level's table
+        -Fixed: score insertion into any table that exists
+        -New: Player Enters Name at menu for HiScore records
+        -Added: Player Name is displayed right above version text on menu
+        -Added: Default player name is editable in config
+        -Applied: Characters allowed for name are restricted. No Spaces!
+
+10 November 2014
+   released version 0.0.663 of TSA_GAME_2
+
+     Change log:
+        -Fixed: Laser Fire Rate too fast, ruined game balance\n
+        -Added: New Library: SQLite for databases\n
+        -Added: gameDB to handle a game database
+        -Removed: statSystem class, dumb idea
+        -
+
+04 November 2014
+   released version 0.0.612 of TSA_GAME_2
+
+     Change log:
+        -Cleaned: Pausing is now routed through the LevelHandler for cleaner implementation
+        -Added: A progress bar for level completion
+        -Fixed: Gui Text Centering in LevelHandler
+
+03 November 2014
+   released version 0.0.578 of TSA_GAME_2
+
+     Change log:
+        -Added: Timer to handle level timing to the LevelHandler class
+
+01 November 2014
+   released version 0.0.567 of TSA_GAME_2
+
+     Change log:
+        -Applied: Basics of LevelHandler to event loop
+        -Fixed: Game Window Placing on screen
+        -Added: Health bar to UI
+        -Added: Added text that tells the current level to the LevelHandler
+
+31 October 2014
+   released version 0.0.528 of TSA_GAME_2
+
+     Change log:
+        -New: Level Handler Class to handle level setup and checking if level endcondition is met.
+        -New: INI file to handle Level Setup
+        -Cleaned: gameDifficultyInit - removed objects that don't depend on difficulty from switch, all global objects in game are still init'd here.
+        -Added: updater for each test for levels now included in LevelHandler class
+        -Added: getter for score on UI
+
+27 October 2014
+   released version 0.0.494 of TSA_GAME_2
+
+     Change log:
+        -Added: The amount of deviation from straight down of asteroids is configurable
+        -Fixed: In the TSA build library credits are requirted, now they are listed in the creadits menu.
+        -Added: The menu now states what version the game is, and where it is posistioned can be configured
+        -Added: StatSystem Class to handle loading and saving of user stats. Will not be implemented in the TSA Build.
+
+27 October 2014
+   released version 0.0.483 of TSA_GAME_2
+
+     Change log:
+        -Added: Asteroid Trajectory can now deviate left or right
+        -Added: Salvage Count on screen can now be configured based on difficulty with the ini file
+        -Added: Asteroid count is configurable based on difficulty within the ini file
+        -Added: Scoring is configurable based on difficulty, can be edited using the ini config file
+
+22 October 2014
+   released version 0.0.470 of TSA_GAME_2
+
+     Change log:
+        -Added: Difficulty can now be selected at the main menu screen
+        -Added: Enums to handle difficulty and menu selection
+        -Added: Struct for return to main from menu containing the difficulty and option selected
+        -Fixed: Button Text not being centered after changing it's text
+
+18 October 2014
+   released version 0.0.448 of TSA_GAME_2
+
+
+     Change log:
+
+        -Added: HitTest functions for laser and player to Asteroid Class
+
+        -Fixed: Laser objects not always detecting that they hit a mob
+
+        -Added: Event Loop Adds Scoring for hitting stuff
+
+        -Added: Player can now be configured using the config file
+
+        -New: Menu acts as a launcher, on end of debugging will only be in the release build
+
+        -Added: Background For Menu Screen
+
+        -Added: Menu layout can be configured using a ini file
+
+        -New: Seperate Build Target for conference that removes the credits
+
+
+14 October 2014
+   released version 0.0.351 of TSA_GAME_2
+
+
+     Change log:
+
+        -New: Laser Beams are now handled by a seperate class
+
+        -Updated: Scoring for lasers
+
+        -Added: Asteroid mobs
+
+
+12 October 2014
+
+   released version 0.0.324 of TSA_GAME_2
+
+
+
+     Change log:
+
+
+        -New: Game Menu Class to handle the menu
+
+
+        -New: MenuButton Class to handle selection
+
+
+        -Updated: All game objects created in main.cpp are dynamically allocated now.
+
+
+        -New: Player can shoot lasers beams now
+
+
+        -New: Game now has it's own icon
+
+
+
+10 October 2014
+
+   released version 0.0.249 of TSA_GAME_2
+
+
+
+     Change log:
+
+
+        -New: Background class to handle drawing the  background and animating stars
+
+
+        -Added: Moving Stars
+
+
+        -Added: Functioning BG texture
+
+
+        -Cleaned: Commented FilePathes.h better and organized the paths by asset type
+
+        -Added: Game pauses when window loses focus
+
+        -Added: Game pauses on escape key press
+
+        -Added: Config File Parsing Library(INIH) to project. So that everything can be customizable. Config files must be INI format
+
+        -Added: Config File for game in resources
+
+
+06 October 2014
+   released version 0.0.191 of TSA_GAME_2
+
+
+
+     Change log:
+
+
+        -New: UI Class to handle user visiable variables
+
+
+        -Added: Getter functions to player class
+
+
+        -Added: HitTesting to Salvage Objects
+
+
+        -Added: Score Counting to UI Class
+
+
+        -Added: Testing salvage to see if it meets a condition
+
+
+        -Added: Improved speed
+
+
+
+04 October 2014
+
+   released version 0.0.136 of TSA_GAME_2
+
+
+
+     
+Change log:
+
+
+
+        -New: Salvage Object - can move and shows up
+
+
+
+        -New: Console Build Data Output
+
+
+
+        -Added: Randomized Salvage Object Posisitions
+
+
+
+        -Added: Only 1 Salvage Object is required for drawing to screen.
+
