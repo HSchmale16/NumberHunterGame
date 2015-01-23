@@ -12,3 +12,4 @@ obj/*
 # Wiki Files
 NumberHunterGame.wiki/*
 *.md
+*.MD
