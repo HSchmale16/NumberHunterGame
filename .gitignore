@@ -1,6 +1,7 @@
 # Builds Files
 *.o
-*.out
+gmon.out
+*.exe
 
 # C::B Generated Files
 *.depend
