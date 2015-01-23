@@ -88,6 +88,7 @@
 		<Unit filename="include/LevelEndScreen.h" />
 		<Unit filename="include/LevelHandler.h" />
 		<Unit filename="include/MenuButton.h" />
+		<Unit filename="include/ParticleSystem.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/Salvage.h" />
 		<Unit filename="include/UI.h" />
@@ -106,6 +107,7 @@
 		<Unit filename="src/LevelEndScreen.cpp" />
 		<Unit filename="src/LevelHandler.cpp" />
 		<Unit filename="src/MenuButton.cpp" />
+		<Unit filename="src/ParticleSystem.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/Salvage.cpp" />
 		<Unit filename="src/UI.cpp" />
