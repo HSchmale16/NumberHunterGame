@@ -1,37 +1,84 @@
 #ifndef PARTICLESYSTEM_H
 #define PARTICLESYSTEM_H
-
-/** A Simple Particle System
- * @author Henry J Schmale
- * @date January 22, 2015
- */
-
-#include <SFML/Graphics.hpp>
-#include <vector>
-
-class ParticleSystem: sf::Drawable
+class ParticleSystem : public sf::Drawable, public sf::Transformable
 {
-	public:
-		ParticleSystem(int count);
-		virtual ~ParticleSystem();
+public:
 
-		void update();
-		void setEmitter(float x, float y);
-	protected:
-	private:
-		struct Particle{
-      sf::Vector2f m_veloc;
-      int m_currLife;
-      int m_maxLife;
-		};
+	ParticleSystem(unsigned int count) :
+		m_particles(count),
+		m_vertices(sf::Points, count),
+		m_lifetime(sf::seconds(3)),
+		m_emitter(0, 0)
+	{
+	}
 
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states);
-		void resetParticle(int index);
+	void setEmitter(sf::Vector2f position)
+	{
+		m_emitter = position;
+	}
 
-		int m_particlesCount;								//!< Number of Particles
-		std::vector<Particle> m_particles;	//!< Particles
-		sf::VertexArray m_vertexArray;			//!< Vertexes
-		sf::Vector2f m_emiterLocal;					//!< Location of Emitter
+	void update(sf::Time elapsed)
+	{
+		for (std::size_t i = 0; i < m_particles.size(); ++i)
+		{
+			// update the particle lifetime
+			Particle& p = m_particles[i];
+			p.lifetime -= elapsed;
+
+			// if the particle is dead, respawn it
+			if (p.lifetime <= sf::Time::Zero)
+				resetParticle(i);
+
+			// update the position of the corresponding vertex
+			m_vertices[i].position += p.velocity * elapsed.asSeconds();
+
+			// update the alpha (transparency) of the particle according to its lifetime
+			float ratio = p.lifetime.asSeconds() / m_lifetime.asSeconds();
+			m_vertices[i].color.a = static_cast<sf::Uint8>(ratio * 255);
+		}
+	}
+
+private:
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		// apply the transform
+		states.transform *= getTransform();
+
+		// our particles don't use a texture
+		states.texture = NULL;
+
+		// draw the vertex array
+		target.draw(m_vertices, states);
+	}
+
+private:
+
+	struct Particle
+	{
+		sf::Vector2f velocity;
+		sf::Time lifetime;
+	};
+
+	void resetParticle(std::size_t index)
+	{
+		// give a random velocity and lifetime to the particle
+		float angle = (std::rand() % 100 + 40) * 3.14f / 180.f;
+		float speed = (std::rand() % 50) + 50.f;
+		m_particles[index].velocity = sf::Vector2f(std::cos(angle) * speed, std::sin(angle) * speed);
+		m_particles[index].lifetime = sf::milliseconds((std::rand() % 2000) + 1000);
+
+		// reset the position of the corresponding vertex
+		m_vertices[index].position = m_emitter;
+		m_vertices[index].color = sf::Color(rand() % 255,
+																				rand() % 255,
+																				rand() % 255);
+	}
+
+	std::vector<Particle> m_particles;
+	sf::VertexArray m_vertices;
+	sf::Time m_lifetime;
+	sf::Vector2f m_emitter;
 };
 
 #endif // PARTICLESYSTEM_H
