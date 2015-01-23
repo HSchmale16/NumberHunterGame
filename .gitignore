@@ -1,2 +1,7 @@
 # Builds Files
 *.o
+*.out
+
+# C::B Generated Files
+*.depend
+*.layout
