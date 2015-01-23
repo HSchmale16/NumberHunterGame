@@ -2,6 +2,8 @@
 *.o
 gmon.out
 *.exe
+bin/*
+obj/*
 
 # C::B Generated Files
 *.depend
