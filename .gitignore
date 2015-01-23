@@ -8,3 +8,7 @@ obj/*
 # C::B Generated Files
 *.depend
 *.layout
+
+# Wiki Files
+NumberHunterGame.wiki/*
+*.md
