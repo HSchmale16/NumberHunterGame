@@ -22,11 +22,15 @@ Player::Player()
 	s.setSize(sf::Vector2f(m_fSideLength, m_fSideLength));
 	s.setPosition(20, 20);
 	s.setTexture(&m_texture);
+
+	// init particle system
+  m_ps = new ParticleSystem(100);
 }
 
 Player::~Player()
 {
 	//dtor
+	delete m_ps;
 }
 
 void Player::Move()
@@ -49,11 +53,14 @@ void Player::Move()
 		m_fYCoord += m_fYSpeed;
 	}
 	s.setPosition(m_fXCoord, m_fYCoord);	// update position
+	m_ps->setEmitter(sf::Vector2f(m_fXCoord + (m_fSideLength / 2), m_fYCoord + m_fSideLength));
+	m_ps->update(m_clock.restart());
 }
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
 	target.draw(s, states);
+	target.draw(*m_ps, states);
 }
 
 

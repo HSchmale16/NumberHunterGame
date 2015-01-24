@@ -7,3 +7,11 @@
 
 # WIKI
 NumberHunterGame.wiki/*
+gmon.out
+*.exe
+bin/*
+obj/*
+
+# C::B Generated Files
+*.depend
+*.layout

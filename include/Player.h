@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <SFML/Graphics.hpp>
+#include "ParticleSystem.h"
 
 class Player: public sf::Drawable
 {
@@ -29,7 +30,8 @@ private:
 	// objects
 	sf::RectangleShape s;
 	sf::Texture m_texture;
-
+	sf::Clock m_clock;
+  ParticleSystem *m_ps;
 };
 
 #endif // PLAYER_H
