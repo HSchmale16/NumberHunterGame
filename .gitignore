@@ -1,2 +1,9 @@
 # Builds Files
 *.o
+
+# Code::blocks
+*.layout
+*.depend
+
+# WIKI
+NumberHunterGame.wiki/*
