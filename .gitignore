@@ -1,5 +1,12 @@
 # Builds Files
 *.o
+
+# Code::blocks
+*.layout
+*.depend
+
+# WIKI
+NumberHunterGame.wiki/*
 gmon.out
 *.exe
 bin/*
@@ -8,8 +15,3 @@ obj/*
 # C::B Generated Files
 *.depend
 *.layout
-
-# Wiki Files
-NumberHunterGame.wiki/*
-*.md
-*.MD
