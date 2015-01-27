@@ -60,15 +60,18 @@ private:
 	sf::Font font;						// font used for text
 
 	// Texture Assets
-	sf::Texture m_texBG;				// texture for menu background
-	sf::Texture m_texPlay;				// texture for play button
+	sf::Texture m_texBG;      // texture for menu background
+	sf::Texture m_texPlay;    // texture for play button4
+	sf::Texture m_texEasy;    // Texture for easy diff button
+	sf::Texture m_texMed;     // Texture for medium diff button
+	sf::Texture m_texHard;    // Texture for hard diff button
 
 	// buttons
-	MenuButton *m_mbPlay;		// play button
-	MenuButton *m_mbCredits;	// Credits Button
-	MenuButton *m_mbExit;		// exit button
+	MenuButton *m_mbPlay;     // play button
+	MenuButton *m_mbCredits;  // Credits Button
+	MenuButton *m_mbExit;     // exit button
 	MenuButton *m_mbDifficulty;	// Difficulty Selection Button
-	MenuButton *m_mbBack;		// back button to exit from credits screen and return to main menu;
+	MenuButton *m_mbBack;     // back button to exit from credits screen and return to main menu;
 	MenuButton *m_mbHighScores;	// button to go to highscores page in browser
 
 	// Text Objects

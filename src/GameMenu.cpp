@@ -31,6 +31,8 @@ GameMenu::GameMenu()
 		exit(2);
 	if(!m_texBG.loadFromFile(gmR.Get("menu_window", "background", "Null")))
 		exit(2);
+	if(!m_texEasy.loadFromFile(gmR.Get("difficulty_button", "easyTexture", "NULL")))
+		exit(2);
 
 	// create buttons
 	m_mbPlay = new MenuButton(gmR.GetInteger("play_button", "xpos", 100),
@@ -70,7 +72,7 @@ GameMenu::GameMenu()
 									gmR.GetInteger("difficulty_button", "width", 100),
 									gmR.GetInteger("difficulty_button", "height", 25),
 									gmR.Get("difficulty_button", "easyText", "EASY"),
-									sf::Color::White,
+									&m_texEasy,
 									sf::Color::Black,
 									font);
 	m_mbHighScores = new MenuButton(gmR.GetInteger("highscores_button", "xpos", 100),
@@ -78,7 +80,9 @@ GameMenu::GameMenu()
 									gmR.GetInteger("highscores_button", "width", 100),
 									gmR.GetInteger("highscores_button", "height", 25),
 									gmR.Get("highscores_button", "text", "High Scores"),
-									sf::Color::White, sf::Color::Black, font);
+									sf::Color::White,
+									sf::Color::Black,
+									font);
 	// init credit screen text
 	m_creditText.setPosition(sf::Vector2f(gmR.GetInteger("credits_text", "xpos", 25), gmR.GetInteger("credits_text", "ypos", 20)));
 	m_creditText.setCharacterSize(14);
