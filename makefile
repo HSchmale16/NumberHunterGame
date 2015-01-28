@@ -6,7 +6,9 @@
 CXX=mingw32-gcc-c++
 CFLAGS=-Wall -std-c++11 -O2 -DSFML_STATIC \
      -ISQLite/include -ISFML-2.1/include \
-LDFLAGS=
+LDFLAGS=-LSQLite/lib \
+     -LSFML-2.1/lib
+STATIC_MODS=
 SRC= main.cpp \
      ini.c \
      INIReader.cpp \
@@ -23,13 +25,23 @@ SRC= main.cpp \
      src/Background.cpp \
      src/Player.cpp \
      src/Laser.cpp
-
+OBJ=$(SRC:.cpp=.o)
+EXE=NumberHunter.exe
 
 # Primary Release Target, Build Everything
-all:
+all: win32
 
 
 # Win32 Release Target, Build it for win32
-win32:
+win32: $(SRC) $(EXE)
 
+$(EXE): $(OBJ)
+	$(CXX) $(LDFLAGS) $(OBJ) -o $@
+
+
+.o:
+	$(CXX) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rf *.o
 
