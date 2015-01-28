@@ -27,21 +27,28 @@ SRC= main.cpp \
      src/Laser.cpp
 OBJ=$(SRC:.cpp=.o)
 EXE=NumberHunter.exe
-
+PackDir=distro
 # Primary Release Target, Build Everything
 all: win32
 
 
 # Win32 Release Target, Build it for win32
 win32: $(SRC) $(EXE)
+    # Package the game for distrubution
+    mkdir $(PackDir)
+    cp $(EXE) $(PackDir)
+    cp -r resources $(PackDir)
+    cp libsndfile-1.dll $(PackDir)
+    cp openal32.dll $(PackDir)
+
 
 $(EXE): $(OBJ)
-	$(CXX) $(LDFLAGS) $(OBJ) -o $@
+    $(CXX) $(LDFLAGS) $(OBJ) -o $@
 
 
 .o:
-	$(CXX) $(CFLAGS) $< -o $@
+    $(CXX) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o
+    rm -rf *.o
 
