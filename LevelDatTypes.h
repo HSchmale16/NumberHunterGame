@@ -6,6 +6,8 @@
 #ifndef LEVELDATTYPES_H_INCLUDED
 #define LEVELDATTYPES_H_INCLUDED
 
+#include <stdint.h>
+
 // Enumeration of possible level types
 enum LevelType
 {

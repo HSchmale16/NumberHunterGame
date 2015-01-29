@@ -2,6 +2,7 @@
 #define SALVAGE_H
 
 #include <SFML/Graphics.hpp>
+#include <stdint.h>
 #include "../Hjs_StdLib.h"
 #include "Player.h"			// for hitTest
 #include "Laser.h"

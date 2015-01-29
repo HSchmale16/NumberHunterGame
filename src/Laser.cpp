@@ -3,7 +3,7 @@
 *	@date October 11, 2014
 */
 
-#include "Laser.h"
+#include "../include/Laser.h"
 #include "../INIReader.h"
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"

@@ -4,7 +4,7 @@
 */
 
 #include <string>
-#include "GameMenu.h"
+#include "../include/GameMenu.h"
 #include "../Hjs_StdLib.h"
 #include "../FilePaths.h"
 #include "../INIReader.h"
@@ -313,18 +313,18 @@ void GameMenu::enterName()
 					str.push_back(static_cast<char>(event.text.unicode));
 					if((event.text.unicode == 8) && (str.size() > 1))	// backspace
 					{
-						str.pop_back();
-						str.pop_back();
+						str.substr(0, str.length() - 1);
+						str.substr(0, str.length() - 1);
 					}
 					if(event.text.unicode == 13) // return
 					{
-						str.pop_back();
+						str.substr(0, str.length() - 1);
 						m_pname = str;
 						return;
 					}
 					if(event.text.unicode == 32)// NO SPACES ALLOWED
 					{
-                        str.pop_back();
+                        str.substr(0, str.length() - 1);
                         std::cout << "\a";
 					}
 					name.setString(str);

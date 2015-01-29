@@ -3,7 +3,7 @@
 *	@date October 14, 2014
 */
 
-#include "Asteroids.h"
+#include "../include/Asteroids.h"
 #include <math.h>
 
 Asteroids::Asteroids(int nCount, float trajDeviation)

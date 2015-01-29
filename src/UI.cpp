@@ -3,7 +3,7 @@
 *	@date October 5, 2014
 */
 
-#include "UI.h"
+#include "../include/UI.h"
 #include "../FilePaths.h"
 #include <stdio.h>			// for sprintf
 #include <math.h>			// for SQR

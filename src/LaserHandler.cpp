@@ -3,7 +3,7 @@
 *	@date October 14, 2014
 */
 
-#include "LaserHandler.h"
+#include "../include/LaserHandler.h"
 #include "../FilePaths.h"
 
 // declare globals used for scoring

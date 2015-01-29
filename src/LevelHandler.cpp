@@ -5,10 +5,10 @@
 
 #include <stdio.h>			// for snprintf
 #include <stdlib.h>			// for exit
-#include "LevelHandler.h"
+#include "../include/LevelHandler.h"
 #include "../FilePaths.h"	// for loading level config
 #include "../Hjs_StdLib.h"
-#include "UI.h"
+#include "../include/UI.h"
 
 extern UI *myUI;
 
@@ -249,7 +249,7 @@ void LevelHandler::incrementLevel()
 		char buff[100];
 		snprintf(buff, 100, "LEVEL_%d", m_currentLevel);
 		m_LevelSectionHeader = buff;
-		m_LevelSectionHeader.shrink_to_fit();
+		//m_LevelSectionHeader.shrink_to_fit();
 		hjs::logToConsole(m_LevelSectionHeader.c_str());
 
 		// set values of settings struct using data loaded from config and update various things

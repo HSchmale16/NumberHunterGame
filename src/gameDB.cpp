@@ -1,8 +1,8 @@
-#include "gameDB.h"
+#include "../include/gameDB.h"
 #include <stdio.h>
 #include <sstream>
 #include <SFML/Network.hpp>
-#include "GameMenu.h"
+#include "../include/GameMenu.h"
 
 const std::string HOST = "numberhuntergame.com";
 const short PORT = 80;

@@ -1,4 +1,4 @@
-#include "Salvage.h"
+#include "../include/Salvage.h"
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
 #include <math.h>	// for rand

@@ -1,5 +1,8 @@
 #ifndef PARTICLESYSTEM_H
 #define PARTICLESYSTEM_H
+
+#include <cmath>
+
 class ParticleSystem : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -59,10 +62,10 @@ private:
 	void resetParticle(std::size_t index)
 	{
 		// give a random velocity and lifetime to the particle
-		float angle = (std::rand() % 120 + 30) * 3.14f / 180.f;
-		float speed = (std::rand() % 50) + 50.f;
-		m_particles[index].velocity = sf::Vector2f(std::cos(angle) * speed, std::sin(angle) * speed);
-		m_particles[index].lifetime = sf::milliseconds((std::rand() % 1200) + 700);
+		float angle = (rand() % 120 + 30) * 3.14f / 180.f;
+		float speed = (rand() % 50) + 50.f;
+		m_particles[index].velocity = sf::Vector2f(cos(angle) * speed, sin(angle) * speed);
+		m_particles[index].lifetime = sf::milliseconds((rand() % 1200) + 700);
 
 		m_particles[index].m_s.setSize(sf::Vector2f(rand() % 7 + 2, rand() % 7 + 5));
 		m_particles[index].m_s.setPosition(m_emitter);

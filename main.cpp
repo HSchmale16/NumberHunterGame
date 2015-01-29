@@ -9,14 +9,14 @@
 #include "Hjs_StdLib.h"			// My STD LIB
 #include "version.h"			// for versioning information
 #include "config.h"				// for game configuration
-#include "Player.h"
-#include "Salvage.h"
-#include "UI.h"
-#include "Background.h"
-#include "LaserHandler.h"
-#include "Asteroids.h"
-#include "LevelHandler.h"
-#include "GameMenu.h"
+#include "include/Player.h"
+#include "include/Salvage.h"
+#include "include/UI.h"
+#include "include/Background.h"
+#include "include/LaserHandler.h"
+#include "include/Asteroids.h"
+#include "include/LevelHandler.h"
+#include "include/GameMenu.h"
 
 // Declare Global Variables
 bool bGameIsPaused = false;		// Is the game paused?

@@ -3,7 +3,7 @@
 *	@date October 7, 2014
 */
 
-#include "Background.h"
+#include "../include/Background.h"
 
 Background::Background()
 	: starMove(&Background::moveStars, this)		// Init the starMove Thread
