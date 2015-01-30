@@ -36,13 +36,15 @@ all: win32
 win32: $(SRC) $(EXE)
 
 
+# Execuatable build target
 $(EXE): $(OBJ)
 	$(CXX) $(LDFLAGS) $(OBJ) -o $@
 
-
+# Build the object files
 .o:
 	$(CXX) $(CFLAGS) $< -o $@
 
+# clean the project
 clean:
 	rm -rf *.o
 
