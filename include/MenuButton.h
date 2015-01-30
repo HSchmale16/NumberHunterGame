@@ -41,6 +41,9 @@ public:
 
 	// update what the button says
 	void setText(std::string str);
+
+	// set a new texture
+	void setTexture(const sf::Texture *tex);
 protected:
 private:
 	virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;

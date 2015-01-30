@@ -101,6 +101,11 @@ void MenuButton::setText(std::string str)
 	);
 }
 
+void MenuButton::setTexture(const sf::Texture *tex)
+{
+  m_RsBG.setTexture(tex);
+}
+
 // Private Drawing
 void MenuButton::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
