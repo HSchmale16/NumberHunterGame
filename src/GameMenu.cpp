@@ -12,9 +12,9 @@
 
 // is the windows platform targeted this part of the code is windows only
 #ifdef WINDOWS_PLATFORM_TARGETED
-	#include <windows.h>
-	static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=1";	// URL to goto for website
-	// if the build platform is
+#include <windows.h>
+static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=1";	// URL to goto for website
+// if the build platform is
 #endif // WINDOWS_PLATFORM_TARGETED
 
 // Menu configuration object
@@ -32,6 +32,10 @@ GameMenu::GameMenu()
 	if(!m_texBG.loadFromFile(gmR.Get("menu_window", "background", "Null")))
 		exit(2);
 	if(!m_texEasy.loadFromFile(gmR.Get("difficulty_button", "easyTexture", "NULL")))
+		exit(2);
+	if(!m_texMed.loadFromFile(gmR.Get("difficulty_button", "medTexture", "NULL")))
+		exit(2);
+	if(!m_texHard.loadFromFile(gmR.Get("difficulty_button", "hardTexture", "NULL")))
 		exit(2);
 
 	// create buttons
@@ -105,10 +109,10 @@ GameMenu::GameMenu()
 	m_versionText.setString(versionStr);
 
 	// init player name text
-    m_playerName.setCharacterSize(gmR.GetInteger("player_text", "fontSz", 10));
-    m_playerName.setPosition(sf::Vector2f(gmR.GetInteger("player_text", "xpos", 10), gmR.GetInteger("player_text", "ypos", 300)));
-    m_playerName.setFont(font);
-    m_playerName.setColor(sf::Color::White);
+	m_playerName.setCharacterSize(gmR.GetInteger("player_text", "fontSz", 10));
+	m_playerName.setPosition(sf::Vector2f(gmR.GetInteger("player_text", "xpos", 10), gmR.GetInteger("player_text", "ypos", 300)));
+	m_playerName.setFont(font);
+	m_playerName.setColor(sf::Color::White);
 
 	// init menu background
 	m_RsBg.setTexture(&m_texBG);
@@ -121,7 +125,7 @@ GameMenu::GameMenu()
 	m_mrt.diff = EASY;
 
 	// Open Menu Music file and play
-  if(m_menuMusic.openFromFile(MENU_MUSIC))
+	if(m_menuMusic.openFromFile(MENU_MUSIC))
 	{
 		m_menuMusic.setLoop(true);
 		m_menuMusic.play();
@@ -193,10 +197,10 @@ MenuRetType GameMenu::getSelection()
 				}
 				if((m_mbHighScores->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
 				{
-					#ifdef WINDOWS_PLATFORM_TARGETED
-						// windows only way to open browser
-						ShellExecute(NULL, "open", HighscoresURL, NULL, NULL, SW_SHOWNORMAL);
-					#endif // WINDOWS_PLATFORM_TARGETED
+#ifdef WINDOWS_PLATFORM_TARGETED
+					// windows only way to open browser
+					ShellExecute(NULL, "open", HighscoresURL, NULL, NULL, SW_SHOWNORMAL);
+#endif // WINDOWS_PLATFORM_TARGETED
 				}
 			}
 			else	// handle stuff on credits screen
@@ -229,10 +233,10 @@ MenuRetType GameMenu::getSelection()
 		}
 		menuWindow.display();
 	}
-  for(int i = 100; i > 10; i-=10)
+	for(int i = 100; i > 10; i -= 10)
 	{
-    m_menuMusic.setVolume(i);
-    sf::sleep(sf::milliseconds(i));
+		m_menuMusic.setVolume(i);
+		sf::sleep(sf::milliseconds(i));
 	}
 	return m_mrt;
 }
@@ -254,14 +258,17 @@ void GameMenu::incrementDifficulty()
 	case EASY:
 		m_mrt.diff = MEDIMUM;
 		m_mbDifficulty->setText(gmR.Get("difficulty_button", "medText", "MEDIMUM"));
+		m_mbDifficulty->setTexture(&m_texMed);
 		break;
 	case MEDIMUM:
 		m_mrt.diff = HARD;
 		m_mbDifficulty->setText(gmR.Get("difficulty_button", "hardText", "HARD"));
+		m_mbDifficulty->setTexture(&m_texHard);
 		break;
 	case HARD:
 		m_mrt.diff = EASY;
 		m_mbDifficulty->setText(gmR.Get("difficulty_button", "easyText", "EASY"));
+		m_mbDifficulty->setTexture(&m_texEasy);
 		break;
 	}
 }
@@ -313,19 +320,23 @@ void GameMenu::enterName()
 					str.push_back(static_cast<char>(event.text.unicode));
 					if((event.text.unicode == 8) && (str.size() > 1))	// backspace
 					{
-						str.substr(0, str.length() - 1);
-						str.substr(0, str.length() - 1);
+						str = str.substr(0, str.length() - 2);
 					}
+					else if((event.text.unicode == 8) && (str.size() <= 1))
+					{
+            str = std::string();
+					}
+
 					if(event.text.unicode == 13) // return
 					{
-						str.substr(0, str.length() - 1);
+						str = str.substr(0, str.length() - 1);
 						m_pname = str;
 						return;
 					}
 					if(event.text.unicode == 32)// NO SPACES ALLOWED
 					{
-                        str.substr(0, str.length() - 1);
-                        std::cout << "\a";
+						str = str.substr(0, str.length() - 1);
+						std::cout << "\a";
 					}
 					name.setString(str);
 					rectBounds = m_RsBg.getGlobalBounds();

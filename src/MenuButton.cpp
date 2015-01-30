@@ -101,6 +101,17 @@ void MenuButton::setText(std::string str)
 	);
 }
 
+void MenuButton::setFontSz(int s)
+{
+	m_text.setCharacterSize(s);
+	sf::FloatRect rectBounds = m_RsBG.getGlobalBounds();
+	sf::FloatRect textBounds = m_text.getGlobalBounds();
+	m_text.setPosition(
+		rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
+		rectBounds.top + (rectBounds.height / 2) - (textBounds.height / 2)
+	);
+}
+
 void MenuButton::setTexture(const sf::Texture *tex)
 {
   m_RsBG.setTexture(tex);
