@@ -36,6 +36,8 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName)
 static std::vector<std::string> vecStrHS;
 std::stringstream ss1;
 std::stringstream ss2;
+
+#ifdef SQLITE_DB_USED
 static int retHighScores(void *data, int argc, char **argv, char **azColName)
 {
 	for(int i = 0; i < argc; i += 2)
@@ -45,6 +47,7 @@ static int retHighScores(void *data, int argc, char **argv, char **azColName)
 	}
 	return 0;
 }
+#endif // SQLITE_DB_USED
 
 // ===========================================================================
 // constructors & Destructors

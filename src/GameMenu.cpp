@@ -13,7 +13,7 @@
 // is the windows platform targeted this part of the code is windows only
 #ifdef WINDOWS_PLATFORM_TARGETED
 #include <windows.h>
-static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=1";	// URL to goto for website
+static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=1&diff=0";	// URL to goto for website
 // if the build platform is
 #endif // WINDOWS_PLATFORM_TARGETED
 
@@ -195,6 +195,7 @@ MenuRetType GameMenu::getSelection()
 				{
 					this->incrementDifficulty();
 				}
+				// open highscores in browser, windows only
 				if((m_mbHighScores->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
 				{
 #ifdef WINDOWS_PLATFORM_TARGETED

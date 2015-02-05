@@ -45,7 +45,7 @@ private:
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		for(int i = 0; i < m_particles.size(); i++)
+		for(unsigned int i = 0; i < m_particles.size(); i++)
 		{
 			target.draw(m_particles[i].m_s, states);
 		}
