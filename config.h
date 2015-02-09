@@ -9,6 +9,6 @@
 #include "INIReader.h"		// For Parsing Config Files
 #include "FilePaths.h"		// Tell where the config file is located
 
-INIReader config(CONFIG_FILE);
+static INIReader config(CONFIG_FILE);
 
 #endif // CONFIG_H_INCLUDED

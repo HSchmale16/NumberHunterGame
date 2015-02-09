@@ -44,6 +44,10 @@ private:
 	sf::RectangleShape m_HealthBox;	// Health box - tells how much fuel remains
 	sf::RectangleShape m_HealthBar;	// bar that scales within the m_FuelBox
 
+	// Texture Objects
+	sf::Texture m_texBG; 				//!< The background Texture
+	sf::Texture m_texHealBar1;	//!< The texture of the health bar
+
 	// Text Outputs
 	sf::Font font;
 	sf::Text m_TargetText;		// What condition should the label on the salvage meet

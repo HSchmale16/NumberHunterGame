@@ -5,7 +5,8 @@
 
 #include "../include/UI.h"
 #include "../FilePaths.h"
-#include <stdio.h>			// for sprintf
+#include "../config.h"
+#include <stdio.h>    // for sprintf
 #include <math.h>			// for SQR
 
 UI::UI()
@@ -16,11 +17,16 @@ UI::UI()
 	{
 		hjs::logToConsole("Failed to load MAIN_FONT in UI");
 	}
+	if(!m_texBG.loadFromFile(config.Get("ui_config", "ui_texture", NULL))){
+		hjs::logToConsole("Failed to load ui texture");
+		exit(2);
+	}
 
 	// setup Background
 	m_BG.setSize(sf::Vector2f(375, 50));
 	m_BG.setPosition(0, 600);
 	m_BG.setFillColor(sf::Color::Cyan);
+	m_BG.setTexture(&m_texBG);
 
 	// setup score
 	m_nScore = 0;			//init to 0 points
