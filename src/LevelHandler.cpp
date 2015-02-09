@@ -242,6 +242,11 @@ void LevelHandler::incrementLevel()
 			}
 			// anything else just continue to next level
 			m_lvlEndScreen->setVisible(false);//*/
+			m_currStats->asteroidsKilled = 0; // reset my stats
+			m_currStats->salvageCollected = 0;
+			m_currStats->score = 0;
+			myUI->addPoints(-myUI->getScore());
+			myUI->resetHealth();
 		}
 
 		m_currentLevel++;
