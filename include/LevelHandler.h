@@ -17,6 +17,7 @@
 #include "LevelEndScreen.h"
 #include "../INIReader.h"
 #include "../LevelDatTypes.h"
+#include "../config.h"
 
 class LevelHandler: public sf::Drawable
 {
@@ -50,10 +51,10 @@ private:
 	void updateGUI();
 
 	// Time Updater
-    void updateTimer();
+	void updateTimer();
 
-    // Level Ender
-    void endLevel();
+	// Level Ender
+	void endLevel();
 
 	// handlers for each of the level types
 	// handler funcs are prefaced with an h_
@@ -66,33 +67,35 @@ private:
 	LevelType parseType();
 
 	// dynamically allocated items
-	INIReader *m_reader;				// Ini parser to handle loading of levels
-	LevelSettings *m_settings;			// settings to test for end of level
-	LevelStats *m_currStats;			// player's current stats for the level
-	gameDB *m_gDB;						// game database for scores and such
+	INIReader *m_reader;                 // Ini parser to handle loading of levels
+	LevelSettings *m_settings;           // settings to test for end of level
+	LevelStats *m_currStats;             // player's current stats for the level
+	gameDB *m_gDB;                       // game database for scores and such
 
 	// member data
-	bool m_levelInProgress;				// is a level currently in progress
-	bool m_timeLimitInLevel;			// does the level have a time limit
-	int m_totalNumLevels;				// total number of levels in game
-	int m_currentLevel;					// level currently active
-	std::string m_LevelSectionHeader;	// the ini file header to access the data to create the current level
-	std::string m_TargetStr;			// Visible string to target of level
-	std::string m_PlayerName;			// Name of player to insert into db
-    int m_TimeRemaining;				// how much time remains in the level
-    float m_prevCompletionPercent;		// previous completion percentage
-    float m_currCompletionPercent;		// current completion percentage
+	bool m_levelInProgress;              // is a level currently in progress
+	bool m_timeLimitInLevel;             // does the level have a time limit
+	int m_totalNumLevels;                // total number of levels in game
+	int m_currentLevel;                  // level currently active
+	std::string m_LevelSectionHeader;	   // the ini file header to access the data to create the current level
+	std::string m_TargetStr;             // Visible string to target of level
+	std::string m_PlayerName;            // Name of player to insert into db
+	int m_TimeRemaining;                 // how much time remains in the level
+	float m_prevCompletionPercent;		   // previous completion percentage
+	float m_currCompletionPercent;		   // current completion percentage
 
 	// ui elements
 	sf::Font m_font;
-	sf::Text m_GoalText;				// tell what the goal of the level is
-	sf::Text m_LevelText;				// tell what level the player is currently on
-	sf::Text m_CountDownText;			// tells how much time remains in the lvl
-	sf::RectangleShape m_ProgressMeter;	// Tells how close to completion the level is
-	sf::RectangleShape m_RsBg;			// Main Background of level gui
-	sf::RectangleShape m_PauseScreen;	// pausescreen drawn on top
+	sf::Text m_GoalText;                 // tell what the goal of the level is
+	sf::Text m_LevelText;				         // tell what level the player is currently on
+	sf::Text m_CountDownText;            // tells how much time remains in the lvl
+	sf::RectangleShape m_ProgressMeter;	 // Tells how close to completion the level is
+	sf::RectangleShape m_RsBg;    	     // Main Background of level gui
+	sf::RectangleShape m_PauseScreen;    // pausescreen drawn on top
 
-	LevelEndScreen *m_lvlEndScreen;		// level end screen
+	sf::Texture m_texBG;                 // The background Texture
+
+	LevelEndScreen *m_lvlEndScreen;		   // level end screen
 };
 
 #endif // LEVELHANDLER_H

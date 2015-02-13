@@ -17,7 +17,7 @@ UI::UI()
 	{
 		hjs::logToConsole("Failed to load MAIN_FONT in UI");
 	}
-	if(!m_texBG.loadFromFile(config.Get("ui_config", "ui_texture", NULL))){
+	if(!m_texBG.loadFromFile(config.Get("ui_config", "ui_texture", "NULL"))){
 		hjs::logToConsole("Failed to load ui texture");
 		exit(2);
 	}
@@ -25,7 +25,7 @@ UI::UI()
 	// setup Background
 	m_BG.setSize(sf::Vector2f(375, 50));
 	m_BG.setPosition(0, 600);
-	m_BG.setFillColor(sf::Color::Cyan);
+	//m_BG.setFillColor(sf::Color::Cyan);
 	m_BG.setTexture(&m_texBG);
 
 	// setup score
