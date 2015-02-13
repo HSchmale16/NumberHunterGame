@@ -115,7 +115,7 @@ LevelHandler::LevelHandler(std::string playerName)
 
 	m_RsBg.setSize(sf::Vector2f(375, 60));
 	m_RsBg.setPosition(0, 0);
-	//m_RsBg.setFillColor(sf::Color::Blue );
+	m_RsBg.setFillColor(sf::Color::White);
 	m_RsBg.setTexture(&m_texBG);
 
 	m_ProgressMeter.setSize(sf::Vector2f(50, -50));

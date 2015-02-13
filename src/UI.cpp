@@ -25,7 +25,7 @@ UI::UI()
 	// setup Background
 	m_BG.setSize(sf::Vector2f(375, 50));
 	m_BG.setPosition(0, 600);
-	//m_BG.setFillColor(sf::Color::Cyan);
+	m_BG.setFillColor(sf::Color::White);
 	m_BG.setTexture(&m_texBG);
 
 	// setup score
@@ -33,7 +33,7 @@ UI::UI()
 	m_ScoreText.setFont(font);
 	m_ScoreText.setCharacterSize(12);
 	m_ScoreText.setPosition(5, 605);
-	m_ScoreText.setColor(sf::Color::Black);
+	m_ScoreText.setColor(sf::Color::White);
 	char numStr[20];
 	sprintf(numStr, "Points: %d", m_nScore);	// convert m_nScore to char array
 	m_ScoreText.setString(numStr);
@@ -43,7 +43,7 @@ UI::UI()
 	m_TargetText.setFont(font);
 	m_TargetText.setCharacterSize(12);
 	m_TargetText.setPosition(200, 605);
-	m_TargetText.setColor(sf::Color::Black);
+	m_TargetText.setColor(sf::Color::White);
 
 	// setup health bar
 	m_MaxHealth = 100;
