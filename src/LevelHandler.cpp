@@ -16,10 +16,6 @@ static clock_t lastClock = clock();	// file scope global to set up timing
 
 LevelHandler::LevelHandler()	// ctor
 {
-	if(!m_texBG.loadFromFile(config.Get("ui_config", "ui_texture", "NULL"))){
-		hjs::logToConsole("Failed to load ui texture");
-		exit(2);
-	}
 	// allocate objects
 	m_reader = new INIReader(LEVEL_CONFIG_FILE);
 	m_settings = new LevelSettings;
@@ -35,6 +31,10 @@ LevelHandler::LevelHandler()	// ctor
 	m_currStats->score = 0;
 
 	// init gui
+	if(!m_texBG.loadFromFile(config.Get("ui_config", "ui_texture", "NULL"))){
+		hjs::logToConsole("Failed to load ui texture");
+		exit(2);
+	}
 	if(!m_font.loadFromFile(MAIN_FONT))
 	{
 		hjs::logToConsole("Couldn't load Font: MAIN_FONT");
@@ -95,6 +95,10 @@ LevelHandler::LevelHandler(std::string playerName)
 	m_currStats->score = 0;
 
 	// init gui
+	if(!m_texBG.loadFromFile(config.Get("ui_config", "ui_texture", "NULL"))){
+		hjs::logToConsole("Failed to load ui texture");
+		exit(2);
+	}
 	if(!m_font.loadFromFile(MAIN_FONT))
 	{
 		hjs::logToConsole("Couldn't load Font: MAIN_FONT");
@@ -111,7 +115,8 @@ LevelHandler::LevelHandler(std::string playerName)
 
 	m_RsBg.setSize(sf::Vector2f(375, 60));
 	m_RsBg.setPosition(0, 0);
-	m_RsBg.setFillColor(sf::Color::Blue );
+	//m_RsBg.setFillColor(sf::Color::Blue );
+	m_RsBg.setTexture(&m_texBG);
 
 	m_ProgressMeter.setSize(sf::Vector2f(50, -50));
 	m_ProgressMeter.setFillColor(sf::Color::Red);
