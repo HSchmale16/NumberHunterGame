@@ -12,53 +12,53 @@
 #define NUM_TYPES_SALVCONDITION 3		// total number of possible types in enum SalvCondition
 enum SalvCondition
 {
-	ODD_NUM,
-	EVEN_NUM,
-	PRIME_NUM
+    ODD_NUM,
+    EVEN_NUM,
+    PRIME_NUM
 };
 
 // class declaration
 class UI: public sf::Drawable
 {
 public:
-	UI();
-	virtual ~UI();
+    UI();
+    virtual ~UI();
 
-	void Reset();									/// Reset this object to defaults
-	void setNewCondition();							/// Selects a new condition randomly
-	void setCondition(SalvCondition condition); 	/// selects a certain type for target salvage
-	void addPoints(int points);						/// adds @param points to m_nScore and updates ScoreText
-	void updateHealth(int n);						/// updates the health of the player
-	void resetHealth();								/// reset the health of the player
+    void Reset();									/// Reset this object to defaults
+    void setNewCondition();							/// Selects a new condition randomly
+    void setCondition(SalvCondition condition); 	/// selects a certain type for target salvage
+    void addPoints(int points);						/// adds @param points to m_nScore and updates ScoreText
+    void updateHealth(int n);						/// updates the health of the player
+    void resetHealth();								/// reset the health of the player
 
-	bool isSalvValGood(int val);					/// checks if @param val meets current required condition
-	int getScore();									/// gets the current score
+    bool isSalvValGood(int val);					/// checks if @param val meets current required condition
+    int getScore();									/// gets the current score
 protected:
 private:
-	// Private Updater
-	void updateTarget();			// updates on screen prompts based on m_eTarget
+    // Private Updater
+    void updateTarget();			// updates on screen prompts based on m_eTarget
 
-	// rendering
-	virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
-	sf::RectangleShape m_BG;		// contains the background
-	sf::RectangleShape m_HealthBox;	// Health box - tells how much fuel remains
-	sf::RectangleShape m_HealthBar;	// bar that scales within the m_FuelBox
+    // rendering
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
+    sf::RectangleShape m_BG;		// contains the background
+    sf::RectangleShape m_HealthBox;	// Health box - tells how much fuel remains
+    sf::RectangleShape m_HealthBar;	// bar that scales within the m_FuelBox
 
-	// Texture Objects
-	sf::Texture m_texBG; 				//!< The background Texture
-	sf::Texture m_texHealBar1;	//!< The texture of the health bar
+    // Texture Objects
+    sf::Texture m_texBG; 				//!< The background Texture
+    sf::Texture m_texHealBar1;	//!< The texture of the health bar
 
-	// Text Outputs
-	sf::Font font;
-	sf::Text m_TargetText;		// What condition should the label on the salvage meet
-	sf::Text m_ScoreText;		// How high your score is now
+    // Text Outputs
+    sf::Font font;
+    sf::Text m_TargetText;		// What condition should the label on the salvage meet
+    sf::Text m_ScoreText;		// How high your score is now
 
-	// Variables
-	int m_nScore;				// Score
-	SalvCondition m_eTarget;	// Target Condition for player collected salvage
+    // Variables
+    int m_nScore;				// Score
+    SalvCondition m_eTarget;	// Target Condition for player collected salvage
 
-	int m_CurrentHealth;
-	int m_MaxHealth;
+    int m_CurrentHealth;
+    int m_MaxHealth;
 };
 
 #endif // UI_H

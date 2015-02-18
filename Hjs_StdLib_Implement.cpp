@@ -15,40 +15,40 @@ bool bMainThreadActive = true;  // Is the main thread still active
 /// Initiates my library
 void hjs::init_Hjs_StdLib()
 {
-	// check if lib is not init'd, because this should only be called once
-	if(!bLibIsInit)
-	{
-		bLibIsInit = true;
-		startTime = clock();
-		hjs::logToConsole("HjsStdLib Initiated");
-	}
+    // check if lib is not init'd, because this should only be called once
+    if(!bLibIsInit)
+    {
+        bLibIsInit = true;
+        startTime = clock();
+        hjs::logToConsole("HjsStdLib Initiated");
+    }
 }
 
 void hjs::logTimeToConsole()
 {
-	// time output
-	time_t t = clock();     // Get the Time
-	float elaps = (float(t) - startTime) / CLOCKS_PER_SEC;
-	std::cout << "[" << elaps << "] \t";
+    // time output
+    time_t t = clock();     // Get the Time
+    float elaps = (float(t) - startTime) / CLOCKS_PER_SEC;
+    std::cout << "[" << elaps << "] \t";
 }
 
 /// Logs a message to stdOutput with the time since execution begin
 void hjs::logToConsole(const char * ch)
 {
-	// output time
-	logTimeToConsole();
-	std::cout << ch << std::endl;
+    // output time
+    logTimeToConsole();
+    std::cout << ch << std::endl;
 }
 
 /// Allows the any thread to end the whole program by calling this function
 void hjs::endGame()
 {
-	hjs::logToConsole("GAME OVER!");
-	bMainThreadActive = false;
+    hjs::logToConsole("GAME OVER!");
+    bMainThreadActive = false;
 }
 
 /// All subthreads should be in while loop testing for this to turn false
 bool hjs::gameIsActive()
 {
-	return bMainThreadActive;
+    return bMainThreadActive;
 }

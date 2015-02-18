@@ -22,19 +22,20 @@
 // Possible Options for what happens on the menu
 enum MenuOptions
 {
-	PLAY_GAME,
-	EXIT_GAME
+    PLAY_GAME,
+    EXIT_GAME
 };
 
 enum GameDifficulty
 {
-	EASY = 0,
-	MEDIMUM = 1,
-	HARD = 2
+    EASY = 0,
+    MEDIMUM = 1,
+    HARD = 2
 };
 
 
-struct MenuRetType{
+struct MenuRetType
+{
     MenuOptions select;
     GameDifficulty diff;
 };
@@ -42,52 +43,52 @@ struct MenuRetType{
 class GameMenu
 {
 public:
-	GameMenu();
-	virtual ~GameMenu();
+    GameMenu();
+    virtual ~GameMenu();
 
-	// Enters the event loop of this object
-	// Create a window for the menu and will take care of the menu
-	// it will only return if the EXIT_GAME or PLAY_GAME button is
-	// pressed
-	MenuRetType getSelection();
+    // Enters the event loop of this object
+    // Create a window for the menu and will take care of the menu
+    // it will only return if the EXIT_GAME or PLAY_GAME button is
+    // pressed
+    MenuRetType getSelection();
     std::string getPlayerName();
 protected:
 private:
-	sf::RenderWindow menuWindow;
-	sf::RectangleShape m_RsBg;			// background sprite
-	std::string m_pname;
+    sf::RenderWindow menuWindow;
+    sf::RectangleShape m_RsBg;			// background sprite
+    std::string m_pname;
 
-	sf::Font font;						// font used for text
+    sf::Font font;						// font used for text
 
-	// Texture Assets
-	sf::Texture m_texBG;      // texture for menu background
-	sf::Texture m_texPlay;    // texture for play button4
-	sf::Texture m_texEasy;    // Texture for easy diff button
-	sf::Texture m_texMed;     // Texture for medium diff button
-	sf::Texture m_texHard;    // Texture for hard diff button
+    // Texture Assets
+    sf::Texture m_texBG;      // texture for menu background
+    sf::Texture m_texPlay;    // texture for play button4
+    sf::Texture m_texEasy;    // Texture for easy diff button
+    sf::Texture m_texMed;     // Texture for medium diff button
+    sf::Texture m_texHard;    // Texture for hard diff button
 
-	// buttons
-	MenuButton *m_mbPlay;     // play button
-	MenuButton *m_mbCredits;  // Credits Button
-	MenuButton *m_mbExit;     // exit button
-	MenuButton *m_mbDifficulty;	// Difficulty Selection Button
-	MenuButton *m_mbBack;     // back button to exit from credits screen and return to main menu;
-	MenuButton *m_mbHighScores;	// button to go to highscores page in browser
+    // buttons
+    MenuButton *m_mbPlay;     // play button
+    MenuButton *m_mbCredits;  // Credits Button
+    MenuButton *m_mbExit;     // exit button
+    MenuButton *m_mbDifficulty;	// Difficulty Selection Button
+    MenuButton *m_mbBack;     // back button to exit from credits screen and return to main menu;
+    MenuButton *m_mbHighScores;	// button to go to highscores page in browser
 
-	// Text Objects
-	sf::Text m_creditText;	// text to hold credits
-	sf::Text m_versionText;	// text to hold version information on main screen
-	sf::Text m_playerName;	// text that holds player name
+    // Text Objects
+    sf::Text m_creditText;	// text to hold credits
+    sf::Text m_versionText;	// text to hold version information on main screen
+    sf::Text m_playerName;	// text that holds player name
 
-  // Menu Music
-  sf::Music m_menuMusic;
+    // Menu Music
+    sf::Music m_menuMusic;
 
-	// return type
-	MenuRetType m_mrt;
+    // return type
+    MenuRetType m_mrt;
 
-	// private member functions
-	void incrementDifficulty();	// increments the selected difficulty on m_mrt struct and updates the difficulty selection button
-	void enterName();			// prompts the player for their name
+    // private member functions
+    void incrementDifficulty();	// increments the selected difficulty on m_mrt struct and updates the difficulty selection button
+    void enterName();			// prompts the player for their name
 };
 
 #endif // GAMEMENU_H

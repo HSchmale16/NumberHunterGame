@@ -20,31 +20,31 @@
 class gameDB
 {
 public:
-	gameDB(int totalLvls);
-	~gameDB();
+    gameDB(int totalLvls);
+    ~gameDB();
 
-	/// adds a score record to the selected tbName
-	void addScoreRecord(std::string name, int score, int salvageCount, int asteroidCount, int level);
+    /// adds a score record to the selected tbName
+    void addScoreRecord(std::string name, int score, int salvageCount, int asteroidCount, int level);
 
-	/// gets the limit num of records sorted for a highscores table from tbName
-	std::vector<std::string> getHighScoreString(int level, int limit);
+    /// gets the limit num of records sorted for a highscores table from tbName
+    std::vector<std::string> getHighScoreString(int level, int limit);
 protected:
 private:
-	// private funcs
-	void initStatsTable(char *tbname);
+    // private funcs
+    void initStatsTable(char *tbname);
 
-	// Submit to server
-	bool pingServer(); // returns true on successful connection to server
-	void addScoreNetwork(std::string name, int score, int salvageCount, int asteroidCount, int level);
-	std::vector<std::string> getHS_Network(int level, int limit);
+    // Submit to server
+    bool pingServer(); // returns true on successful connection to server
+    void addScoreNetwork(std::string name, int score, int salvageCount, int asteroidCount, int level);
+    std::vector<std::string> getHS_Network(int level, int limit);
 
-	// Use local db
-	void addScoreLocal(std::string name, int score, int salvageCount, int asteroidCount, int level);
-	std::vector<std::string> getHS_Local(int level, int limit);
+    // Use local db
+    void addScoreLocal(std::string name, int score, int salvageCount, int asteroidCount, int level);
+    std::vector<std::string> getHS_Local(int level, int limit);
 
-	// private objects
-	sqlite3 *m_db;
-  bool m_NetworkIsAvailable;
+    // private objects
+    sqlite3 *m_db;
+    bool m_NetworkIsAvailable;
 };
 
 #endif // GAMEDB_H

@@ -12,31 +12,31 @@
 
 class Laser: public sf::Drawable
 {
-	public:
-		Laser();
-		virtual ~Laser();
+public:
+    Laser();
+    virtual ~Laser();
 
-        void Move();							// move this object
-        void Activate(int xPos, int yPos);		// reset
-        void DeActivate();						// Deactivate and move out of view
+    void Move();							// move this object
+    void Activate(int xPos, int yPos);		// reset
+    void DeActivate();						// Deactivate and move out of view
 
-		// getters
-		float getX();
-		float getY();
-		bool getActive();
-	protected:
-	private:
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
+    // getters
+    float getX();
+    float getY();
+    bool getActive();
+protected:
+private:
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
-		sf::RectangleShape m_beam;		// visible body of this
-		float m_xCoord;								// X Position on screen
-		float m_yCoord;								// Y Position on screen
-		float m_speed;								// px per iteration
+    sf::RectangleShape m_beam;		// visible body of this
+    float m_xCoord;								// X Position on screen
+    float m_yCoord;								// Y Position on screen
+    float m_speed;								// px per iteration
 
-		bool m_bActive;								// is this instance active
+    bool m_bActive;								// is this instance active
 
-		// declare constant
-		const float RADIUS = 3.0;
+    // declare constant
+    const float RADIUS = 3.0;
 };
 
 #endif // LASER_H
