@@ -1,7 +1,8 @@
 /** UI Class Implementation
-*	@author Henry Schmale
-*	@date October 5, 2014
-*/
+ * @author Henry Schmale
+ * @date October 5, 2014
+ * @file src/UI.cpp
+ */
 
 #include "../include/UI.h"
 #include "../FilePaths.h"

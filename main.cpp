@@ -1,7 +1,8 @@
 /** TSA GAME 2015 Entry Point
-*	@author Henry Schmale
-*	@date Oct 3, 2014
-*/
+ * @author Henry Schmale
+ * @date Oct 3, 2014
+ * @file main.cpp
+ */
 
 #include <iostream>				// for cout
 #include <SFML/System.hpp>		// for threading

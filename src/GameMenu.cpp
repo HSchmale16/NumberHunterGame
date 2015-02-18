@@ -1,7 +1,8 @@
 /** Game Menu Class Implementation
-*	@author Henry Schmale
-*	@date October 10, 2014
-*/
+ * @author Henry Schmale
+ * @date October 10, 2014
+ * @file src/GameMenu.cpp
+ */
 
 #include <string>
 #include "../include/GameMenu.h"

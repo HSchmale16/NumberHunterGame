@@ -1,7 +1,8 @@
 /** Implementation of Background Class
-*	@author Henry Schmale
-*	@date October 7, 2014
-*/
+ * @author Henry Schmale
+ * @date October 7, 2014
+ * @file src/Background.cpp
+ */
 
 #include "../include/Background.h"
 

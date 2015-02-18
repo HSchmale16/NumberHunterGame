@@ -1,7 +1,8 @@
 /** MenuButton Implementation
-*	@author Henry Schmale
-*	@date October 22, 2014
-*/
+ * @author Henry Schmale
+ * @date October 22, 2014
+ * @file src/MenuButton.cpp
+ */
 
 #include "../include/MenuButton.h"
 

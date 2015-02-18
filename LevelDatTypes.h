@@ -1,8 +1,9 @@
 /** LevelDatTypes.h
-* Contains the various datatypes used for handling levels
-* @author Henry Schmale
-* @date November 18, 2014
-*/
+ * Contains the various datatypes used for handling levels
+ * @author Henry Schmale
+ * @date November 18, 2014
+ * @file LevelDatTypes.h
+ */
 #ifndef LEVELDATTYPES_H_INCLUDED
 #define LEVELDATTYPES_H_INCLUDED
 

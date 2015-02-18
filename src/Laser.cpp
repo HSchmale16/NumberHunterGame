@@ -1,7 +1,8 @@
 /** Implementation of Laser Class
-*	@author Henry Schmale
-*	@date October 11, 2014
-*/
+ * @author Henry Schmale
+ * @date October 11, 2014
+ * @file src/Laser.cpp
+ */
 
 #include "../include/Laser.h"
 #include "../INIReader.h"

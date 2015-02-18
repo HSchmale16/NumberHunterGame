@@ -10,7 +10,7 @@
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = TSA_GAME_2
-PROJECT_NUMBER         = 0.0.869
+PROJECT_NUMBER         = 0.1.1038
 PROJECT_BRIEF          =
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       =
@@ -48,7 +48,7 @@ SYMBOL_CACHE_SIZE      = 0
 #---------------------------------------------------------------------------
 # Build related configuration options
 #---------------------------------------------------------------------------
-EXTRACT_ALL            = NO
+EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = NO
 EXTRACT_LOCAL_CLASSES  = YES
@@ -91,47 +91,48 @@ WARN_IF_UNDOCUMENTED   = NO
 WARN_IF_DOC_ERROR      = YES
 WARN_NO_PARAMDOC       = YES
 WARN_FORMAT            = "$file:$line: $text"
-WARN_LOGFILE            = "C:\Users\Henry\Documents\TSA_GAME_2\doxygen\doxygen.log"
+WARN_LOGFILE            = "/home/hschmale/Documents/Projects/NumberHunterGame/doxygen/doxygen.log"
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  = \
-	"..\src\Background.cpp" \
-	"..\INIReader.h" \
-	"..\LevelDatTypes.h" \
-	"..\src\LevelHandler.cpp" \
-	"..\include\Laser.h" \
-	"..\src\Player.cpp" \
-	"..\version.h" \
-	"..\Hjs_StdLib_Implement.cpp" \
-	"..\src\Asteroids.cpp" \
-	"..\INIReader.cpp" \
-	"..\src\Laser.cpp" \
-	"..\FilePaths.h" \
-	"..\src\GameMenu.cpp" \
-	"..\include\GameMenu.h" \
-	"..\include\Player.h" \
-	"..\include\Salvage.h" \
-	"..\include\gameDB.h" \
-	"..\src\Salvage.cpp" \
-	"..\include\Background.h" \
-	"..\src\UI.cpp" \
-	"..\include\LaserHandler.h" \
-	"..\ini.h" \
-	"..\src\gameDB.cpp" \
-	"..\include\UI.h" \
-	"..\src\LaserHandler.cpp" \
-	"..\networkSystem.h" \
-	"..\config.h" \
-	"..\src\LevelEndScreen.cpp" \
-	"..\src\MenuButton.cpp" \
-	"..\include\LevelEndScreen.h" \
-	"..\include\MenuButton.h" \
-	"..\include\Asteroids.h" \
-	"..\include\LevelHandler.h" \
-	"..\main.cpp" \
-	"..\ini.c" \
-	"..\Hjs_StdLib.h" 
+	"../include/Background.h" \
+	"../src/LevelEndScreen.cpp" \
+	"../src/LaserHandler.cpp" \
+	"../include/gameDB.h" \
+	"../include/Laser.h" \
+	"../src/Background.cpp" \
+	"../src/Laser.cpp" \
+	"../ini.c" \
+	"../src/Player.cpp" \
+	"../include/LevelEndScreen.h" \
+	"../INIReader.h" \
+	"../include/LevelHandler.h" \
+	"../ini.h" \
+	"../include/UI.h" \
+	"../include/GameMenu.h" \
+	"../main.cpp" \
+	"../src/Asteroids.cpp" \
+	"../include/Salvage.h" \
+	"../INIReader.cpp" \
+	"../config.h" \
+	"../include/Player.h" \
+	"../Hjs_StdLib.h" \
+	"../src/UI.cpp" \
+	"../src/GameMenu.cpp" \
+	"../LevelDatTypes.h" \
+	"../Hjs_StdLib_Implement.cpp" \
+	"../include/ParticleSystem.h" \
+	"../include/LaserHandler.h" \
+	"../networkSystem.h" \
+	"../include/MenuButton.h" \
+	"../src/Salvage.cpp" \
+	"../src/gameDB.cpp" \
+	"../src/MenuButton.cpp" \
+	"../include/Asteroids.h" \
+	"../version.h" \
+	"../src/LevelHandler.cpp" \
+	"../FilePaths.h" 
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = NO

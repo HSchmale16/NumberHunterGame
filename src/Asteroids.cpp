@@ -1,7 +1,8 @@
 /** Implementation of Asteroid Class
-*	@author Henry Schmale
-*	@date October 14, 2014
-*/
+ * @author Henry Schmale
+ * @date October 14, 2014
+ * @file src/Asteroids.cpp
+ */
 
 #include "../include/Asteroids.h"
 #include <math.h>

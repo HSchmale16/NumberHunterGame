@@ -1,7 +1,8 @@
 /** LaserHandler Implementation
-*	@author Henry Schmale
-*	@date October 14, 2014
-*/
+ * @author Henry Schmale
+ * @date October 14, 2014
+ * @file src/LaserHandler.cpp
+ */
 
 #include "../include/LaserHandler.h"
 #include "../FilePaths.h"

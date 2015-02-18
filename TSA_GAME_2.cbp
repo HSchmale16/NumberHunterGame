@@ -32,11 +32,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-pg -lgmon" />
-					<Add library="SFML-2.1\lib\libsfml-audio-s-d.a" />
-					<Add library="SFML-2.1\lib\libsfml-network-s-d.a" />
-					<Add library="SFML-2.1\lib\libsfml-graphics-s-d.a" />
-					<Add library="SFML-2.1\lib\libsfml-window-s-d.a" />
-					<Add library="SFML-2.1\lib\libsfml-system-s-d.a" />
+					<Add library="SFML-2.1/lib/libsfml-audio-s-d.a" />
+					<Add library="SFML-2.1/lib/libsfml-network-s-d.a" />
+					<Add library="SFML-2.1/lib/libsfml-graphics-s-d.a" />
+					<Add library="SFML-2.1/lib/libsfml-window-s-d.a" />
+					<Add library="SFML-2.1/lib/libsfml-system-s-d.a" />
 					<Add directory="SFML-2.1/lib" />
 				</Linker>
 			</Target>
@@ -56,11 +56,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="SFML-2.1\lib\libsfml-audio-s.a" />
-					<Add library="SFML-2.1\lib\libsfml-network-s.a" />
-					<Add library="SFML-2.1\lib\libsfml-graphics-s.a" />
-					<Add library="SFML-2.1\lib\libsfml-window-s.a" />
-					<Add library="SFML-2.1\lib\libsfml-system-s.a" />
+					<Add library="SFML-2.1/lib/libsfml-audio-s.a" />
+					<Add library="SFML-2.1/lib/libsfml-network-s.a" />
+					<Add library="SFML-2.1/lib/libsfml-graphics-s.a" />
+					<Add library="SFML-2.1/lib/libsfml-window-s.a" />
+					<Add library="SFML-2.1/lib/libsfml-system-s.a" />
 					<Add directory="SFML-2.1/lib" />
 				</Linker>
 			</Target>
@@ -70,7 +70,7 @@
 			<Add directory="SQLite/include" />
 		</Compiler>
 		<Linker>
-			<Add library="SQLite\lib\libSQLite.a" />
+			<Add library="SQLite/lib/libSQLite.a" />
 			<Add directory="SQLite/lib" />
 		</Linker>
 		<Unit filename="FilePaths.h" />
@@ -123,9 +123,9 @@
 				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
 			</AutoVersioning>
 			<DoxyBlocks>
-				<comment_style block="0" line="0" />
-				<doxyfile_project project_number="0.0.869" use_auto_version="1" />
-				<doxyfile_build />
+				<comment_style block="0" line="1" />
+				<doxyfile_project project_number="0.1.1038" use_auto_version="1" />
+				<doxyfile_build extract_all="1" />
 				<doxyfile_warnings />
 				<doxyfile_output />
 				<doxyfile_dot />

@@ -1,8 +1,9 @@
 /** LevelEndScreen Class Implementation
-*	Screen shown at end of level
-*	@author Henry Schmale
-*	@date November 18, 2014
-*/
+ * Screen shown at end of level
+ * @author Henry Schmale
+ * @date November 18, 2014
+ * @file src/LevelEndScreen.cpp
+ */
 
 #include "../include/LevelEndScreen.h"
 #include "../FilePaths.h"

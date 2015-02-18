@@ -1,3 +1,9 @@
+/** The implementation of the Salvage class
+ * @author Henry J Schmale
+ * @date October 2, 2014
+ * @file src/Salvage.cpp
+ */
+
 #include "../include/Salvage.h"
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"

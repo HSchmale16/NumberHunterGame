@@ -1,3 +1,8 @@
+/** Game Database
+ * \author Henry J Schmale
+ * \date November 4, 2014
+ * \file include/gameDB.h
+ */
 #ifndef GAMEDB_H
 #define GAMEDB_H
 

@@ -1,3 +1,9 @@
+/** Implementation of the Game Database Class
+ * @author Henry J Schmale
+ * @date November 4, 2014
+ * @file src/gameDB.cpp
+ */
+
 #include "../include/gameDB.h"
 #include <stdio.h>
 #include <sstream>

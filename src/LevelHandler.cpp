@@ -1,7 +1,8 @@
 /** Implementation of LevelHandler Class
-*	@author Henry Schmale
-*	@date October 27, 2014
-*/
+ * @author Henry Schmale
+ * @date October 27, 2014
+ * @file src/LevelHandler.cpp
+ */
 
 #include <stdio.h>			// for snprintf
 #include <stdlib.h>			// for exit
