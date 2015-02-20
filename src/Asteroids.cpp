@@ -4,15 +4,18 @@
  * @file src/Asteroids.cpp
  */
 
-#include "../include/Asteroids.h"
+#include "../include/Asteroids.h"   //!< Class Header
 #include <math.h>
+#include "../FilePaths.h"
+#include "../Hjs_StdLib.h"
 
 Asteroids::Asteroids(int nCount, float trajDeviation)
 {
-    //ctor
+
     m_nCount = nCount;
     // allocate memory
     m_s = new sf::RectangleShape[m_nCount];
+    m_tex = new sf::Texture[m_nCount];
     m_xCoord = new float[m_nCount];
     m_yCoord = new float[m_nCount];
     m_width = new float[m_nCount];
@@ -27,10 +30,16 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
     for(int i = 0; i < nCount; i++)
     {
         // set vars
+        if(!m_tex[i].loadFromFile(ASTEROID_TEX))
+        {
+            hjs::logToConsole("Couldn't Load Asteroid Texture");
+            exit(2);
+        }
+
         m_xCoord[i] = rand() % 375;
         m_yCoord[i] = rand() % 600;
-        m_width[i] = 20;
-        m_height[i] = 20;
+        m_width[i] = 20 + (rand() % 20);
+        m_height[i] = m_width[i];          // Just make it a square the math is easier
         m_yspeed[i] = float(rand() % 1001 / 1000.0f ) * 2 + .02; // somewhere between [0.02, 2.02]
         // randomize left or right deviation
         if(int(m_xCoord[i]) % 2)
@@ -38,8 +47,10 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
         else
             m_xspeed[i] = (m_yspeed[i] * -(m_MAX_DEVIAT/2));
 
+        // Prepare the texture
+        m_s[i].setTexture(&m_tex[i]);
         m_s[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
-        m_s[i].setFillColor(sf::Color::Cyan);
+        // m_s[i].setFillColor(sf::Color::Cyan);
         m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
     }
 }
@@ -55,6 +66,7 @@ Asteroids::~Asteroids()
     delete[] m_height;
     delete[] m_xspeed;
     delete[] m_yspeed;
+    delete[] m_tex;
 }
 
 // Public Member Functions

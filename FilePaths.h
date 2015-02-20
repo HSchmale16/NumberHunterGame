@@ -29,6 +29,9 @@
 #define SALVAGE_TEX_2
 #define SALVAGE_TEX_3
 
+/// Path to Asteroid Textures
+#define ASTEROID_TEX "resources/img/Asteroid.png"
+
 /** Define the path to fonts used in game
 */
 // Main Font Used In Game

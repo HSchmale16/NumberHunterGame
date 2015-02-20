@@ -43,6 +43,9 @@ private:
 
     // global for this object
     int m_nCount;				// how many exist total
+
+    // Texture
+    sf::Texture *m_tex;          //!< Texture used by the asteroid object
 };
 
 #endif // ASTEROIDS_H
