@@ -22,3 +22,6 @@ gmon.out
 
 # Generated Documentation
 doxygen/*
+
+# Database Files
+*.db
