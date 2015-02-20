@@ -31,13 +31,15 @@ private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
     // variables unique to each subinstance
-    sf::RectangleShape *m_s;	// The Main Body
-    float *m_xCoord;			// xPos
-    float *m_yCoord;			// yPos
-    float *m_width;				// Width of this object
-    float *m_height;			// y-axis length
-    float *m_xspeed;
-    float *m_yspeed;
+    sf::RectangleShape *m_s;	//!< The Main Body
+    float *m_xCoord;			//!< xPos on screen
+    float *m_yCoord;			//!< yPos on Screen
+    float *m_width;				//!< Width of this object
+    float *m_height;			//!< y-axis length
+    float *m_xspeed;            //!< Speed on x-axis in Px
+    float *m_yspeed;            //!< Speed on the y-axis in Px
+    float *m_angle;             //!< Current Angle in degrees
+    float *m_rotRate;           //!< The rotation rate in degrees
 
     float m_MAX_DEVIAT;	// Maximum deviation from straight down
 

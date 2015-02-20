@@ -9,6 +9,20 @@
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
 
+/** \brief a quick and dirty floating point modular division algorithm with a
+ * floating point return
+ * \param val The value to mod
+ * \param r the value to mod with
+ */
+float floatMod(float val, int r)
+{
+    if(val < r)
+    {
+        return val; // the remainder is itself
+    }
+    return (val - float((int(val) / r) * r));
+}
+
 Asteroids::Asteroids(int nCount, float trajDeviation)
 {
 
@@ -22,6 +36,8 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
     m_height = new float[m_nCount];
     m_xspeed = new float[m_nCount];
     m_yspeed = new float[m_nCount];
+    m_angle = new float[m_nCount];
+    m_rotRate = new float[m_nCount];
 
     // set non declared constant
     m_MAX_DEVIAT = trajDeviation;
@@ -40,18 +56,27 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
         m_yCoord[i] = rand() % 600;
         m_width[i] = 20 + (rand() % 20);
         m_height[i] = m_width[i];          // Just make it a square the math is easier
-        m_yspeed[i] = float(rand() % 1001 / 1000.0f ) * 2 + .02; // somewhere between [0.02, 2.02]
+        m_yspeed[i] = float(rand() % 1001 / 1000.0f ) * 2 + .05;// somewhere between [0.02, 2.02]
+        m_angle[i] = rand() % 360;
+        m_rotRate[i] = (rand() % 1000) / 1000.0f;
         // randomize left or right deviation
         if(int(m_xCoord[i]) % 2)
+        {
             m_xspeed[i] = (m_yspeed[i] * (m_MAX_DEVIAT/2));
+        }
         else
+        {
             m_xspeed[i] = (m_yspeed[i] * -(m_MAX_DEVIAT/2));
+        }
 
-        // Prepare the texture
+
+        // setup graphics
+        m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0);
         m_s[i].setTexture(&m_tex[i]);
         m_s[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
         // m_s[i].setFillColor(sf::Color::Cyan);
         m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
+        m_s[i].setRotation(m_angle[i]);
     }
 }
 
@@ -66,6 +91,8 @@ Asteroids::~Asteroids()
     delete[] m_height;
     delete[] m_xspeed;
     delete[] m_yspeed;
+    delete[] m_rotRate;
+    delete[] m_angle;
     delete[] m_tex;
 }
 
@@ -77,7 +104,9 @@ void Asteroids::Move()
     {
         m_xCoord[i] += m_xspeed[i];
         m_yCoord[i] += m_yspeed[i];
+        m_angle[i] = floatMod((m_angle[i] + m_rotRate[i]), 360);
         m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
+        m_s[i].setRotation(m_angle[i]);
 
         // reInit the selected index because that index is off screen
         if((m_yCoord[i] > 650) || (m_xCoord[i] < -50) || (m_xCoord[i] > 400))
@@ -89,11 +118,19 @@ void Asteroids::Move()
 
 void Asteroids::ReInit(int i)
 {
+    // Out of bounds, auto return
+    if(i >= m_nCount)
+    {
+        hjs::logToConsole("Something tried to reinit a non existent asteroid instance");
+        return;
+    }
     m_xCoord[i] = rand() % 375;
     m_yCoord[i] = -50;
     m_width[i] = 20;
     m_height[i] = 20;
     m_yspeed[i] = float(rand() % 1001 / 1000.0f) * 2;
+    m_angle[i] = rand() % 360;
+    m_rotRate[i] = (rand() % 1000) / 1000.0f;
 
     // randomization of left or right trajectory
     if(int(m_xCoord[i]) % 2)
@@ -101,8 +138,9 @@ void Asteroids::ReInit(int i)
     else
         m_xspeed[i] = (m_yspeed[i] * -(m_MAX_DEVIAT/2));
 
+    m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0);
     m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
-
+    m_s[i].setRotation(m_angle[i]);
 }
 
 bool Asteroids::hitTestPlayer(int index, Player &p)
