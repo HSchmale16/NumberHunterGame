@@ -76,6 +76,7 @@
 					<Add option="-std=c++11" />
 					<Add option="-DSFML_STATIC" />
 					<Add option="-DWINDOWS_PLATFORM_TARGETED" />
+					<Add option="-DTSA_BUILD" />
 					<Add directory="SFML-2.1/include" />
 					<Add directory="include" />
 				</Compiler>
