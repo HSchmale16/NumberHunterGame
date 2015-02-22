@@ -126,8 +126,8 @@ void Asteroids::ReInit(int i)
     }
     m_xCoord[i] = rand() % 375;
     m_yCoord[i] = -50;
-    m_width[i] = 20;
-    m_height[i] = 20;
+    m_width[i] = 20 + (rand() % 20);
+    m_height[i] = m_width[i];
     m_yspeed[i] = float(rand() % 1001 / 1000.0f) * 2;
     m_angle[i] = rand() % 360;
     m_rotRate[i] = (rand() % 1000) / 1000.0f;
@@ -138,7 +138,7 @@ void Asteroids::ReInit(int i)
     else
         m_xspeed[i] = (m_yspeed[i] * -(m_MAX_DEVIAT/2));
 
-    m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0);
+    m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0f);
     m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
     m_s[i].setRotation(m_angle[i]);
 }
