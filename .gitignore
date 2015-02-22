@@ -8,6 +8,7 @@ releaseBuild/*
 # Code::blocks
 *.layout
 *.depend
+*.tmp
 
 # WIKI
 NumberHunterGame.wiki/*
