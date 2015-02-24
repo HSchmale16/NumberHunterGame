@@ -4,11 +4,14 @@
 # @date January 28, 2015
 
 CXX=g++
-CFLAGS=-Wall -std=c++11 -O2 -DSFML_STATIC \
-     -ISQLite/include -ISFML-2.1/include \
-LDFLAGS=-LSQLite/lib \
+CXX_FLAGS=-Wall -std=c++11 -O2 -DSFML_STATIC \
+     -ISQLite/include -ISFML-2.1/include
+	 
+LD_FLAGS=-LSQLite/lib \
      -LSFML-2.1/lib
+
 STATIC_MODS=
+
 SRC= main.cpp \
      ini.c \
      INIReader.cpp \
@@ -34,15 +37,15 @@ all: win32
 
 # Win32 Release Target, Build it for win32
 win32: $(SRC) $(EXE)
-
+	
 
 # Execuatable build target
 $(EXE): $(OBJ)
-	$(CXX) $(LDFLAGS) $(OBJ) -o $@
+	$(CXX) $(LD_FLAGS) -o $@ $(OBJ)
 
 # Build the object files
 .o:
-	$(CXX) $(CFLAGS) $< -o $@
+	$(CXX) $(CXX_FLAGS) -o $@ $<
 
 # clean the project
 clean:
