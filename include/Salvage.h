@@ -28,11 +28,13 @@ protected:
 private:
     // Variables
     uint_fast8_t SALVAGE_OBJECT_COUNT;
-    float m_fSideLength;		//!< Length of sides
+    float *m_fSideLength;		//!< Length of sides
     float *m_fXCoord;			//!< Coords
     float *m_fYCoord;
     float *m_fSpeed;			//!< Speed of movement
     uint_fast8_t *m_Value;		//!< Collection Value of this
+    float *m_rotation;          //!< Current Rotation
+    float *m_rotRate;           //!< Rotation Rate
 
     // Graphics Handling
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;

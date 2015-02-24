@@ -34,6 +34,7 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
     }
 
     //dynamic allocation
+    m_fSideLength = new float[SALVAGE_OBJECT_COUNT];
     m_fXCoord = new float[SALVAGE_OBJECT_COUNT];
     m_fYCoord = new float[SALVAGE_OBJECT_COUNT];
     m_fSpeed = new float[SALVAGE_OBJECT_COUNT];
@@ -42,10 +43,12 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
     s = new sf::RectangleShape[SALVAGE_OBJECT_COUNT];
     m_tex = new sf::Texture[SALVAGE_OBJECT_COUNT];
     // begin assignment
-    m_fSideLength = 30;
+
     for(int i = 0; i < SALVAGE_OBJECT_COUNT; i++)
     {
-        if(!m_tex[i].loadFromFile(SALVAGE_TEXTURE)){
+        m_fSideLength[i] = 30 + rand() % 20;
+        if(!m_tex[i].loadFromFile(SALVAGE_TEXTURE))
+        {
             hjs::logToConsole("Couldn't load salvage texture");
             exit(2);
         }
@@ -61,12 +64,16 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
         m_TextField[i].setCharacterSize(14);
         m_TextField[i].setColor(sf::Color::Black);
         m_TextField[i].setString(numStr);
-        float x = m_fXCoord[i] + TEXT_X_OFFSET;
-        float y = m_fYCoord[i] + TEXT_Y_OFFSET;
-        m_TextField[i].setPosition(x, y);
+
+        sf::FloatRect rectBounds = s[i].getGlobalBounds();
+        sf::FloatRect textBounds = m_TextField[i].getGlobalBounds();
+        m_TextField[i].setPosition(
+            rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
+            rectBounds.top + (rectBounds.height / 2) - (textBounds.height / 2)
+        );
 
         // set up graphics
-        s[i].setSize(sf::Vector2f(m_fSideLength, m_fSideLength));
+        s[i].setSize(sf::Vector2f(m_fSideLength[i], m_fSideLength[i]));
         s[i].setTexture(&m_tex[i]);
         s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
     }
@@ -92,8 +99,13 @@ void Salvage::Move()
         {
             ReInit(i);
         }
-        m_TextField[i].move(0, m_fSpeed[i]);
-        s[i].move(0, m_fSpeed[i]);
+        s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
+        sf::FloatRect rectBounds = s[i].getGlobalBounds();
+        sf::FloatRect textBounds = m_TextField[i].getGlobalBounds();
+        m_TextField[i].setPosition(
+            rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
+            rectBounds.top + (rectBounds.height / 2) - (textBounds.height / 2)
+        );
     }
 }
 
@@ -109,9 +121,12 @@ void Salvage::ReInit(int i)
     sprintf(numStr, "%d", m_Value[i]);
     m_TextField[i].setString(numStr);
     // reset pos
-    float x = m_fXCoord[i] + TEXT_X_OFFSET;
-    float y = m_fYCoord[i] + TEXT_Y_OFFSET;
-    m_TextField[i].setPosition(x, y);
+    sf::FloatRect rectBounds = s[i].getGlobalBounds();
+    sf::FloatRect textBounds = m_TextField[i].getGlobalBounds();
+    m_TextField[i].setPosition(
+        rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
+        rectBounds.top + (rectBounds.height / 2) - (textBounds.height / 2)
+    );
     s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
 }
 
@@ -124,9 +139,9 @@ bool Salvage::hitTest(int index, Player& p)
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
     // modified by HSchmale for use in this game
     return (
-               (( m_fXCoord[index] + m_fSideLength >= p.getXCoord()) && (m_fXCoord[index] <= p.getXCoord() + p.getSideLength()))
+               (( m_fXCoord[index] + m_fSideLength[index] >= p.getXCoord()) && (m_fXCoord[index] <= p.getXCoord() + p.getSideLength()))
                &&
-               (( m_fYCoord[index] + m_fSideLength >= p.getYCoord()) && (m_fYCoord[index] <= p.getYCoord() + p.getSideLength()))
+               (( m_fYCoord[index] + m_fSideLength[index] >= p.getYCoord()) && (m_fYCoord[index] <= p.getYCoord() + p.getSideLength()))
            );
 }
 
@@ -139,9 +154,9 @@ bool Salvage::hitTestShot(int index, Laser &l)
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
     // modified by HSchmale for use in this game
     return (
-               (( m_fXCoord[index] + m_fSideLength >= l.getX()) && (m_fXCoord[index] <= l.getX()))
+               (( m_fXCoord[index] + m_fSideLength[index] >= l.getX()) && (m_fXCoord[index] <= l.getX()))
                &&
-               (( m_fYCoord[index] + m_fSideLength >= l.getY()) && (m_fYCoord[index] <= l.getY()))
+               (( m_fYCoord[index] + m_fSideLength[index] >= l.getY()) && (m_fYCoord[index] <= l.getY()))
            );
 }
 
