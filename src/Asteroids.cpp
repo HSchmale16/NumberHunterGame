@@ -71,8 +71,8 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
 
 
         // setup graphics
-        m_s[i].setOutlineColor(sf::Color::Magenta);
-        m_s[i].setOutlineThickness(2.0);
+        //m_s[i].setOutlineColor(sf::Color::Magenta);
+        //m_s[i].setOutlineThickness(2.0);
         m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0);
         m_s[i].setTexture(&m_tex[i]);
         m_s[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
