@@ -20,23 +20,23 @@ public:
     /** Default constructor */
     Background();
     /** Default destructor */
-    virtual ~Background();
+    ~Background();
 protected:
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
     // Main Background Image
-    sf::RectangleShape sfRS;
-    sf::Texture texBG;
+    sf::RectangleShape m_sfRS;
+    sf::Texture m_texBG;
 
     // Stars
-    sf::Thread starMove;							// Thread to handle moving the stars
-    void moveStars();								// Entry Point to starMove
-    static const unsigned int STAR_COUNT = 100;		// Stars on Screen
-    std::vector<sf::CircleShape> vecStars;
-    std::vector<int> vecStarX;
-    std::vector<int> vecStarY;
+    sf::Thread starMove;                            //!< Thread to handle moving the stars
+    void moveStars();                               //!< Entry Point to starMove
+    std::vector<sf::CircleShape> m_vecStars;
+    std::vector<int> m_vecStarX;
+    std::vector<int> m_vecStarY;
 
+    static const unsigned int STAR_COUNT = 100;     //!< Stars on Screen
     // Background Music
     sf::Music m_bgMusic;
 };

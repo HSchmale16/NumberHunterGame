@@ -11,24 +11,26 @@ Background::Background()
 {
     //ctor
     // Set up main bg
-    if(!texBG.loadFromFile(BG_PLASMA_TEX))
+    if(!m_texBG.loadFromFile(BG_PLASMA_TEX))
     {
         hjs::logToConsole("FAILED TO LOAD BG_PLASMA_TEX");
         exit(2);
     }
-    sfRS.setPosition(0, 0);
-    sfRS.setSize(sf::Vector2f(375, 650));
-    sfRS.setTexture(&texBG, false);
+    m_sfRS.setPosition(0, 0);
+    m_sfRS.setSize(sf::Vector2f(375, 650));
+    m_sfRS.setTexture(&m_texBG, false);
+
+
 
     // Set up stars
     for(unsigned int i = 0; i < STAR_COUNT; i++)
     {
-        vecStarX.push_back(rand() % 375);
-        vecStarY.push_back(rand() % 650);
-        vecStars.push_back(sf::CircleShape());
-        vecStars[i].setPosition(vecStarX[i], vecStarY[i]);
-        vecStars[i].setFillColor(sf::Color::White);
-        vecStars[i].setRadius((rand() % 15) / 10.0);
+        m_vecStarX.push_back(rand() % 375);
+        m_vecStarY.push_back(rand() % 650);
+        m_vecStars.push_back(sf::CircleShape());
+        m_vecStars[i].setPosition(m_vecStarX[i], m_vecStarY[i]);
+        m_vecStars[i].setFillColor(sf::Color::White);
+        m_vecStars[i].setRadius((rand() % 15) / 10.0);
     }
     starMove.launch();
 
@@ -51,11 +53,11 @@ Background::~Background()
 
 void Background::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
-    target.draw(sfRS, states);	// draw main background image
+    target.draw(m_sfRS, states);	// draw main background image
     // draw the stars
     for(unsigned int i = 0; i < STAR_COUNT; i++)
     {
-        target.draw(vecStars[i], states);
+        target.draw(m_vecStars[i], states);
     }
 }
 
@@ -65,13 +67,13 @@ void Background::moveStars()
     {
         for(unsigned int i = 0; i < STAR_COUNT; i++)
         {
-            vecStarY[i] += 1;
-            if(vecStarY[i] > 650)
+            m_vecStarY[i] += 1;
+            if(m_vecStarY[i] > 650)
             {
-                vecStarY[i] = 0;
-                vecStarX[i] = rand() % 375;
+                m_vecStarY[i] = 0;
+                m_vecStarX[i] = rand() % 375;
             }
-            vecStars[i].setPosition(vecStarX[i], vecStarY[i]);
+            m_vecStars[i].setPosition(m_vecStarX[i], m_vecStarY[i]);
         }
         sf::sleep(sf::milliseconds(30));
     }
