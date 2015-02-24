@@ -25,9 +25,7 @@
 #define PAUSE_SCREEN_IMAGE "resources/img/PauseScreen.PNG"
 
 // Salvage Textures
-#define SALVAGE_TEX_1 "resources/img/SalvTex1.png"
-#define SALVAGE_TEX_2
-#define SALVAGE_TEX_3
+#define SALVAGE_TEXTURE "resources/img/SpaceJunk.PNG"
 
 /// Path to Asteroid Textures
 #define ASTEROID_TEX "resources/img/Asteroid.png"

@@ -28,15 +28,16 @@ protected:
 private:
     // Variables
     uint_fast8_t SALVAGE_OBJECT_COUNT;
-    float m_fSideLength;		// Length of sides
-    float *m_fXCoord;			// Coords
+    float m_fSideLength;		//!< Length of sides
+    float *m_fXCoord;			//!< Coords
     float *m_fYCoord;
-    float *m_fSpeed;			// Speed of movement
-    uint_fast8_t *m_Value;		// Collection Value of this
+    float *m_fSpeed;			//!< Speed of movement
+    uint_fast8_t *m_Value;		//!< Collection Value of this
 
     // Graphics Handling
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
-    sf::RectangleShape *s;		// BG
+    sf::RectangleShape *s;      // BG
+    sf::Texture *m_tex;         // Texture
     sf::Text *m_TextField;
     sf::Font font;
 };

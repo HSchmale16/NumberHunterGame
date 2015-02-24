@@ -13,6 +13,15 @@
 #define TEXT_X_OFFSET 5
 #define TEXT_Y_OFFSET 5
 
+static inline float floatMod(float val, int r)
+{
+    if(val < r)
+    {
+        return val; // the remainder is itself
+    }
+    return (val - float((int(val) / r) * r));
+}
+
 Salvage::Salvage(uint_fast8_t count)	// ctor
 {
     SALVAGE_OBJECT_COUNT = count;
@@ -31,11 +40,15 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
     m_Value = new uint_fast8_t[SALVAGE_OBJECT_COUNT];
     m_TextField = new sf::Text[SALVAGE_OBJECT_COUNT];
     s = new sf::RectangleShape[SALVAGE_OBJECT_COUNT];
-
+    m_tex = new sf::Texture[SALVAGE_OBJECT_COUNT];
     // begin assignment
     m_fSideLength = 30;
     for(int i = 0; i < SALVAGE_OBJECT_COUNT; i++)
     {
+        if(!m_tex[i].loadFromFile(SALVAGE_TEXTURE)){
+            hjs::logToConsole("Couldn't load salvage texture");
+            exit(2);
+        }
         m_fXCoord[i] = rand() % 325 + 25;
         m_fYCoord[i] = rand() % 400;
         m_fSpeed[i] = 2 * ((rand() % 1000 + 150) / 1000 + .15);
@@ -54,9 +67,7 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
 
         // set up graphics
         s[i].setSize(sf::Vector2f(m_fSideLength, m_fSideLength));
-        s[i].setFillColor(sf::Color::White);
-        s[i].setOutlineColor(sf::Color::Red);
-        s[i].setOutlineThickness(2);
+        s[i].setTexture(&m_tex[i]);
         s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
     }
 }

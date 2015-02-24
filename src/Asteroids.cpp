@@ -14,7 +14,8 @@
  * \param val The value to mod
  * \param r the value to mod with
  */
-float floatMod(float val, int r)
+
+static inline float floatMod(float val, int r)
 {
     if(val < r)
     {
