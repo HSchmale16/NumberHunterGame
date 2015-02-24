@@ -22,14 +22,16 @@
 // Declare Global Variables
 bool bGameIsPaused = false;		// Is the game paused?
 
-// scoring globals, these are set in InitGameObjects, but they are used in 'LaserHandler.cpp'
+// scoring globals, these are set in InitGameObjects, but they are used in
+// 'LaserHandler.cpp'
 // loading these in main makes it easier to handle scoring
-int PTS_GOOD_SALVAGE;				// pts given for collecting good salvage
-int PTS_BAD_SALVAGE;				// pts lost for collecting bad salvage
-int PTS_DESTROY_SALVAGE;		// pts lost for destroying salvage(any)
-int PTS_HIT_ASTEROID;				// pts lost for hitting an asteroid
-int PTS_DESTROY_ASTEROID;		// pts gained for destroying an asteroid by shooting it
-GameDifficulty DIFFICULTY;	// Difficulty of the game
+int PTS_GOOD_SALVAGE;               //!< pts given for collecting good salvage
+int PTS_BAD_SALVAGE;                //!< pts lost for collecting bad salvage
+int PTS_DESTROY_SALVAGE;            //!< pts lost for destroying salvage(any)
+int PTS_HIT_ASTEROID;               //!< pts lost for hitting an asteroid
+int PTS_DESTROY_ASTEROID;           //!< pts gained for destroying an asteroid by shooting it
+GameDifficulty DIFFICULTY;          //!< Difficulty of the game
+
 // Declare Global Objects
 sf::RenderWindow window;
 
@@ -79,10 +81,10 @@ void handleObjectEvents()	// object event thread entry point
             player->Move();
             salv->Move();
             asteroid->Move();
-            int Points = lHandler->handleEvents(player, salv, asteroid);	// laser hittest
+            int Points = lHandler->handleEvents(player, salv, asteroid);// laser hit test
             // update level handler on killed asteroids
             levels->addKilledAsteroids(lHandler->getAsteroidsDestroyedThisIter());
-            // salvage hittest
+            // salvage hit test
             for(int i = 0; i < salv->getCount(); i++)		// Perform hitTests after moving
             {
                 bool hit = salv->hitTest(i, *player);
@@ -98,7 +100,7 @@ void handleObjectEvents()	// object event thread entry point
                     }
                     else	// the salvage doesn't meet the specified condition so you lose points
                     {
-                        /// @todo boom
+                        /// @todo add a boom sound
                         Points += PTS_BAD_SALVAGE;
                         myUI->updateHealth(-1);
                     }

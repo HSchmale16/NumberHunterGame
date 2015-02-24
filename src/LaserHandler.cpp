@@ -8,7 +8,7 @@
 #include "../FilePaths.h"
 
 // declare globals used for scoring
-extern int PTS_GOOD_SALVAGE;		// pts given for collecting good salvage
+extern int PTS_GOOD_SALVAGE;        // pts given for collecting good salvage
 extern int PTS_BAD_SALVAGE;			// pts lost for collecting bad salvage
 extern int PTS_DESTROY_SALVAGE;		// pts lost for destroying salvage(any)
 extern int PTS_HIT_ASTEROID;		// pts lost for hitting an asteroid
