@@ -8,11 +8,11 @@
 #include "../FilePaths.h"
 
 // declare globals used for scoring
-extern int PTS_GOOD_SALVAGE;        // pts given for collecting good salvage
-extern int PTS_BAD_SALVAGE;			// pts lost for collecting bad salvage
-extern int PTS_DESTROY_SALVAGE;		// pts lost for destroying salvage(any)
-extern int PTS_HIT_ASTEROID;		// pts lost for hitting an asteroid
-extern int PTS_DESTROY_ASTEROID;	// pts gained for destroying an asteroid by shooting it
+extern int PTS_GOOD_SALVAGE;      //!< pts given for collecting good salvage
+extern int PTS_BAD_SALVAGE;       //!< pts lost for collecting bad salvage
+extern int PTS_DESTROY_SALVAGE;   //!< pts lost for destroying salvage(any)
+extern int PTS_HIT_ASTEROID;      //!< pts lost for hitting an asteroid
+extern int PTS_DESTROY_ASTEROID;  //!< pts gained for destroying an asteroid by shooting it
 
 LaserHandler::LaserHandler()
 {
@@ -53,7 +53,8 @@ int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a)
             if(!m_vecLaser[index]->getActive())
             {
                 m_sounds[index].play();
-                m_vecLaser[index]->Activate(p->getXCoord() + (p->getSideLength() / 2.0), p->getYCoord());
+                m_vecLaser[index]->Activate(p->getXCoord() + (p->getSideLength() / 2.0),
+                                            p->getYCoord());
                 m_LaserLimiter = 0;
                 break;
             }
@@ -77,10 +78,10 @@ int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a)
         {
             if((s->hitTestShot(sI, *m_vecLaser[lasI])) && (m_vecLaser[lasI]->getActive()))
             {
-                s->ReInit(sI);						// ReInit that instance of salvage
-                m_vecLaser[lasI]->DeActivate();		// hide the laser index
-                nPoints += PTS_BAD_SALVAGE;			// That's bad lose points for destroying salvage
-                m_salvageDest++;					// salvage killed so increment the count for that
+                s->ReInit(sI);                  // ReInit that instance of salvage
+                m_vecLaser[lasI]->DeActivate(); // hide the laser index
+                nPoints += PTS_BAD_SALVAGE;	    // That's bad lose points for destroying salvage
+                m_salvageDest++;                // salvage killed so increment the count for that
                 break;	// break out of hitTests for that particular instance of salvage, because that instance is gone
             }
         }

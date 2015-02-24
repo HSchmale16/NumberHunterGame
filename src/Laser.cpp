@@ -9,6 +9,8 @@
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
 
+static const float LW_RATIO = 4; //!< Length to Width Ratio of Laser Beams
+
 // config helper
 INIReader lr(CONFIG_FILE);
 
@@ -16,7 +18,7 @@ Laser::Laser()
 {
     //ctor
     m_beam.setFillColor(sf::Color::Red);
-    m_beam.setSize(sf::Vector2f(RADIUS, RADIUS * 4));
+    m_beam.setSize(sf::Vector2f(RADIUS, RADIUS * LW_RATIO));
 
 
     m_speed = lr.GetReal("player", "laser_shot_speed", 5.0);
@@ -46,7 +48,7 @@ void Laser::Move()
 void Laser::Activate(int xPos, int yPos)
 {
     m_xCoord = xPos - RADIUS;
-    m_yCoord = yPos - RADIUS;
+    m_yCoord = yPos - (RADIUS * LW_RATIO);
     m_bActive = true;
 
     m_beam.setPosition(m_xCoord, m_yCoord);
@@ -78,6 +80,14 @@ float Laser::getX()
 float Laser::getY()
 {
     return m_yCoord;
+}
+float Laser::getWidth()
+{
+    return RADIUS;
+}
+float Laser::getHeight()
+{
+    return RADIUS * LW_RATIO;
 }
 bool Laser::getActive()
 {

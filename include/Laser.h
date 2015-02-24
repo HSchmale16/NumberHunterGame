@@ -23,6 +23,8 @@ public:
     // getters
     float getX();
     float getY();
+    float getWidth();
+    float getHeight();
     bool getActive();
 protected:
 private:
