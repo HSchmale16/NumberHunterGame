@@ -58,7 +58,7 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
         m_height[i] = m_width[i];          // Just make it a square the math is easier
         m_yspeed[i] = float(rand() % 1001 / 1000.0f ) * 2 + .05;// somewhere between [0.02, 2.02]
         m_angle[i] = rand() % 360;
-        m_rotRate[i] = (rand() % 1000) / 1000.0f;
+        m_rotRate[i] = (rand() % 500) / 1000.0f;
         // randomize left or right deviation
         if(int(m_xCoord[i]) % 2)
         {
@@ -107,7 +107,8 @@ void Asteroids::Move()
         m_xCoord[i] += m_xspeed[i];
         m_yCoord[i] += m_yspeed[i];
         m_angle[i] = floatMod((m_angle[i] + m_rotRate[i]), 360);
-        m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
+        m_s[i].setPosition(m_xCoord[i] + (m_width[i] / 2.0f),
+                           m_yCoord[i] + (m_height[i] / 2.0f));
         m_s[i].setRotation(m_angle[i]);
 
         // reInit the selected index because that index is off screen
@@ -132,7 +133,7 @@ void Asteroids::ReInit(int i)
     m_height[i] = m_width[i];
     m_yspeed[i] = float(rand() % 1001 / 1000.0f) * 2;
     m_angle[i] = rand() % 360;
-    m_rotRate[i] = (rand() % 1000) / 1000.0f;
+    m_rotRate[i] = (rand() % 500) / 1000.0f;
 
     // randomization of left or right trajectory
     if(int(m_xCoord[i]) % 2)
@@ -141,6 +142,7 @@ void Asteroids::ReInit(int i)
         m_xspeed[i] = (m_yspeed[i] * -(m_MAX_DEVIAT/2));
 
     m_s[i].setOrigin(0, 0);
+    m_s[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
     m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
     m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0f);
     m_s[i].setRotation(m_angle[i]);
