@@ -87,7 +87,8 @@ gameDB::~gameDB()
 }
 
 /// public funcs
-void gameDB::addScoreRecord(std::string name, int score, int salvageCount, int asteroidCount, int level)
+void gameDB::addScoreRecord(std::string name, int score, int salvageCount,
+                            int asteroidCount, int level)
 {
     // limit the length of the name to the max that the server can handle
     if(name.length() > 28)
@@ -117,7 +118,8 @@ void gameDB::addScoreRecord(std::string name, int score, int salvageCount, int a
     }
     else
     {
-        std::cout << "request failed: " << response.getStatus() << "\tContent= " << response.getBody() << std::endl;
+        std::cout << "request failed: " << response.getStatus() << "\tContent= "
+                  << response.getBody() << std::endl;
     }
 }
 
@@ -155,14 +157,18 @@ std::vector<std::string> gameDB::getHighScoreString(int level, int limit)
         bool bWritingName = true;
         for(unsigned int i = 0; i < temp.length(); i++)
         {
-            if(temp[i] == ' ')
+            if(temp[i] == ' ') // found a delimiter
             {
                 if(bWritingName)
+                {
                     ss1 << std::endl;
+                }
                 else
+                {
                     ss2 << std::endl;
-                bWritingName = !bWritingName;
-                continue;
+                }
+                bWritingName = !bWritingName; //if was writing a name, now writing a score
+                continue; // skip as this will just write garbage into the string stream
             }
             if(bWritingName == true)
             {
@@ -179,44 +185,18 @@ std::vector<std::string> gameDB::getHighScoreString(int level, int limit)
     }
     else
     {
-        std::cout << "request failed: " << response.getStatus() << "\tContent= " << response.getBody() << std::endl;
+        // Failed to get scores
+        std::cout << "request failed: " << response.getStatus() << "\tContent= "
+                  << response.getBody() << std::endl;
         for(int i = 0; i < 10; i++)
         {
-            ss1 << "NULL";
-            ss2 << "NULL";
+            ss1 << "NULL" << std::endl;
+            ss2 << "NULL" << std::endl;
         }
         vecStrHS[0] = ss1.str();
         vecStrHS[1] = ss2.str();
         return vecStrHS;
     }
-    /*ss1.str(std::string());
-    ss2.str(std::string());
-    ss1 << "Player Name:\n";
-    ss2 << "Score:\n";
-    vecStrHS.clear();
-    vecStrHS.push_back(std::string());
-    vecStrHS.push_back(std::string());
-    // create insert statement using FSTR and Arguments
-    char sql[512];
-    snprintf(sql, 512, sql_FetchHighScores, tbName, limit);
-
-    // perform sql querry
-    char *zErrMsg = 0;
-    int rc;
-    rc = sqlite3_exec(m_db, sql, retHighScores, 0, &zErrMsg);
-    if( rc != SQLITE_OK )
-    {
-    	hjs::logTimeToConsole();
-    	fprintf(stderr, "SQL error: %s\n", zErrMsg);
-    	sqlite3_free(zErrMsg);
-    }
-    else
-    {
-    	hjs::logToConsole("Got highscore records");
-    }
-    vecStrHS[0] = ss1.str();
-    vecStrHS[1] = ss2.str();
-    return vecStrHS;*/
 }
 
 /// Private funcs

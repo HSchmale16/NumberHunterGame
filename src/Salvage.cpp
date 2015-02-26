@@ -40,7 +40,7 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
     m_fSpeed = new float[SALVAGE_OBJECT_COUNT];
     m_Value = new uint_fast8_t[SALVAGE_OBJECT_COUNT];
     m_TextField = new sf::Text[SALVAGE_OBJECT_COUNT];
-    s = new sf::RectangleShape[SALVAGE_OBJECT_COUNT];
+    m_shape = new sf::RectangleShape[SALVAGE_OBJECT_COUNT];
     m_tex = new sf::Texture[SALVAGE_OBJECT_COUNT];
     // begin assignment
 
@@ -65,7 +65,7 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
         m_TextField[i].setColor(sf::Color::Black);
         m_TextField[i].setString(numStr);
 
-        sf::FloatRect rectBounds = s[i].getGlobalBounds();
+        sf::FloatRect rectBounds = m_shape[i].getGlobalBounds();
         sf::FloatRect textBounds = m_TextField[i].getGlobalBounds();
         m_TextField[i].setPosition(
             rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
@@ -73,9 +73,9 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
         );
 
         // set up graphics
-        s[i].setSize(sf::Vector2f(m_fSideLength[i], m_fSideLength[i]));
-        s[i].setTexture(&m_tex[i]);
-        s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
+        m_shape[i].setSize(sf::Vector2f(m_fSideLength[i], m_fSideLength[i]));
+        m_shape[i].setTexture(&m_tex[i]);
+        m_shape[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
     }
 }
 
@@ -86,7 +86,7 @@ Salvage::~Salvage()
     delete[] m_fYCoord;
     delete[] m_fSpeed;
     delete[] m_Value;
-    delete[] s;
+    delete[] m_shape;
     delete[] m_TextField;
 }
 
@@ -99,8 +99,8 @@ void Salvage::Move()
         {
             ReInit(i);
         }
-        s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
-        sf::FloatRect rectBounds = s[i].getGlobalBounds();
+        m_shape[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
+        sf::FloatRect rectBounds = m_shape[i].getGlobalBounds();
         sf::FloatRect textBounds = m_TextField[i].getGlobalBounds();
         m_TextField[i].setPosition(
             rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
@@ -121,13 +121,13 @@ void Salvage::ReInit(int i)
     sprintf(numStr, "%d", m_Value[i]);
     m_TextField[i].setString(numStr);
     // reset pos
-    sf::FloatRect rectBounds = s[i].getGlobalBounds();
+    sf::FloatRect rectBounds = m_shape[i].getGlobalBounds();
     sf::FloatRect textBounds = m_TextField[i].getGlobalBounds();
     m_TextField[i].setPosition(
         rectBounds.left + (rectBounds.width / 2) - (textBounds.width / 2),
         rectBounds.top + (rectBounds.height / 2) - (textBounds.height / 2)
     );
-    s[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
+    m_shape[i].setPosition(m_fXCoord[i], m_fYCoord[i]);
 }
 
 bool Salvage::hitTest(int index, Player& p)
@@ -165,7 +165,7 @@ void Salvage::draw(sf::RenderTarget &target, sf::RenderStates states)const
     // draw each index of salvage
     for(int i = 0; i < SALVAGE_OBJECT_COUNT; i++)
     {
-        target.draw(s[i], states);
+        target.draw(m_shape[i], states);
         target.draw(m_TextField[i], states);
     }
 }

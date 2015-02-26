@@ -38,8 +38,8 @@ private:
 
     // Graphics Handling
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
-    sf::RectangleShape *s;      // BG
-    sf::Texture *m_tex;         // Texture
+    sf::RectangleShape *m_shape; // BG
+    sf::Texture *m_tex;          // Texture
     sf::Text *m_TextField;
     sf::Font font;
 };
