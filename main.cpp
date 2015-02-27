@@ -4,12 +4,12 @@
  * @file main.cpp
  */
 
-#include <iostream>				// for cout
-#include <SFML/System.hpp>		// for threading
-#include <SFML/Graphics.hpp>	// for windowing
-#include "Hjs_StdLib.h"			// My STD LIB
-#include "version.h"			// for versioning information
-#include "config.h"				// for game configuration
+#include <iostream>	            // for cout
+#include <SFML/System.hpp>      // for threading
+#include <SFML/Graphics.hpp>    // for windowing
+#include "Hjs_StdLib.h"         // My STD LIB
+#include "version.h"            // for versioning information
+#include "config.h"             // for game configuration
 #include "include/Player.h"
 #include "include/Salvage.h"
 #include "include/UI.h"

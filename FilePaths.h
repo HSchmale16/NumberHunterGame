@@ -10,8 +10,8 @@
 
 /** Tell where the config files are located */
 #define CONFIG_FILE "resources/TSA_GAME.ini"			// the main config for game options
-#define MENU_CONFIG_FILE "resources/MenuConfig.INI"		// config file strictly for the menu
-#define LEVEL_CONFIG_FILE "resources/LevelConfig.INI"	// config file for strictly levels
+#define MENU_CONFIG_FILE "resources/MenuConfig.ini"		// config file strictly for the menu
+#define LEVEL_CONFIG_FILE "resources/LevelConfig.ini"	// config file for strictly levels
 
 /** Tell where the window icon is located */
 #define ICON "resources/img/Icon.png"
@@ -19,13 +19,13 @@
 /** Define Textures used in game and their relative path from the working directory
  */
 // BG Plasma Texture
-#define BG_PLASMA_TEX "resources/img/BG_PlasmaClouds.PNG"
+#define BG_PLASMA_TEX "resources/img/BG_PlasmaClouds.png"
 
 // Pause Screen Graphic
-#define PAUSE_SCREEN_IMAGE "resources/img/PauseScreen.PNG"
+#define PAUSE_SCREEN_IMAGE "resources/img/PauseScreen.png"
 
 // Salvage Textures
-#define SALVAGE_TEXTURE "resources/img/SpaceJunk.PNG"
+#define SALVAGE_TEXTURE "resources/img/SpaceJunk.png"
 
 /// Path to Asteroid Textures
 #define ASTEROID_TEX "resources/img/Asteroid.png"

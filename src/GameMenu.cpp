@@ -28,15 +28,15 @@ GameMenu::GameMenu()
     // load Assets
     if(!font.loadFromFile(MAIN_FONT))
         exit(2);
-    if(!m_texPlay.loadFromFile(gmR.Get("play_button", "texture", "Null")))
+    if(!m_texPlay.loadFromFile(gmR.Get("play_button", "texture", "PlayButton")))
         exit(2);
-    if(!m_texBG.loadFromFile(gmR.Get("menu_window", "background", "Null")))
+    if(!m_texBG.loadFromFile(gmR.Get("menu_window", "background", "BG_TEX")))
         exit(2);
-    if(!m_texEasy.loadFromFile(gmR.Get("difficulty_button", "easyTexture", "NULL")))
+    if(!m_texEasy.loadFromFile(gmR.Get("difficulty_button", "easyTexture", "Easy_tex")))
         exit(2);
-    if(!m_texMed.loadFromFile(gmR.Get("difficulty_button", "medTexture", "NULL")))
+    if(!m_texMed.loadFromFile(gmR.Get("difficulty_button", "medTexture", "MED_TEX")))
         exit(2);
-    if(!m_texHard.loadFromFile(gmR.Get("difficulty_button", "hardTexture", "NULL")))
+    if(!m_texHard.loadFromFile(gmR.Get("difficulty_button", "hardTexture", "Hard_Tex")))
         exit(2);
 
     // create buttons
