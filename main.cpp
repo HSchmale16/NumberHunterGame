@@ -4,6 +4,10 @@
  * @file main.cpp
  */
 
+#ifdef LINUX_BUILD
+#include <X11/Xlib.h>
+#endif // LINUX_BUILD
+
 #include <iostream>	            // for cout
 #include <SFML/System.hpp>      // for threading
 #include <SFML/Graphics.hpp>    // for windowing
@@ -145,6 +149,9 @@ void gameDifficultyInit(MenuRetType mrt);
 
 int main()
 {
+#ifdef LINUX_BUILD
+    XInitThreads();
+#endif // LINUX_BUILD
     // output versioning information
     std::cout << "TSA GAME 2015" << std::endl;
     std::cout << "Version: " << AutoVersion::FULLVERSION_STRING << std::endl;
