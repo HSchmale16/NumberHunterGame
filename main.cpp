@@ -39,6 +39,7 @@ int PTS_DESTROY_ASTEROID;           //!< pts gained for destroying an asteroid b
 GameDifficulty DIFFICULTY;          //!< Difficulty of the game
 
 // dynamically allocate the following objects
+sf::RenderWindow *window;
 Player *player;
 Salvage *salv;
 UI *myUI;
@@ -142,9 +143,6 @@ void handleObjectEvents(sf::RenderWindow *w)	// object event thread entry point
 // fwd declaration for set-up of game objects based on difficulty
 void gameDifficultyInit(MenuRetType mrt);
 
-// Declare Global Objects
-sf::RenderWindow window;
-
 int main()
 {
 #ifdef LINUX_BUILD
@@ -175,6 +173,7 @@ int main()
     hjs::init_Hjs_StdLib();			// init my lib
 
     // before init launch the menu
+    window = new sf::RenderWindow();
     gmMenu = new GameMenu;
     menuRet = new MenuRetType;
     *menuRet = gmMenu->getSelection();
@@ -183,9 +182,6 @@ int main()
         return 0;
 
     // All systems are go Init the game objects
-    window.create(sf::VideoMode(config.GetInteger("window", "width", 375),
-                                config.GetInteger("window", "height", 650)),
-                  config.Get("Window", "Title", "Game"), sf::Style::Close);
     gameDifficultyInit(*menuRet);
     DIFFICULTY = menuRet->diff;
 
@@ -194,35 +190,39 @@ int main()
 
 
     // init Graphics
-    window.setFramerateLimit(30);		// limit fps
-    window.setPosition(sf::Vector2i(500, 10));
+    window->create(sf::VideoMode(config.GetInteger("window", "width", 375),
+                                config.GetInteger("window", "height", 650)),
+                   config.Get("Window", "Title", "Game"),
+                   sf::Style::Close);
+    window->setFramerateLimit(30);		// limit fps
+    window->setPosition(sf::Vector2i(500, 10));
     sf::Image myIcon;	// load an icon
     if(!myIcon.loadFromFile(ICON))
         return -123;
-    window.setIcon(32, 32, myIcon.getPixelsPtr());
+    window->setIcon(32, 32, myIcon.getPixelsPtr());
     hjs::logToConsole("Window Created");
-    window.setActive(false);		// allow rendering thread to activate window context
+    window->setActive(false);		// allow rendering thread to activate window context
 
 #ifndef LINUX_BUILD
-    sf::Thread renderingThread(&render, &window);
-    sf::Thread objectEventThread(&handleObjectEvents, &window);
+    sf::Thread renderingThread(&render, window);
+    sf::Thread objectEventThread(&handleObjectEvents, window);
     renderingThread.launch();		// launch rendering thread
     objectEventThread.launch();
 #else
-    std::thread renderThread(render, &window);
-    std::thread objectThread(handleObjectEvents, &window);
+    std::thread renderThread(render, window);
+    std::thread objectThread(handleObjectEvents, window);
 #endif // LINUX_BUILD
 
     // handle window until it closes
-    while ((window.isOpen() && (hjs::gameIsActive())))
+    while ((window->isOpen() && (hjs::gameIsActive())))
     {
         sf::Event event;
         //handle Window Events
-        while (window.pollEvent(event))
+        while (window->pollEvent(event))
         {
             // handle window close
             if (event.type == sf::Event::Closed)
-                window.close();
+                window->close();
 
             // Focus Change Pauses
             if (event.type == sf::Event::GainedFocus)
