@@ -149,11 +149,14 @@ int main()
 {
 #ifdef LINUX_BUILD
     int i = XInitThreads(); // should be a non zero value
-    if(i == 0){
+    if(i == 0)
+    {
         std::cerr << "Failed to call XInitThreads, returned code: "
                   << i << std::endl;
         exit(0);
-    }else{
+    }
+    else
+    {
         std::cerr << "XInitThreads was called successfully, returned code: "
                   << i << std::endl;
     }
@@ -162,8 +165,10 @@ int main()
     // output versioning information
     std::cout << "TSA GAME 2015" << std::endl;
     std::cout << "Version: " << AutoVersion::FULLVERSION_STRING << std::endl;
-    std::cout << "Built on: " << AutoVersion::MONTH << " / " << AutoVersion::DATE
-              << " / " << AutoVersion::YEAR << std::endl;
+    std::cout << "Built on: "
+              << AutoVersion::MONTH << " / "
+              << AutoVersion::DATE  << " / "
+              << AutoVersion::YEAR  << std::endl;
     std::cout << "Build Number: " << AutoVersion::BUILDS_COUNT << std::endl;
     std::cout << std::endl;
 
