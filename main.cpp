@@ -21,6 +21,8 @@
 
 #ifdef LINUX_BUILD
 #include <X11/Xlib.h>
+#include <atomic>
+#include <thread>
 #endif // LINUX_BUILD
 
 // Declare Global Variables
@@ -140,9 +142,11 @@ void handleObjectEvents()	// object event thread entry point
     hjs::logToConsole("Object Event Handler Thread Terminated");
 }
 
+#ifndef LINUX_BUILD
 // thread declarations
 sf::Thread renderingThread(&render);
 sf::Thread objectEventThread(&handleObjectEvents);
+#endif // LINUX_BUILD
 
 // fwd declaration for set-up of game objects based on difficulty
 void gameDifficultyInit(MenuRetType mrt);
@@ -171,7 +175,9 @@ int main()
         return 0;
 
     // All systems are go Init the game objects
-    window.create(sf::VideoMode(config.GetInteger("window", "width", 375), config.GetInteger("window", "height", 650)), config.Get("Window", "Title", "Game"), sf::Style::Close);
+    window.create(sf::VideoMode(config.GetInteger("window", "width", 375),
+                                config.GetInteger("window", "height", 650)),
+                  config.Get("Window", "Title", "Game"), sf::Style::Close);
     gameDifficultyInit(*menuRet);
     DIFFICULTY = menuRet->diff;
 
@@ -188,10 +194,11 @@ int main()
     window.setIcon(32, 32, myIcon.getPixelsPtr());
     hjs::logToConsole("Window Created");
     window.setActive(false);		// allow rendering thread to activate window context
-    renderingThread.launch();		// launch rendering thread
 
-    // init Objects
+#ifndef LINUX_BUILD
+    renderingThread.launch();		// launch rendering thread
     objectEventThread.launch();
+#endif // LINUX_BUILD
 
     // handle window until it closes
     while ((window.isOpen() && (hjs::gameIsActive())))
