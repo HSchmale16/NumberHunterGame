@@ -35,7 +35,7 @@ Background::Background()
         m_vecStars[i].setRadius((rand() % 15) / 10.0);
     }
 #ifndef LINUX_BUILD
-    starMove.launch();
+    starMove.launch(); // this is a method of sf::Thread
 #endif // LINUX_BUILD
 
 
@@ -68,6 +68,7 @@ void Background::draw(sf::RenderTarget &target, sf::RenderStates states)const
 
 void Background::moveStars()
 {
+    hjs::logToConsole("Background Star Move Thread Launched");
     while(hjs::gameIsActive())	// window is not accessible to this object, so use my library to check if window was called
     {
         for(unsigned int i = 0; i < STAR_COUNT; i++)
@@ -82,4 +83,5 @@ void Background::moveStars()
         }
         sf::sleep(sf::milliseconds(30));
     }
+    hjs::logToConsole("Background Start Move Thread Terminating");
 }

@@ -22,6 +22,7 @@
 #ifdef LINUX_BUILD
 #include <X11/Xlib.h>
 #include <atomic>
+#include <future>
 #include <thread>
 #endif // LINUX_BUILD
 
@@ -29,17 +30,13 @@
 bool bGameIsPaused = false;		// Is the game paused?
 
 // scoring globals, these are set in InitGameObjects, but they are used in
-// 'LaserHandler.cpp'
-// loading these in main makes it easier to handle scoring
+// 'LaserHandler.cpp' loading these in main makes it easier to handle scoring
 int PTS_GOOD_SALVAGE;               //!< pts given for collecting good salvage
 int PTS_BAD_SALVAGE;                //!< pts lost for collecting bad salvage
 int PTS_DESTROY_SALVAGE;            //!< pts lost for destroying salvage(any)
 int PTS_HIT_ASTEROID;               //!< pts lost for hitting an asteroid
 int PTS_DESTROY_ASTEROID;           //!< pts gained for destroying an asteroid by shooting it
 GameDifficulty DIFFICULTY;          //!< Difficulty of the game
-
-// Declare Global Objects
-sf::RenderWindow window;
 
 // dynamically allocate the following objects
 Player *player;
@@ -53,28 +50,28 @@ LevelHandler *levels;
 MenuRetType *menuRet;
 
 // Declare Threads and Entry Points
-void render()	// rendering thread entry point
+void render(sf::RenderWindow *w)	// rendering thread entry point
 {
     hjs::logToConsole("Rendering Thread Created");
-    while((window.isOpen() && (hjs::gameIsActive())))
+    while((w->isOpen() && (hjs::gameIsActive())))
     {
-        window.clear(sf::Color::Black);
-        window.draw(*bg);
-        window.draw(*salv);
-        window.draw(*asteroid);
-        window.draw(*player);
-        window.draw(*lHandler);
-        window.draw(*myUI);
-        window.draw(*levels);
-        window.display();
+        w->clear(sf::Color::Black);
+        w->draw(*bg);
+        w->draw(*salv);
+        w->draw(*asteroid);
+        w->draw(*player);
+        w->draw(*lHandler);
+        w->draw(*myUI);
+        w->draw(*levels);
+        w->display();
     }
     hjs::logToConsole("Rendering Thread Terminated");
 }
 
-void handleObjectEvents()	// object event thread entry point
+void handleObjectEvents(sf::RenderWindow *w)	// object event thread entry point
 {
     hjs::logToConsole("Object Event Handler Thread Created");
-    while(window.isOpen())
+    while(w->isOpen())
     {
         if((!bGameIsPaused) && (levels->getLevelInProgress()) && (hjs::gameIsActive()))	// check if NOT paused
         {
@@ -142,20 +139,26 @@ void handleObjectEvents()	// object event thread entry point
     hjs::logToConsole("Object Event Handler Thread Terminated");
 }
 
-#ifndef LINUX_BUILD
-// thread declarations
-sf::Thread renderingThread(&render);
-sf::Thread objectEventThread(&handleObjectEvents);
-#endif // LINUX_BUILD
-
 // fwd declaration for set-up of game objects based on difficulty
 void gameDifficultyInit(MenuRetType mrt);
+
+// Declare Global Objects
+sf::RenderWindow window;
 
 int main()
 {
 #ifdef LINUX_BUILD
-    XInitThreads();
+    int i = XInitThreads(); // should be a non zero value
+    if(i == 0){
+        std::cerr << "Failed to call XInitThreads, returned code: "
+                  << i << std::endl;
+        exit(0);
+    }else{
+        std::cerr << "XInitThreads was called successfully, returned code: "
+                  << i << std::endl;
+    }
 #endif // LINUX_BUILD
+
     // output versioning information
     std::cout << "TSA GAME 2015" << std::endl;
     std::cout << "Version: " << AutoVersion::FULLVERSION_STRING << std::endl;
@@ -196,8 +199,13 @@ int main()
     window.setActive(false);		// allow rendering thread to activate window context
 
 #ifndef LINUX_BUILD
+    sf::Thread renderingThread(&render, &window);
+    sf::Thread objectEventThread(&handleObjectEvents, &window);
     renderingThread.launch();		// launch rendering thread
     objectEventThread.launch();
+#else
+    std::thread renderThread(render, &window);
+    std::thread objectThread(handleObjectEvents, &window);
 #endif // LINUX_BUILD
 
     // handle window until it closes

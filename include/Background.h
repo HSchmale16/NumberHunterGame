@@ -9,6 +9,7 @@
 
 #ifdef LINUX_BUILD
 #include <atomic>
+#include <future>
 #include <thread>
 #endif // LINUX_BUILD
 
@@ -38,7 +39,7 @@ private:
 #ifndef LINUX_BUILD
     sf::Thread starMove;                            //!< Thread to handle moving the stars
 #else
-
+    std::thread starMove;
 #endif //LINUX_BUILD
     void moveStars();                               //!< Entry Point to starMove
     std::vector<sf::CircleShape> m_vecStars;

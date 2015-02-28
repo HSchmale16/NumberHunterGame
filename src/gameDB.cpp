@@ -168,7 +168,7 @@ std::vector<std::string> gameDB::getHighScoreString(int level, int limit)
                     ss2 << std::endl;
                 }
                 bWritingName = !bWritingName; //if was writing a name, now writing a score
-                continue; // skip as this will just write garbage into the string stream
+                continue; // skip as continueing will just write garbage into the string stream
             }
             if(bWritingName == true)
             {
