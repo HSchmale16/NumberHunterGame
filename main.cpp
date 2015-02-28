@@ -265,6 +265,7 @@ int main()
     delete lHandler;
     delete levels;
     delete menuRet;
+    delete window;
     hjs::logToConsole("Finished Clean up in main thread");
     return 0;
 }
