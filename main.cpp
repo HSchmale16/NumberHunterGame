@@ -4,10 +4,6 @@
  * @file main.cpp
  */
 
-#ifdef LINUX_BUILD
-#include <X11/Xlib.h>
-#endif // LINUX_BUILD
-
 #include <iostream>	            // for cout
 #include <SFML/System.hpp>      // for threading
 #include <SFML/Graphics.hpp>    // for windowing
@@ -22,6 +18,10 @@
 #include "include/Asteroids.h"
 #include "include/LevelHandler.h"
 #include "include/GameMenu.h"
+
+#ifdef LINUX_BUILD
+#include <X11/Xlib.h>
+#endif // LINUX_BUILD
 
 // Declare Global Variables
 bool bGameIsPaused = false;		// Is the game paused?
