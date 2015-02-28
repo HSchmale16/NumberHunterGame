@@ -7,6 +7,11 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
+#ifdef LINUX_BUILD
+#include <atomic>
+#include <thread>
+#endif // LINUX_BUILD
+
 #include <math.h>	// for rand
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -30,7 +35,11 @@ private:
     sf::Texture m_texBG;
 
     // Stars
+#ifndef LINUX_BUILD
     sf::Thread starMove;                            //!< Thread to handle moving the stars
+#else
+
+#endif //LINUX_BUILD
     void moveStars();                               //!< Entry Point to starMove
     std::vector<sf::CircleShape> m_vecStars;
     std::vector<int> m_vecStarX;

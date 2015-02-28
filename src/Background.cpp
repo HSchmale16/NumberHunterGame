@@ -7,7 +7,9 @@
 #include "../include/Background.h"
 
 Background::Background()
+#ifndef LINUX_BUILD
     : starMove(&Background::moveStars, this)		// Init the starMove Thread
+#endif // LINUX_BUILD
 {
     //ctor
     // Set up main bg
@@ -32,7 +34,10 @@ Background::Background()
         m_vecStars[i].setFillColor(sf::Color::White);
         m_vecStars[i].setRadius((rand() % 15) / 10.0);
     }
+#ifndef LINUX_BUILD
     starMove.launch();
+#endif // LINUX_BUILD
+
 
     // init music
     if(!m_bgMusic.openFromFile(GM_MUSIC))
