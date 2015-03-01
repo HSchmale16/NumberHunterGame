@@ -62,7 +62,7 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
         sprintf(numStr, "%d", m_Value[i]);
         m_TextField[i].setFont(font);
         m_TextField[i].setCharacterSize(14);
-        m_TextField[i].setColor(sf::Color::Black);
+        m_TextField[i].setColor(sf::Color::White);
         m_TextField[i].setString(numStr);
 
         sf::FloatRect rectBounds = m_shape[i].getGlobalBounds();

@@ -14,8 +14,11 @@ Player::Player()
 {
     //ctor
     // load texture
-    if(!m_texture.loadFromFile(pr.Get("player", "t", "resources/img/player.png")))
+    if(!m_texture.loadFromFile(pr.Get("player", "t",
+                                      "resources/img/player.png")))
+    {
         exit(2);
+    }
 
     // init member vars
     m_fXSpeed = 2;
@@ -42,7 +45,8 @@ Player::~Player()
 void Player::Move()
 {
     // check movement keys
-    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && (m_fXCoord > -(m_fSideLength / 2)))
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            && (m_fXCoord > -(m_fSideLength / 2)))
     {
         m_fXCoord -= m_fXSpeed;
     }
@@ -59,7 +63,8 @@ void Player::Move()
         m_fYCoord += m_fYSpeed;
     }
     s.setPosition(m_fXCoord, m_fYCoord);	// update position
-    m_ps->setEmitter(sf::Vector2f(m_fXCoord + (m_fSideLength / 2), m_fYCoord + m_fSideLength));
+    m_ps->setEmitter(sf::Vector2f(m_fXCoord + (m_fSideLength / 2),
+                                  m_fYCoord + m_fSideLength));
     m_ps->update(m_clock.restart());
 }
 
