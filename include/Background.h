@@ -21,6 +21,12 @@ public:
     Background();
     /** Default destructor */
     ~Background();
+
+    /** Load Next Background */
+    void loadNextBackground();
+
+    /** Display the new background */
+    void displayNextBackground();
 protected:
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
