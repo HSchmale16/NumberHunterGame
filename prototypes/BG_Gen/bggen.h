@@ -11,6 +11,8 @@
 #ifndef BGGEN_H
 #define BGGEN_H
 
+#include <cstdint>
+
 /** \brief A color channel enumeration for ImgRGBA_t defined below
  */
 enum COLOR_CHAN{
@@ -25,7 +27,7 @@ enum COLOR_CHAN{
 struct ImgRGBA_t{
     uint32_t m_width;   //!< Width of the image
     uint32_t m_height;  //!< Height of the image
-    uint8_t* m_data     //!< The data buffer to hold the pixel values
+    uint8_t* m_data;     //!< The data buffer to hold the pixel values
 
     /**\brief Primary Ctor
      * \param w width
@@ -62,8 +64,8 @@ public:
 
 
 private:
-    ImgRGBA_t* m_img;
-
+    ImgRGBA_t* m_img;   //!< Image buffer of the background generator
+    uint64_t   m_seed;  //!< Seed used for background generation
 
 };
 
