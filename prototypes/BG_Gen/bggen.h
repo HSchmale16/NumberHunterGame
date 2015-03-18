@@ -6,12 +6,16 @@
  *            It may not be used for commercial purposes without
  *            his express authorization, however it is free for
  *            personal and educational use.
+ *
+ * Additionally this procedural generation system has global variables that
+ * can control the process of generation.
  */
 
 #ifndef BGGEN_H
 #define BGGEN_H
 
-#include <cstdint>
+#include <cstdint>          // Fixed Width Integers
+#include <SFML/Thread.hpp>  // Threading on windoze
 
 /** \brief A color channel enumeration for ImgRGBA_t defined below
  */
@@ -25,6 +29,7 @@ enum COLOR_CHAN{
 /**\brief a struct that can contains an RGBA Image
  */
 struct ImgRGBA_t{
+    uint64_t m_length;  //!< Length of the data array
     uint32_t m_width;   //!< Width of the image
     uint32_t m_height;  //!< Height of the image
     uint8_t* m_data;    //!< The data buffer to hold the pixel values
@@ -35,7 +40,8 @@ struct ImgRGBA_t{
      */
     ImgRGBA_t(uint32_t w, uint32_t h)
       : m_width(w), m_height(h){
-        m_data = new uint8_t[m_width * m_height * 4];
+        m_length = m_width * m_height * 4;
+        m_data   = new uint8_t[m_length];
     }
 
     /** \brief Destructor
@@ -44,11 +50,16 @@ struct ImgRGBA_t{
         delete[] m_data; 
     }
 
-    /** \brief Element Access Operator
+    /**\brief Element Access Operator
      */
     uint8_t& operator()(uint32_t x, uint32_t y, COLOR_CHAN c){
         
     }
+
+    /**\brief direct access of data array operator
+     */
+    uint8_t& operator[](uint64_t i){
+        return m_data[i];
 };
 
 
@@ -72,6 +83,12 @@ public:
      * value returns to false.
      */
     int startGenerationProcess();
+    
+    /**\brief Is the generation of the next background complete?
+     * \return The status on generation of the new background.
+     *         Returns true when complete, otherwise false.
+     */
+    bool getGenerationStatus();
 
     /**\brief Returns a constant pointer containing a set of RGBA Pixels
      *        that can be used in an sf::Texture or sf::Image instance.
@@ -82,8 +99,29 @@ private:
     ImgRGBA_t* m_img;     //!< Image buffer of the background generator
     uint64_t   m_seed;    //!< Seed used for background generation
     bool       m_genDone; //!< Generation of new background is complete
+    sf::Thread m_thread;  //!< Thread that will run the generation system
 
+    /**\brief Entry Point for procedural generatoion
+     */
+    void threadEntryPoint();
 
+    /**\brief clears the image to black
+     */
+    void clearImage();
+
+    /**\brief Draws a randomly generated planet at the specified coords.
+     * \param x x-axis posisition of planet
+     * \param y y-axis posisition of planet
+     */
+    void drawPlanet(uint32_t x, uint32_t y);
+
+    /**\brief Draws stars at random posisitons and of varying intensity
+     */
+    void drawStars();
+
+    /**\brief Draws the clouds on to image
+     */
+    void drawClouds();
 };
 
 #endif // BGGEN_H
