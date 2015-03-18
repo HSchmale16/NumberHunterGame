@@ -1,8 +1,8 @@
 #include "BGGen.h"
 
-BGGen::BGGen()
+BGGen::BGGen(uint32_t width, uint32_t height)
 {
-    //ctor
+
 }
 
 BGGen::~BGGen()
