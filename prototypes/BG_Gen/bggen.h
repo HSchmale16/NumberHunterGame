@@ -42,6 +42,10 @@ struct ImgRGBA_t{
       : m_width(w), m_height(h){
         m_length = m_width * m_height * 4;
         m_data   = new uint8_t[m_length];
+        // Init Img to 0 or nothing
+        for(uint64_t i = 0; i < m_length; i++){
+            m_data[i] = 0;
+        }
     }
 
     /** \brief Destructor
@@ -112,6 +116,10 @@ private:
     /**\brief Draws a randomly generated planet at the specified coords.
      * \param x x-axis posisition of planet
      * \param y y-axis posisition of planet
+     *
+     * This is a specialized implementation of the midpoint-circle
+     * algorithim for drawing planets that are reminiscent of a
+     * gas giant.
      */
     void drawPlanet(uint32_t x, uint32_t y);
 
@@ -120,6 +128,8 @@ private:
     void drawStars();
 
     /**\brief Draws the clouds on to image
+     *
+     * A variant on the perlin noise algorithim
      */
     void drawClouds();
 };
