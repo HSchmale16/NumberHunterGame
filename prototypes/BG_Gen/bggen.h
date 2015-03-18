@@ -27,7 +27,7 @@ enum COLOR_CHAN{
 struct ImgRGBA_t{
     uint32_t m_width;   //!< Width of the image
     uint32_t m_height;  //!< Height of the image
-    uint8_t* m_data;     //!< The data buffer to hold the pixel values
+    uint8_t* m_data;    //!< The data buffer to hold the pixel values
 
     /**\brief Primary Ctor
      * \param w width
@@ -41,7 +41,7 @@ struct ImgRGBA_t{
     /** \brief Destructor
      */
     ~ImgRGBA_t(){
-        delete[] m_data;
+        delete[] m_data; 
     }
 
     /** \brief Element Access Operator
@@ -61,11 +61,28 @@ public:
      * \param h height
      */
     bggen(uint32_t w, uint32_t h);
+    
+    /** \brief The Destructor
+     */
+    ~bggen();
 
+    /**\brief Starts up the background generation process in the background
+     *         running in a seperate thread.
+     * \return 0 on successful startup of the background process, any other
+     * value returns to false.
+     */
+    int startGenerationProcess();
 
+    /**\brief Returns a constant pointer containing a set of RGBA Pixels
+     *        that can be used in an sf::Texture or sf::Image instance.
+     * \return A pointer to a set of RGBA Pixels
+     */
+    const uint8_t* getNewBackground();
 private:
-    ImgRGBA_t* m_img;   //!< Image buffer of the background generator
-    uint64_t   m_seed;  //!< Seed used for background generation
+    ImgRGBA_t* m_img;     //!< Image buffer of the background generator
+    uint64_t   m_seed;    //!< Seed used for background generation
+    bool       m_genDone; //!< Generation of new background is complete
+
 
 };
 
