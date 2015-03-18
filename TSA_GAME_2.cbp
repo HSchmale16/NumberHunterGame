@@ -100,6 +100,7 @@
 					<Add option="-O3" />
 					<Add option="-std=c++11" />
 					<Add option="-Wall" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -160,6 +161,7 @@
 			<Option target="Release" />
 			<Option target="TSA_BUILD" />
 		</Unit>
+		<Unit filename="include/BGGen.h" />
 		<Unit filename="include/Background.h">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -246,6 +248,7 @@
 			<Option target="Release" />
 			<Option target="TSA_BUILD" />
 		</Unit>
+		<Unit filename="src/BGGen.cpp" />
 		<Unit filename="src/Background.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
