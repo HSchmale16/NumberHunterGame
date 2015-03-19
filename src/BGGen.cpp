@@ -1,4 +1,4 @@
-#include "bggen.h"
+#include "../include/BGGen.h"
 #include <cstdlib>
 
 #include "../Gradient.h"

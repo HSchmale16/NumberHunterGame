@@ -121,194 +121,49 @@
 			<Add library="SQLite/lib/libSQLite.a" />
 			<Add directory="SQLite/lib" />
 		</Linker>
-		<Unit filename="FilePaths.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="Hjs_StdLib.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="Hjs_StdLib_Implement.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="INIReader.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="INIReader.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="LevelDatTypes.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="config.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/Asteroids.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
+		<Unit filename="FilePaths.h" />
+		<Unit filename="Gradient.cpp" />
+		<Unit filename="Gradient.h" />
+		<Unit filename="Hjs_StdLib.h" />
+		<Unit filename="Hjs_StdLib_Implement.cpp" />
+		<Unit filename="INIReader.cpp" />
+		<Unit filename="INIReader.h" />
+		<Unit filename="LevelDatTypes.h" />
+		<Unit filename="config.h" />
+		<Unit filename="include/Asteroids.h" />
 		<Unit filename="include/BGGen.h" />
-		<Unit filename="include/Background.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/GameMenu.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/Laser.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/LaserHandler.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/LevelEndScreen.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/LevelHandler.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/MenuButton.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/ParticleSystem.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/Player.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/Salvage.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/UI.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="include/gameDB.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
+		<Unit filename="include/Background.h" />
+		<Unit filename="include/GameMenu.h" />
+		<Unit filename="include/Laser.h" />
+		<Unit filename="include/LaserHandler.h" />
+		<Unit filename="include/LevelEndScreen.h" />
+		<Unit filename="include/LevelHandler.h" />
+		<Unit filename="include/MenuButton.h" />
+		<Unit filename="include/ParticleSystem.h" />
+		<Unit filename="include/Player.h" />
+		<Unit filename="include/Salvage.h" />
+		<Unit filename="include/UI.h" />
+		<Unit filename="include/gameDB.h" />
 		<Unit filename="ini.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
 		</Unit>
-		<Unit filename="ini.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="main.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="networkSystem.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/Asteroids.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
+		<Unit filename="ini.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="networkSystem.h" />
+		<Unit filename="src/Asteroids.cpp" />
 		<Unit filename="src/BGGen.cpp" />
-		<Unit filename="src/Background.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/GameMenu.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/Laser.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/LaserHandler.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/LevelEndScreen.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/LevelHandler.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/MenuButton.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/Player.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/Salvage.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/UI.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="src/gameDB.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
-		<Unit filename="version.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="TSA_BUILD" />
-		</Unit>
+		<Unit filename="src/Background.cpp" />
+		<Unit filename="src/GameMenu.cpp" />
+		<Unit filename="src/Laser.cpp" />
+		<Unit filename="src/LaserHandler.cpp" />
+		<Unit filename="src/LevelEndScreen.cpp" />
+		<Unit filename="src/LevelHandler.cpp" />
+		<Unit filename="src/MenuButton.cpp" />
+		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/Salvage.cpp" />
+		<Unit filename="src/UI.cpp" />
+		<Unit filename="src/gameDB.cpp" />
+		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
