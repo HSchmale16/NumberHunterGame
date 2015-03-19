@@ -1,6 +1,17 @@
 #include "bggen.h"
 #include <cstdlib>
 
+#include "../Gradient.h"
+
+// ***********************************************
+// *          FILE PRIVATE FUNCTIONS             *
+// ***********************************************
+
+
+inline float lerp(float a0, float a1, float w){
+    return (1.0 - w) * a0 + w * a1;
+}
+
 // ***********************************************
 // *            BGGEN IMPLEMENTATION             *
 // ***********************************************
@@ -25,7 +36,7 @@ bool bggen::getGenerationStatus(){
 }
 
 const uint8_t* bggen::getNewBackground(){
-
+    return m_img->m_data;
 }
 
 void bggen::threadEntryPoint(){
@@ -36,14 +47,25 @@ void bggen::clearImage(){
 
 }
 
-void drawPlanet(uint32_t x, uint32_t y){
+void bggen::drawPlanet(uint32_t x, uint32_t y){
 
 }
 
-void drawStars(){
+void bggen::drawStars(){
 
 }
 
-void drawClouds(){
+void bggen::drawClouds(){
+
+}
+
+float bggen::dotGridGradient(int ix, int iy, float x, float y){
+    float dx = x - (double)(ix);
+    float dy = y - (double)(iy);
+
+    return (dx*Gradient[iy][ix][0] + dy*Gradient[iy][ix][1]);
+}
+
+float bggen::perlin(float x, float y){
 
 }

@@ -17,15 +17,6 @@
 #include <cstdint>          // Fixed Width Integers
 #include <SFML/System.hpp>  // Threading on windoze
 
-/** \brief A color channel enumeration for ImgRGBA_t defined below
- */
-enum COLOR_CHAN {
-    RED   = 0,  //!< Starting Index of the Red Channel
-    GREEN = 1,  //!< Starting Index of the Green Channel
-    BLUE  = 2,  //!< Starting Index of the Blue Channel
-    ALPHA = 3,  //!< Starting Index of the Alpha Channel
-};
-
 /**\brief a struct that can contains an RGBA Image
  */
 struct ImgRGBA_t {
@@ -58,6 +49,12 @@ struct ImgRGBA_t {
      */
     uint8_t& operator[](uint64_t i) {
         return m_data[i];
+    }
+
+    /**\brief Coordinate Color Value Access Operator
+     */
+    uint8_t& operator()(uint32_t x, uint32_t y){
+
     }
 };
 
@@ -95,10 +92,10 @@ public:
      */
     const uint8_t* getNewBackground();
 private:
-    ImgRGBA_t* m_img;     //!< Image buffer of the background generator
-    uint64_t   m_seed;    //!< Seed used for background generation
-    bool       m_genDone; //!< Generation of new background is complete
-    sf::Thread m_thread;  //!< Thread that will run the generation system
+    sf::Thread m_thread;   //!< Thread that will run the generation system
+    ImgRGBA_t* m_img;      //!< Image buffer of the background generator
+    uint64_t   m_seed;     //!< Seed used for background generation
+    bool       m_genDone;  //!< Generation of new background is complete
 
     /**\brief Entry Point for procedural generatoion
      */
@@ -124,9 +121,13 @@ private:
 
     /**\brief Draws the clouds on to image
      *
-     * A variant on the perlin noise algorithm
+     * Runs through the various parts of the perlin algorithim on this object's
+     * internal image buffer
      */
     void drawClouds();
+
+    float dotGridGradient(int ix, int iy, float x, float y);
+    float perlin(float x, float y);
 };
 
 #endif // BGGEN_H
