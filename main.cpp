@@ -2,6 +2,18 @@
  * @author Henry Schmale
  * @date Oct 3, 2014
  * @file main.cpp
+ *
+ * \mainpage Number Hunter Game
+ * 
+ * \section intro_sec Introduction
+ * This is a game about collecting numbers that meet a certain
+ * condition. Additionally, this game is designed to be easily
+ * expandable and to have features added to it very easily.
+ *
+ * \section install_sec Installation
+ * You don't. You simply run the program from the working directory
+ * making sure that you have all of the required files in the
+ * resources folder.
  */
 
 #include <iostream>	            // for cout
