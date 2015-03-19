@@ -9,8 +9,8 @@
 
 #include <cstdint>
 
-const uint32_t GRAD_X = 1000; //!< Max X Dim of Gradient Array
-const uint32_t GRAD_Y = 1000; //!< Max Y Dim of Gradient Array
+const uint32_t GRAD_X = 375; //!< Max X Dim of Gradient Array
+const uint32_t GRAD_Y = 650; //!< Max Y Dim of Gradient Array
 
 extern const float Gradient[GRAD_X][GRAD_Y][2]; //!< The Gradient Vectors Precomputed
 

@@ -7,9 +7,9 @@
 TEN=10 # Bash is really annoying about not using straight up numeric constants
 
 echo '{' # Opening Brace
-for y in {0..999} ; do
+for y in {0..649} ; do                 # Y AXIS
     echo '    {'
-    for x in {0..999}; do
+    for x in {0..374}; do              # X AXIS
         let "l = $x % 5"
         if [ "$l" -eq 1 ] ; then
             echo -n '        {'
@@ -19,7 +19,7 @@ for y in {0..999} ; do
         for a in 0 1 ; do
             # Write the actual Numbers Here
             v=$[100 + (RANDOM % 100)]$[1000 + (RANDOM % 1000)]
-            v=0.${v:1:2}${v:4}
+            v=0.${v:1:2}
             echo -n $v
             if [ $a -ne 1 ] ; then
                 echo -n ', '
