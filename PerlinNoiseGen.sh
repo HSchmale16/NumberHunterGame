@@ -3,6 +3,8 @@
 # March 19, 2015
 # Perlin Noise Initial Vector Generator
 # Generates the data to use in Dynamic Background Generator System
+# \note: This Script Depends on random.pl in the same dir as this 
+#        script.
 
 TEN=10 # Bash is really annoying about not using straight up numeric constants
 
@@ -18,8 +20,7 @@ for y in {0..649} ; do                 # Y AXIS
         fi
         for a in 0 1 ; do
             # Write the actual Numbers Here
-            v=$[100 + (RANDOM % 100)]$[1000 + (RANDOM % 1000)]
-            v=0.${v:1:2}
+            v=$( ./random.pl )
             echo -n $v
             if [ $a -ne 1 ] ; then
                 echo -n ', '

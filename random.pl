@@ -7,4 +7,4 @@ use strict;
 use warnings;
 
 my $RndNum = rand(2) - 1.0;
-print $RndNum . "\n";
+printf("%.3f\n", $RndNum);
