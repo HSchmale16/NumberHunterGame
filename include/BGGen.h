@@ -53,8 +53,8 @@ struct ImgRGBA_t {
 
     /**\brief Coordinate Color Value Access Operator
      */
-    uint8_t& operator()(uint32_t x, uint32_t y){
-
+    uint8_t& operator()(uint32_t x, uint32_t y, uint8_t c){
+        return m_data[y * m_width + x];
     }
 };
 

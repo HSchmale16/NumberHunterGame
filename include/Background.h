@@ -13,6 +13,7 @@
 #include <SFML/Audio.hpp>
 #include "../Hjs_StdLib.h"
 #include "../FilePaths.h"
+#include "BGGen.h"
 
 class Background: public sf::Drawable
 {
