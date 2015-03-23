@@ -17,14 +17,15 @@ inline float lerp(float a0, float a1, float w){
 // ***********************************************
 
 bggen::bggen(uint32_t w, uint32_t h)
-    : m_thread(&bggen::threadEntryPoint, this){
-    m_img     = new ImgRGBA_t(w, h);
+    : m_thread(&bggen::threadEntryPoint, this),
+      m_width(w), m_height(h){
+    m_img.create(m_width, m_height);
     m_seed    = rand() * rand();
     m_genDone = false;
 }
 
 bggen::~bggen(){
-    delete m_img;
+
 }
 
 int bggen::startGenerationProcess(){
@@ -42,15 +43,20 @@ bool bggen::getGenerationStatus(){
 }
 
 const uint8_t* bggen::getNewBackground(){
-    return m_img->m_data;
+    return m_img.getPixelsPtr();
 }
 
 void bggen::threadEntryPoint(){
+    // clear image
 
 }
 
 void bggen::clearImage(){
-
+    for(int x = 0; x < m_width; x++){
+        for(int y = 0; y < m_height; y++){
+            m_img.setPixel(x, y, sf::Color::Black);
+        }
+    }
 }
 
 void bggen::drawPlanet(uint32_t x, uint32_t y){

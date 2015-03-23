@@ -16,6 +16,7 @@
 
 #include <cstdint>          // Fixed Width Integers
 #include <SFML/System.hpp>  // Threading on windoze
+#include <SFML/Graphics/Image.hpp>
 
 /**\brief a struct that can contains an RGBA Image
  */
@@ -93,8 +94,10 @@ public:
     const uint8_t* getNewBackground();
 private:
     sf::Thread m_thread;   //!< Thread that will run the generation system
-    ImgRGBA_t* m_img;      //!< Image buffer of the background generator
+    sf::Image  m_img;
     uint64_t   m_seed;     //!< Seed used for background generation
+    uint32_t   m_width;
+    uint32_t   m_height;
     bool       m_genDone;  //!< Generation of new background is complete
 
     /**\brief Entry Point for procedural generatoion
