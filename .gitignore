@@ -4,6 +4,7 @@ bin/*
 obj/*
 *.exe
 releaseBuild/*
+NumberHunterGame
 
 # Code::blocks
 *.layout
@@ -26,3 +27,9 @@ doxygen/*
 
 # Database Files
 *.db
+
+# Stupid Code::Blocks needs to make a build log with html markup
+# This is really annoying, also while you're at it ignore
+# all log files or files with `log` in their titles.
+*_log.html
+*log*

@@ -48,12 +48,12 @@ const uint8_t* bggen::getNewBackground(){
 
 void bggen::threadEntryPoint(){
     // clear image
-
+    this->clearImage(); // This might not really be neccessary
 }
 
 void bggen::clearImage(){
-    for(int x = 0; x < m_width; x++){
-        for(int y = 0; y < m_height; y++){
+    for(uint32_t x = 0; x < m_width; x++){
+        for(uint32_t y = 0; y < m_height; y++){
             m_img.setPixel(x, y, sf::Color::Black);
         }
     }

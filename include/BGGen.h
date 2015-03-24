@@ -109,8 +109,8 @@ private:
     void clearImage();
 
     /**\brief Draws a randomly generated planet at the specified coords.
-     * \param x x-axis positions of planet
-     * \param y y-axis positions of planet
+     * \param x x-axis positions of planet, top-left corner
+     * \param y y-axis positions of planet, top-left corner
      *
      * This is a specialized implementation of the midpoint-circle
      * algorithm for drawing planets that are reminiscent of a
