@@ -68,7 +68,18 @@ void bggen::drawStars(){
 }
 
 void bggen::drawClouds(){
-
+    sf::Color col;
+    double p;
+    col.a = 255;
+    for(uint32_t x = 0; x < m_width; x++){
+        for(uint32_t y = 0; y < m_height; y++){
+            p = this->perlin(x, y); // holds computed perlin value
+            col.r = (*Gradient)[x*y][0] * p * 255;
+            col.g = (*Gradient)[x+y][1] * p * 255;
+            col.b = p * 255;
+            m_img.setPixel(x, y, col);
+        }
+    }
 }
 
 float bggen::dotGridGradient(int ix, int iy, float x, float y){
