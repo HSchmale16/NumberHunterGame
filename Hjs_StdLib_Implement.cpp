@@ -29,7 +29,7 @@ void hjs::logTimeToConsole()
     // time output
     time_t t = clock();     // Get the Time
     float elaps = (float(t) - startTime) / CLOCKS_PER_SEC;
-    std::cout << "[" << elaps << "] \t";
+    std::cerr << "[" << elaps << "] \t";
 }
 
 /// Logs a message to stdOutput with the time since execution begin
