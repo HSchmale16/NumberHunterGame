@@ -1,13 +1,19 @@
+/** \brief  Implementation of Background Generator Class
+ *  \author Henry J Schmale
+ *  \date   March 20, 2015
+ *  \file   BGGen.cpp
+ */
+
 #include "../include/BGGen.h"
 #include <cstdlib>
 
 #include "../Gradient.h"
+#include "../Hjs_StdLib.h"
+
 
 // ***********************************************
 // *          FILE PRIVATE FUNCTIONS             *
 // ***********************************************
-
-
 inline float lerp(float a0, float a1, float w){
     return (1.0 - w) * a0 + w * a1;
 }
@@ -19,9 +25,11 @@ inline float lerp(float a0, float a1, float w){
 bggen::bggen(uint32_t w, uint32_t h)
     : m_thread(&bggen::threadEntryPoint, this),
       m_width(w), m_height(h){
+    hjs::logToConsole("Initialized the Background Generator Class");
     m_img.create(m_width, m_height);
     m_seed    = rand() * rand();
-    m_genDone = false;
+    m_genDone = true;
+    this->startGenerationProcess();
 }
 
 bggen::~bggen(){
@@ -30,10 +38,9 @@ bggen::~bggen(){
 
 int bggen::startGenerationProcess(){
     if(m_genDone == true){
+        hjs::logToConsole("Started Generation Process");
         m_thread.launch();
         m_genDone = false; // Set False as now generating new image
-    }else{
-        return 1;
     }
     return 0;
 }
@@ -43,12 +50,18 @@ bool bggen::getGenerationStatus(){
 }
 
 const uint8_t* bggen::getNewBackground(){
-    return m_img.getPixelsPtr();
+    if(m_genDone == true){
+        return m_img.getPixelsPtr();
+    }else{
+        return NULL;
+    }
 }
 
 void bggen::threadEntryPoint(){
     // clear image
+    hjs::logToConsole("Starting Next Iteration of Background Generation");
     this->clearImage(); // This might not really be neccessary
+    this->drawClouds();
 }
 
 void bggen::clearImage(){

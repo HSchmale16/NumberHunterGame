@@ -8,8 +8,7 @@
 #include "../config.h"
 
 Background::Background()
-    : m_bgGenerator((uint32_t)375, (uint32_t)650),  // Init Bg Generator subsystem
-      starMove(&Background::moveStars, this)		// Init the starMove Thread
+    :starMove(&Background::moveStars, this)		// Init the starMove Thread
 {
     //ctor
     // Set up main bg
@@ -23,7 +22,8 @@ Background::Background()
     m_sfRS.setTexture(&m_texBG, false);
 
     // Start Background Generation
-    m_bgGenerator.startGenerationProcess();
+    m_bgGenerator = new bggen((uint32_t)650, (uint32_t)375);
+    //m_bgGenerator->startGenerationProcess();
 
     // Set up stars
     for(unsigned int i = 0; i < STAR_COUNT; i++)
