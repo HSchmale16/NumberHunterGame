@@ -57,11 +57,22 @@ const uint8_t* bggen::getNewBackground(){
     }
 }
 
+const sf::Image& bggen::getNewBgImage()
+{
+    return m_img;
+}
+
+// ***********************************************
+// *          CLASS PRIVATE FUNCTIONS            *
+// ***********************************************
+
 void bggen::threadEntryPoint(){
     // clear image
     hjs::logToConsole("Starting Next Iteration of Background Generation");
     this->clearImage(); // This might not really be neccessary
     this->drawClouds();
+    hjs::logToConsole("Finished Generation of New Background");
+    m_genDone = true;
 }
 
 void bggen::clearImage(){
