@@ -20,24 +20,30 @@ void hjs::init_Hjs_StdLib()
     {
         bLibIsInit = true;
         startTime = clock();
+#ifdef DEBUG_BUILD
         hjs::logToConsole("HjsStdLib Initiated");
+#endif // DEBUG_BUILD
     }
 }
 
 void hjs::logTimeToConsole()
 {
     // time output
+#ifdef DEBUG_BUILD
     time_t t = clock();     // Get the Time
     float elaps = (float(t) - startTime) / CLOCKS_PER_SEC;
     std::cerr << "[" << elaps << "] \t";
+#endif // DEBUG_BUILD
 }
 
 /// Logs a message to stdOutput with the time since execution begin
 void hjs::logToConsole(const char * ch)
 {
+#ifdef DEBUG_BUILD
     // output time
     logTimeToConsole();
     std::cout << ch << std::endl;
+#endif // DEBUG_BUILD
 }
 
 /// Allows the any thread to end the whole program by calling this function
