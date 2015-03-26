@@ -31,13 +31,13 @@
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
-					<Add option="-pg" />
 					<Add option="-pg -lgmon" />
-					<Add library="SFML-2.1/lib/libsfml-audio-s-d.a" />
-					<Add library="SFML-2.1/lib/libsfml-network-s-d.a" />
-					<Add library="SFML-2.1/lib/libsfml-graphics-s-d.a" />
-					<Add library="SFML-2.1/lib/libsfml-window-s-d.a" />
-					<Add library="SFML-2.1/lib/libsfml-system-s-d.a" />
+					<Add option="-pg" />
+					<Add library="SFML-2.1\lib\libsfml-audio-s-d.a" />
+					<Add library="SFML-2.1\lib\libsfml-network-s-d.a" />
+					<Add library="SFML-2.1\lib\libsfml-graphics-s-d.a" />
+					<Add library="SFML-2.1\lib\libsfml-window-s-d.a" />
+					<Add library="SFML-2.1\lib\libsfml-system-s-d.a" />
 					<Add directory="SFML-2.1/lib" />
 				</Linker>
 			</Target>
@@ -57,11 +57,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="SFML-2.1/lib/libsfml-audio-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-network-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-graphics-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-window-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-system-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-audio-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-network-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-graphics-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-window-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-system-s.a" />
 					<Add directory="SFML-2.1/lib" />
 				</Linker>
 			</Target>
@@ -82,11 +82,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="SFML-2.1/lib/libsfml-audio-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-network-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-graphics-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-window-s.a" />
-					<Add library="SFML-2.1/lib/libsfml-system-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-audio-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-network-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-graphics-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-window-s.a" />
+					<Add library="SFML-2.1\lib\libsfml-system-s.a" />
 					<Add directory="SFML-2.1/lib" />
 				</Linker>
 			</Target>
@@ -118,7 +118,7 @@
 			<Add directory="SQLite/include" />
 		</Compiler>
 		<Linker>
-			<Add library="SQLite/lib/libSQLite.a" />
+			<Add library="SQLite\lib\libSQLite.a" />
 			<Add directory="SQLite/lib" />
 		</Linker>
 		<Unit filename="FilePaths.h" />

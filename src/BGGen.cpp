@@ -10,7 +10,6 @@
 #include "../Gradient.h"
 #include "../Hjs_StdLib.h"
 
-
 // ***********************************************
 // *          FILE PRIVATE FUNCTIONS             *
 // ***********************************************
@@ -73,6 +72,7 @@ void bggen::threadEntryPoint(){
     this->drawClouds();
     hjs::logToConsole("Finished Generation of New Background");
     m_genDone = true;
+    m_img.saveToFile("test.png");
 }
 
 void bggen::clearImage(){
@@ -94,13 +94,12 @@ void bggen::drawStars(){
 void bggen::drawClouds(){
     sf::Color col;
     double p;
-    col.a = 255;
     for(uint32_t x = 0; x < m_width; x++){
         for(uint32_t y = 0; y < m_height; y++){
             p = this->perlin(x, y); // holds computed perlin value
-            col.r = (*Gradient)[x*y][0] * p * 255;
-            col.g = (*Gradient)[x+y][1] * p * 255;
-            col.b = p * 255;
+            col.r = (uint8_t)(p * 255.0) % 256;
+            col.g = (uint8_t)(p * 255.0) % 256;
+            col.b = (uint8_t)(p * 255.0) % 256;
             m_img.setPixel(x, y, col);
         }
     }

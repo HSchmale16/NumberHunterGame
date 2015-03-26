@@ -20,7 +20,7 @@ Background::Background()
     m_sfRS.setTexture(&m_texBG, false);
 
     // Start Background Generation
-    m_bgGenerator = new bggen((uint32_t)650, (uint32_t)375);
+    m_bgGenerator = new bggen((uint32_t)375, (uint32_t)650);
     //m_bgGenerator->startGenerationProcess();
 
     // Set up stars
@@ -69,7 +69,7 @@ void Background::moveStars() {
         sf::sleep(sf::milliseconds(30));
 #ifdef DEBUG_BUILD
         if(m_bgGenerator->getGenerationStatus() == true){
-            m_texBG.update(m_bgGenerator->getNewBgImage());
+
         }
 #endif // DEBUG_BUILD
     }
