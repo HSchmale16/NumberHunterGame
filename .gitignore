@@ -33,3 +33,6 @@ doxygen/*
 # all log files or files with `log` in their titles.
 *_log.html
 *log*
+
+# Test data
+test.png

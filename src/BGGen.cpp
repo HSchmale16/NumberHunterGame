@@ -94,13 +94,17 @@ void bggen::drawStars(){
 
 void bggen::drawClouds(){
     sf::Color col;
-    float p;
+    float p1, p2, p3;
     for(float x = 0.0; x < m_width; x+=.99999){
         for(float y = 0.0; y < m_height; y+=.99999){
-            p = perlin(x, y);
-            col.r = p * 255.0;
-            col.g = p * 255.0;
-            col.b = p * 255.0;
+            p1 = perlin(x - m_width,
+                        y - m_height);
+            p2 = perlin(x - (m_width / 2),
+                        y - (m_height / 2));
+            p3 = perlin(x, y);
+            col.r = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
+            col.g = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
+            col.b = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
             //printf("%f ", p);
             m_img.setPixel(round(x), round(y), col);
         }
