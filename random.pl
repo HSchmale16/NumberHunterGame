@@ -5,6 +5,7 @@
 
 use strict;
 use warnings;
+use Math::Trig;
 
-my $RndNum = rand(2) - 1.0;
-printf("%.3f\n", $RndNum);
+my $RndNum = rand(2 * pi) - pi;
+printf("%.2f\n", $RndNum);
