@@ -8,13 +8,10 @@
 #include "../config.h"
 
 Background::Background()
-    : m_bgGenerator((uint32_t)375, (uint32_t)650),  // Init Bg Generator subsystem
-      starMove(&Background::moveStars, this)		// Init the starMove Thread
-{
+    :starMove(&Background::moveStars, this) {	// Init the starMove Thread
     //ctor
     // Set up main bg
-    if(!m_texBG.loadFromFile(BG_PLASMA_TEX))
-    {
+    if(!m_texBG.loadFromFile(BG_PLASMA_TEX)) {
         hjs::logToConsole("FAILED TO LOAD BG_PLASMA_TEX");
         exit(2);
     }
@@ -23,11 +20,11 @@ Background::Background()
     m_sfRS.setTexture(&m_texBG, false);
 
     // Start Background Generation
-    m_bgGenerator.startGenerationProcess();
+    m_bgGenerator = new bggen((uint32_t)375, (uint32_t)650);
+    //m_bgGenerator->startGenerationProcess();
 
     // Set up stars
-    for(unsigned int i = 0; i < STAR_COUNT; i++)
-    {
+    for(unsigned int i = 0; i < STAR_COUNT; i++) {
         m_vecStarX.push_back(rand() % 375);
         m_vecStarY.push_back(rand() % 650);
         m_vecStars.push_back(sf::CircleShape());
@@ -38,46 +35,42 @@ Background::Background()
     starMove.launch();
 
     // init music
-    if(!m_bgMusic.openFromFile(GM_MUSIC))
-    {
+    if(!m_bgMusic.openFromFile(GM_MUSIC)) {
         hjs::logToConsole("Failed to Load Music");
-    }
-    else
-    {
+    } else {
         m_bgMusic.setLoop(true);
         m_bgMusic.play();
     }
 }
 
-Background::~Background()
-{
+Background::~Background() {
     //dtor
+    delete m_bgGenerator;
 }
 
-void Background::draw(sf::RenderTarget &target, sf::RenderStates states)const
-{
+void Background::draw(sf::RenderTarget &target, sf::RenderStates states)const {
     target.draw(m_sfRS, states);	// draw main background image
     // draw the stars
-    for(unsigned int i = 0; i < STAR_COUNT; i++)
-    {
+    for(unsigned int i = 0; i < STAR_COUNT; i++) {
         target.draw(m_vecStars[i], states);
     }
 }
 
-void Background::moveStars()
-{
-    while(hjs::gameIsActive())	// window is not accessible to this object, so use my library to check if window was called
-    {
-        for(unsigned int i = 0; i < STAR_COUNT; i++)
-        {
+void Background::moveStars() {
+    while(hjs::gameIsActive()) {	// window is not accessible to this object, so use my library to check if window was called
+        for(unsigned int i = 0; i < STAR_COUNT; i++) {
             m_vecStarY[i] += 1;
-            if(m_vecStarY[i] > 650)
-            {
+            if(m_vecStarY[i] > 650) {
                 m_vecStarY[i] = 0;
                 m_vecStarX[i] = rand() % 375;
             }
             m_vecStars[i].setPosition(m_vecStarX[i], m_vecStarY[i]);
         }
         sf::sleep(sf::milliseconds(30));
+#ifdef DEBUG_BUILD
+        if(m_bgGenerator->getGenerationStatus() == true){
+
+        }
+#endif // DEBUG_BUILD
     }
 }

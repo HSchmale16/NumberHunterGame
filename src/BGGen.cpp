@@ -1,13 +1,19 @@
+/** \brief  Implementation of Background Generator Class
+ *  \author Henry J Schmale
+ *  \date   March 20, 2015
+ *  \file   BGGen.cpp
+ */
+
 #include "../include/BGGen.h"
 #include <cstdlib>
+#include <cmath>
 
 #include "../Gradient.h"
+#include "../Hjs_StdLib.h"
 
 // ***********************************************
 // *          FILE PRIVATE FUNCTIONS             *
 // ***********************************************
-
-
 inline float lerp(float a0, float a1, float w){
     return (1.0 - w) * a0 + w * a1;
 }
@@ -19,9 +25,11 @@ inline float lerp(float a0, float a1, float w){
 bggen::bggen(uint32_t w, uint32_t h)
     : m_thread(&bggen::threadEntryPoint, this),
       m_width(w), m_height(h){
+    hjs::logToConsole("Initialized the Background Generator Class");
     m_img.create(m_width, m_height);
     m_seed    = rand() * rand();
-    m_genDone = false;
+    m_genDone = true;
+    this->startGenerationProcess();
 }
 
 bggen::~bggen(){
@@ -30,10 +38,9 @@ bggen::~bggen(){
 
 int bggen::startGenerationProcess(){
     if(m_genDone == true){
+        hjs::logToConsole("Started Generation Process");
         m_thread.launch();
         m_genDone = false; // Set False as now generating new image
-    }else{
-        return 1;
     }
     return 0;
 }
@@ -43,12 +50,30 @@ bool bggen::getGenerationStatus(){
 }
 
 const uint8_t* bggen::getNewBackground(){
-    return m_img.getPixelsPtr();
+    if(m_genDone == true){
+        return m_img.getPixelsPtr();
+    }else{
+        return NULL;
+    }
 }
+
+const sf::Image& bggen::getNewBgImage()
+{
+    return m_img;
+}
+
+// ***********************************************
+// *          CLASS PRIVATE FUNCTIONS            *
+// ***********************************************
 
 void bggen::threadEntryPoint(){
     // clear image
+    hjs::logToConsole("Starting Next Iteration of Background Generation");
     this->clearImage(); // This might not really be neccessary
+    this->drawClouds();
+    hjs::logToConsole("Finished Generation of New Background");
+    m_genDone = true;
+    m_img.saveToFile("test.png");
 }
 
 void bggen::clearImage(){
@@ -69,15 +94,19 @@ void bggen::drawStars(){
 
 void bggen::drawClouds(){
     sf::Color col;
-    double p;
-    col.a = 255;
-    for(uint32_t x = 0; x < m_width; x++){
-        for(uint32_t y = 0; y < m_height; y++){
-            p = this->perlin(x, y); // holds computed perlin value
-            col.r = (*Gradient)[x*y][0] * p * 255;
-            col.g = (*Gradient)[x+y][1] * p * 255;
-            col.b = p * 255;
-            m_img.setPixel(x, y, col);
+    float p1, p2, p3;
+    for(float x = 0.0; x < m_width; x+=.99999){
+        for(float y = 0.0; y < m_height; y+=.99999){
+            p1 = perlin(x - m_width,
+                        y - m_height);
+            p2 = perlin(x - (m_width / 2),
+                        y - (m_height / 2));
+            p3 = perlin(x, y);
+            col.r = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
+            col.g = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
+            col.b = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
+            //printf("%f ", p);
+            m_img.setPixel(round(x), round(y), col);
         }
     }
 }

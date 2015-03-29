@@ -92,6 +92,10 @@ public:
      * \return A pointer to a set of RGBA Pixels
      */
     const uint8_t* getNewBackground();
+
+    /**\brief Fetches the new background as an sf::Image
+     */
+    const sf::Image& getNewBgImage();
 private:
     sf::Thread m_thread;   //!< Thread that will run the generation system
     sf::Image  m_img;
@@ -130,6 +134,9 @@ private:
     void drawClouds();
 
     float dotGridGradient(int ix, int iy, float x, float y);
+
+    /**\brief calculates perlin noise vector at given coords
+     */
     float perlin(float x, float y);
 };
 

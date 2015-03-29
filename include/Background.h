@@ -29,7 +29,7 @@ private:
     // Main Background Image
     sf::RectangleShape m_sfRS;
     sf::Texture        m_texBG;
-    bggen              m_bgGenerator;               //!< Background Generator System
+    bggen*             m_bgGenerator;               //!< Background Generator System
 
     // Stars
     sf::Thread starMove;                            //!< Thread to handle moving the stars
