@@ -6,6 +6,7 @@
 
 #include "../include/BGGen.h"
 #include <cstdlib>
+#include <cmath>
 
 #include "../Gradient.h"
 #include "../Hjs_StdLib.h"
@@ -94,10 +95,14 @@ void bggen::drawStars(){
 void bggen::drawClouds(){
     sf::Color col;
     float p;
-    for(float x = 0; x < m_width; x++){
-        for(float y = 0; y < m_height; y++){
-
-            m_img.setPixel((uint32_t)x, (uint32_t)y, col);
+    for(float x = 0.0; x < m_width; x+=.99999){
+        for(float y = 0.0; y < m_height; y+=.99999){
+            p = perlin(x, y);
+            col.r = p * 255.0;
+            col.g = p * 255.0;
+            col.b = p * 255.0;
+            //printf("%f ", p);
+            m_img.setPixel(round(x), round(y), col);
         }
     }
 }
