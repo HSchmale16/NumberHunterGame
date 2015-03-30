@@ -12,8 +12,10 @@
 #include "../Hjs_StdLib.h"
 
 // ***********************************************
-// *          FILE PRIVATE FUNCTIONS             *
+// *      FILE PRIVATE FUNCTIONS & DATA          *
 // ***********************************************
+
+#define PI 3.14159265
 
 /** \brief Linerally Intepolartes some numbers
  */
