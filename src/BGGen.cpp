@@ -14,12 +14,23 @@
 // ***********************************************
 // *          FILE PRIVATE FUNCTIONS             *
 // ***********************************************
+
 /** \brief Linerally Intepolartes some numbers
  */
 inline float lerp(float a0, float a1, float w){
     return (1.0 - w) * a0 + w * a1;
 }
 
+/** \brief Maps one value that is in-between 2 limits to some value between
+ *         2 differint limits.
+ *  \return       The value mapped
+ *  \param x      The value to be mapped
+ *  \param inMin  The minimum value that can be input
+ *  \param inMax  The maximum value that can be input
+ *  \param outMin The minimum value that can be output
+ *  \param outMax The maximum value that can be output
+ *  \note There is no input verifcation provided on the input values.
+ */
 template<typename TYP>
 TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax){
     return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
@@ -64,8 +75,7 @@ const uint8_t* bggen::getNewBackground(){
     }
 }
 
-const sf::Image& bggen::getNewBgImage()
-{
+const sf::Image& bggen::getNewBgImage(){
     return m_img;
 }
 
@@ -101,18 +111,12 @@ void bggen::drawStars(){
 
 void bggen::drawClouds(){
     sf::Color col;
-    float p1, p2, p3;
+    float p;
     for(float x = 0.0; x < m_width; x+=.99999){
         for(float y = 0.0; y < m_height; y+=.99999){
-            p1 = perlin(x - m_width,
-                        y - m_height);
-            p2 = perlin(x - (m_width / 2),
-                        y - (m_height / 2));
-            p3 = perlin(x, y);
-            col.r = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
-            col.g = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
-            col.b = p1 * 192.0 + p2 * 32.0 + p3 * 32.0;
-            //printf("%f ", p);
+            p = this->perlin(map(x, 0.0, (float)m_width, -PI, PI),
+                             map(y, 0.0, (float)m_height, -PI, PI);
+            col = sf::Color(p * 255.0, p * 255.0, p * 255.0, p * 255.0);
             m_img.setPixel(round(x), round(y), col);
         }
     }
