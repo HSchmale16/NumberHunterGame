@@ -14,8 +14,15 @@
 // ***********************************************
 // *          FILE PRIVATE FUNCTIONS             *
 // ***********************************************
+/** \brief Linerally Intepolartes some numbers
+ */
 inline float lerp(float a0, float a1, float w){
     return (1.0 - w) * a0 + w * a1;
+}
+
+template<typename TYP>
+TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax){
+    return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
 
 // ***********************************************

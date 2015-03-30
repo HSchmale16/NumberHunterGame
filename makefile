@@ -44,7 +44,7 @@ $(EXE): $(OBJ)
 	$(CXX) $(LD_FLAGS) -o $@ $(OBJ)
 
 # Build the object files
-.o:
+.cpp.o:
 	$(CXX) $(CXX_FLAGS) -o $@ $<
 
 # clean the project
