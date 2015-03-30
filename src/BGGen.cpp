@@ -19,7 +19,7 @@
 
 /** \brief Linerally Intepolartes some numbers
  */
-inline float lerp(float a0, float a1, float w){
+inline float lerp(float a0, float a1, float w) {
     return (1.0 - w) * a0 + w * a1;
 }
 
@@ -34,7 +34,7 @@ inline float lerp(float a0, float a1, float w){
  *  \note There is no input verifcation provided on the input values.
  */
 template<typename TYP>
-TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax){
+TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax) {
     return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
 
@@ -44,7 +44,7 @@ TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax){
 
 bggen::bggen(uint32_t w, uint32_t h)
     : m_thread(&bggen::threadEntryPoint, this),
-      m_width(w), m_height(h){
+      m_width(w), m_height(h) {
     hjs::logToConsole("Initialized the Background Generator Class");
     m_img.create(m_width, m_height);
     m_seed    = rand() * rand();
@@ -52,12 +52,12 @@ bggen::bggen(uint32_t w, uint32_t h)
     this->startGenerationProcess();
 }
 
-bggen::~bggen(){
+bggen::~bggen() {
 
 }
 
-int bggen::startGenerationProcess(){
-    if(m_genDone == true){
+int bggen::startGenerationProcess() {
+    if(m_genDone == true) {
         hjs::logToConsole("Started Generation Process");
         m_thread.launch();
         m_genDone = false; // Set False as now generating new image
@@ -65,19 +65,19 @@ int bggen::startGenerationProcess(){
     return 0;
 }
 
-bool bggen::getGenerationStatus(){
+bool bggen::getGenerationStatus() {
     return m_genDone;
 }
 
-const uint8_t* bggen::getNewBackground(){
-    if(m_genDone == true){
+const uint8_t* bggen::getNewBackground() {
+    if(m_genDone == true) {
         return m_img.getPixelsPtr();
-    }else{
+    } else {
         return NULL;
     }
 }
 
-const sf::Image& bggen::getNewBgImage(){
+const sf::Image& bggen::getNewBgImage() {
     return m_img;
 }
 
@@ -85,7 +85,7 @@ const sf::Image& bggen::getNewBgImage(){
 // *          CLASS PRIVATE FUNCTIONS            *
 // ***********************************************
 
-void bggen::threadEntryPoint(){
+void bggen::threadEntryPoint() {
     // clear image
     hjs::logToConsole("Starting Next Iteration of Background Generation");
     this->clearImage(); // This might not really be neccessary
@@ -95,43 +95,51 @@ void bggen::threadEntryPoint(){
     m_img.saveToFile("test.png");
 }
 
-void bggen::clearImage(){
-    for(uint32_t x = 0; x < m_width; x++){
-        for(uint32_t y = 0; y < m_height; y++){
+void bggen::clearImage() {
+    for(uint32_t x = 0; x < m_width; x++) {
+        for(uint32_t y = 0; y < m_height; y++) {
             m_img.setPixel(x, y, sf::Color::Black);
         }
     }
 }
 
-void bggen::drawPlanet(uint32_t x, uint32_t y){
+void bggen::drawPlanet(uint32_t x, uint32_t y) {
 
 }
 
-void bggen::drawStars(){
+void bggen::drawStars() {
 
 }
 
-void bggen::drawClouds(){
+void bggen::drawClouds() {
     sf::Color col;
     float p;
-    for(float x = 0.0; x < m_width; x+=.99999){
-        for(float y = 0.0; y < m_height; y+=.99999){
-            p = this->perlin(map(x, 0.0, (float)m_width, -PI, PI),
-                             map(y, 0.0, (float)m_height, -PI, PI);
-            col = sf::Color(p * 255.0, p * 255.0, p * 255.0, p * 255.0);
+    for(uint32_t x = 0.0; x < m_width; x++) {
+        for(uint32_t y = 0.0; y < m_height; y++) {
+            col =  m_img.getPixel(round(x), round(y));
+            p = this->perlin(map((double)x, 0.0, (double)m_width, -2.0 * PI, 2.0 * PI),
+                             map((double)y, 0.0, (double)m_height, 0.0, 8.0 * PI));
+            p = p * 255.0;
+            if(p > 72){
+                col += sf::Color(p*sin(map((double)x, 0.0, (double)m_width, 0.0, PI/2.0)),
+                                 p*cos(map((double)y, 0.0, (double)m_height,0.0, PI/2.0)),
+                                 p*sin(map((double)x*y, 0.0,
+                                           (double)(m_width * m_height), -PI, PI)),
+                                 p);
+            }
             m_img.setPixel(round(x), round(y), col);
         }
     }
 }
 
-float bggen::dotGridGradient(int ix, int iy, float x, float y){
+float bggen::dotGridGradient(int ix, int iy, float x, float y) {
     float dx = x - (double)(ix);
     float dy = y - (double)(iy);
 
     return (dx*Gradient[iy][ix][0] + dy*Gradient[iy][ix][1]);
 }
 
-float bggen::perlin(float x, float y){
+float bggen::perlin(float x, float y) {
     int x0   = (x > 0.0 ? (int)x : (int)x-1);
     int x1   = x0 + 1;
     int y0   = (y > 0.0 ? (int)y : (int)y-1);
