@@ -103,7 +103,7 @@ void bggen::clearImage() {
     }
 }
 
-void bggen::drawPlanet(uint32_t x, uint32_t y) {
+void bggen::drawPlanet(){
     int r  = (rand() % 50) / 2;
     int x0 = rand() % m_width;
     int y0 = rand() % m_height;

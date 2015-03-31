@@ -112,15 +112,13 @@ private:
      */
     void clearImage();
 
-    /**\brief Draws a randomly generated planet at the specified coords.
-     * \param x x-axis positions of planet, top-left corner
-     * \param y y-axis positions of planet, top-left corner
+    /**\brief Draws a randomly generated planet at a set of random coords
      *
      * This is a specialized implementation of the midpoint-circle
      * algorithm for drawing planets that are reminiscent of a
      * gas giant.
      */
-    void drawPlanet(uint32_t x, uint32_t y);
+    void drawPlanet();
 
     /**\brief Draws stars at random positions and of varying intensity
      */
