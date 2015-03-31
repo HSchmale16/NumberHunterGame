@@ -37,7 +37,7 @@ template<typename TYP>
 inline TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax) {
     return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
-/** \brief clamps some value between 2 other values */template<typename TYP>inline TYP clamp(TYP x, TYP Min, TYP Max){    if((x <= Max) && (x >= Min)){        return x;    }else if(x < Min){        return Min;    }else if(x > Max){        return Max;    }}/** \return a random value between 2 limits */template<typename TYP>inline TYP randClamped(TYP L, TYP U){    return (rand() % abs(U - L)) + L;}
+/** \brief clamps some value between 2 other values */template<typename TYP>inline TYP clamp(TYP x, TYP Min, TYP Max){    if((x <= Max) && (x >= Min)){        return x;    }else if(x < Min){        return Min;    }else if(x > Max){        return Max;    }    return Min;}/** \return a random value between 2 limits */template<typename TYP>inline TYP randClamped(TYP L, TYP U){    return (rand() % abs(U - L)) + L;}
 // ***********************************************
 // *            BGGEN IMPLEMENTATION             *
 // ***********************************************
@@ -88,7 +88,7 @@ const sf::Image& bggen::getNewBgImage() {
 void bggen::threadEntryPoint() {
     // clear image
     hjs::logToConsole("Starting Next Iteration of Background Generation");
-    this->clearImage(); // This might not really be neccessary
+    this->clearImage(); // This might not really be neccessary    this->drawStars();
     this->drawClouds();
     hjs::logToConsole("Finished Generation of New Background");
     m_genDone = true;
@@ -108,7 +108,7 @@ void bggen::drawPlanet(uint32_t x, uint32_t y) {
 }
 
 void bggen::drawStars() {
-
+    uint16_t stars = rand() % 100 + 50;    for(uint16_t i = 0; i < stars; i++){        uint8_t intensity = (rand() % 64) + 192;        uint32_t x = rand() % m_width,                 y = rand() % m_height;        sf::Color c = m_img.getPixel(x, y);        sf::Color n(intensity, intensity, intensity, 255);        sf::Color m = c + n;        m_img.setPixel(x, y, m);        m_img.setPixel(x, y + 1, m);        m_img.setPixel(x, y - 1, m);        m_img.setPixel(x + 1, y, m);        m_img.setPixel(x - 1, y, m);        n = sf::Color(intensity * .5, intensity * .5, intensity *.5, intensity);        m = c + n;        m_img.setPixel(x + 1, y + 1, m);        m_img.setPixel(x + 1, y - 1, m);        m_img.setPixel(x - 1, y + 1, m);        m_img.setPixel(x - 1, y - 1, m);    }
 }
 
 void bggen::drawClouds() {
