@@ -128,7 +128,7 @@ void bggen::drawClouds() {
                                  p*cos(map((double)x-y, 0.0,                                           double(m_width + m_height), 0.0, PI/2.0)));
             }
             m_img.setPixel(round(x), round(y), col);        }
-    }#else    sf::Image tile;    if(!tile.loadFromFile(CLOUDS_IMG)){        hjs::logToConsole("Failed to load Clouds Tile");        return;    }#endif // USE_PROCEDURAL_GEN
+    }#else    sf::Image tile;    if(!tile.loadFromFile(CLOUDS_IMG)){        hjs::logToConsole("Failed to load Clouds Tile");        return;    }    // rotate the image    if(rand() % 2 == 0){        tile.flipHorizontally();    }    for(uint32_t x = 0; x < m_width; x += tile.getSize().x){        for(uint32_t y = 0; y < m_height; y += tile.getSize().y){            m_img.copy(tile, x, y, sf::IntRect(), true);        }    }#endif // USE_PROCEDURAL_GEN
 }
 
 float bggen::dotGridGradient(int ix, int iy, float x, float y) {
