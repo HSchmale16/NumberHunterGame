@@ -16,7 +16,7 @@
 // ***********************************************
 
 #define PI 3.14159265
-
+#define CLOUDS_IMG resources/Clouds.png
 /** \brief Linerally Intepolartes some numbers
  */
 inline float lerp(float a0, float a1, float w) {
