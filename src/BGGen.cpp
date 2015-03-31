@@ -104,7 +104,23 @@ void bggen::clearImage() {
 }
 
 void bggen::drawPlanet(uint32_t x, uint32_t y) {
-
+    int r  = (rand() % 50) / 2;
+    int x0 = rand() % m_width;
+    int y0 = rand() % m_height;
+    int x  = r;
+    int y  = 0;
+    int rE = 1 - x;
+    while(x >= y){
+        // Draw the Planet's Colors using a random stripe algorithim
+        // DrawStripe(x + x0, y + y0);
+        y++;
+        if(rE < 0){
+            rE += 2*y+1;
+        }else{
+            x--;
+            rE += 2*(y - x) + 1;
+        }
+    }
 }
 
 void bggen::drawStars() {
