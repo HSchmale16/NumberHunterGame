@@ -34,10 +34,10 @@ inline float lerp(float a0, float a1, float w) {
  *  \note There is no input verifcation provided on the input values.
  */
 template<typename TYP>
-TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax) {
+inline TYP map(TYP x, TYP inMin, TYP inMax, TYP outMin, TYP outMax) {
     return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
-
+/** \brief clamps some value between 2 other values */template<typename TYP>inline TYP clamp(TYP x, TYP Min, TYP Max){    if((x <= Max) && (x >= Min)){        return x;    }else if(x < Min){        return Min;    }else if(x > Max){        return Max;    }}/** \return a random value between 2 limits */template<typename TYP>inline TYP randClamped(TYP L, TYP U){    return (rand() % abs(U - L)) + L;}
 // ***********************************************
 // *            BGGEN IMPLEMENTATION             *
 // ***********************************************
@@ -113,19 +113,19 @@ void bggen::drawStars() {
 
 void bggen::drawClouds() {
     sf::Color col;
-    float p;
+    double p,           minThresh = randClamped(0, 32),           maxThresh = randClamped(32, 192),           dThresh   = randClamped(minThresh, maxThresh);
     for(uint32_t x = 0.0; x < m_width; x++) {
         for(uint32_t y = 0.0; y < m_height; y++) {
             col =  m_img.getPixel(round(x), round(y));
             p = this->perlin(map((double)x, 0.0, (double)m_width, -2.0 * PI, 2.0 * PI),
-                             map((double)y, 0.0, (double)m_height, 0.0, 8.0 * PI));
-            p = p * 255.0;
-            if(p > 72){
+                             map((double)y, 0.0, (double)m_height, PI, 9.0 * PI));
+            p = clamp(p * 255.0, minThresh, maxThresh);
+            if(p > dThresh){
                 col += sf::Color(p*sin(map((double)x, 0.0, (double)m_width, 0.0, PI/2.0)),
                                  p*cos(map((double)y, 0.0, (double)m_height,0.0, PI/2.0)),
-                                 p*sin(map((double)x*y, 0.0,
-                                           (double)(m_width * m_height), -PI, PI)),
-                                 p);
+                                 p*sin(map((double)y+x, 0.0,
+                                           (double)(m_width * m_height), 0.0, PI/2.0)),
+                                 p*cos(map((double)x-y, 0.0,                                           double(m_width + m_height), 0.0, PI/2.0)));
             }
             m_img.setPixel(round(x), round(y), col);
         }
