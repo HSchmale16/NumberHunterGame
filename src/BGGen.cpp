@@ -110,9 +110,13 @@ void bggen::drawPlanet(uint32_t x, uint32_t y) {
     int x  = r;
     int y  = 0;
     int rE = 1 - x;
+    // A variant of the midpoint circle algorithm
     while(x >= y){
         // Draw the Planet's Colors using a random stripe algorithim
-        // DrawStripe(x + x0, y + y0);
+        // DrawStripe(x + x0, y + y0, -x + y0,  y + y0);
+        // DrawStripe(x + x0, y - y0, -x + y0, -y + y0);
+        // DrawStripe(y + x0, x + y0, -y + y0,  x + y0);
+        // DrawStripe(y + x0, x - y0, -y + y0, -x + x0);
         y++;
         if(rE < 0){
             rE += 2*y+1;
