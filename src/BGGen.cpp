@@ -89,7 +89,7 @@ void bggen::threadEntryPoint() {
     // clear image
     hjs::logToConsole("Starting Next Iteration of Background Generation");
     this->clearImage(); // This might not really be neccessary    this->drawStars();
-    this->drawClouds();
+    this->drawClouds();    this->drawStars();
     hjs::logToConsole("Finished Generation of New Background");
     m_genDone = true;
     m_img.saveToFile("test.png");
@@ -108,7 +108,7 @@ void bggen::drawPlanet(uint32_t x, uint32_t y) {
 }
 
 void bggen::drawStars() {
-    uint16_t stars = rand() % 100 + 50;    for(uint16_t i = 0; i < stars; i++){        uint8_t intensity = (rand() % 64) + 192;        uint32_t x = rand() % m_width,                 y = rand() % m_height;        sf::Color c = m_img.getPixel(x, y);        sf::Color n(intensity, intensity, intensity, 255);        sf::Color m = c + n;        m_img.setPixel(x, y, m);        m_img.setPixel(x, y + 1, m);        m_img.setPixel(x, y - 1, m);        m_img.setPixel(x + 1, y, m);        m_img.setPixel(x - 1, y, m);        n = sf::Color(intensity * .5, intensity * .5, intensity *.5, intensity);        m = c + n;        m_img.setPixel(x + 1, y + 1, m);        m_img.setPixel(x + 1, y - 1, m);        m_img.setPixel(x - 1, y + 1, m);        m_img.setPixel(x - 1, y - 1, m);    }
+    uint16_t stars = rand() % 100 + 50;    for(uint16_t i = 0; i < stars; i++){        uint8_t intensity = (rand() % 64) + 192;        uint32_t x = rand() % m_width,                 y = rand() % m_height;        sf::Color c = m_img.getPixel(x, y);        sf::Color n(intensity, intensity, intensity, 255);        sf::Color m = c + n;        m_img.setPixel(x, y, m);        m_img.setPixel(x, y + 1, m);        m_img.setPixel(x, y - 1, m);        m_img.setPixel(x + 1, y, m);        m_img.setPixel(x - 1, y, m);        n = sf::Color(intensity * .25, intensity * .25, intensity *.25, intensity * .25);        m = c + n;        m_img.setPixel(x + 1, y + 1, m);        m_img.setPixel(x + 1, y - 1, m);        m_img.setPixel(x - 1, y + 1, m);        m_img.setPixel(x - 1, y - 1, m);    }
 }
 
 void bggen::drawClouds() {
