@@ -16,7 +16,7 @@
 // ***********************************************
 
 #define PI 3.14159265
-#define CLOUDS_IMG resources/Clouds.png
+#define CLOUDS_IMG "resources/Clouds.png"
 /** \brief Linerally Intepolartes some numbers
  */
 inline float lerp(float a0, float a1, float w) {
@@ -112,7 +112,7 @@ void bggen::drawStars() {
 }
 
 void bggen::drawClouds() {
-    sf::Color col;
+    sf::Color col;#ifdef USE_PROCEDURAL_GEN
     double p,           minThresh = randClamped(0, 32),           maxThresh = randClamped(32, 192),           dThresh   = randClamped(minThresh, maxThresh);
     for(uint32_t x = 0.0; x < m_width; x++) {
         for(uint32_t y = 0.0; y < m_height; y++) {
@@ -127,9 +127,8 @@ void bggen::drawClouds() {
                                            (double)(m_width * m_height), 0.0, PI/2.0)),
                                  p*cos(map((double)x-y, 0.0,                                           double(m_width + m_height), 0.0, PI/2.0)));
             }
-            m_img.setPixel(round(x), round(y), col);
-        }
-    }
+            m_img.setPixel(round(x), round(y), col);        }
+    }#else    sf::Image tile;    if(!tile.loadFromFile(CLOUDS_IMG)){        hjs::logToConsole("Failed to load Clouds Tile");        return;    }#endif // USE_PROCEDURAL_GEN
 }
 
 float bggen::dotGridGradient(int ix, int iy, float x, float y) {
