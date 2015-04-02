@@ -5,8 +5,8 @@ A game about collecting numbers that meet a certain condition.
 This game uses the following resources
 * SFML 2.1 created by Laurent Gomila
 * INIH available from here: http://code.google.com/p/inih/
-* A generic laser sound effect from soundbible.com
-* Xolonium Font available on dafont.com
+* A generic laser sound effect from www.soundbible.com
+* Xolonium Font available on www.dafont.com
 
 ## Music ##
 * "Space Fighter Loop"
