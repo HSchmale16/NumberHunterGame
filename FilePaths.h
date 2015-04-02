@@ -1,9 +1,11 @@
-/** FilePaths.h
-*   Contains #define'd relative file path strings to load resources for game
-*	@note if you're using GCC use (/) to indicate path
-*   @author Henry Schmale
-*   @date 9/26/2014
-*/
+/**@file FilePaths.h
+ * @author Henry Schmale
+ * @date 9/26/2014
+ * @brief Contains #define'd relative file path strings to load resources for game
+ * @note if you're using GCC use (/) to indicate path, also Windows is stupid for using
+ *       using backslash to denote directory structure as it's the same character used
+ *       for escaping strings.
+ */
 
 #ifndef FILEPATHS_H_INCLUDED
 #define FILEPATHS_H_INCLUDED
