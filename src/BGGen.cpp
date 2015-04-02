@@ -125,6 +125,12 @@ void bggen::drawPlanet(){
             rE += 2*(y - x) + 1;
         }
     }
+
+}
+
+void bggen::drawPlanetStripe(PLANET_TYPE t, uint32_t x0, uint32_t y0, uint32_t width)
+{
+
 }
 
 void bggen::drawStars() {
