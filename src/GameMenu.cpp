@@ -1,7 +1,11 @@
-/** Game Menu Class Implementation
- * @author Henry Schmale
- * @date October 10, 2014
- * @file src/GameMenu.cpp
+/**\brief Game Menu Class Implementation
+ * \author Henry Schmale
+ * \date October 10, 2014
+ * \file src/GameMenu.cpp
+ * 
+ * This is the menu that appears before the game starts, this is shown in a seperate
+ * window from the game and is closed when either the play or quit option is selected.
+ * This class handles every thing before the game starts.
  */
 
 #include <string>
@@ -13,9 +17,8 @@
 
 // is the windows platform targeted this part of the code is windows only
 #ifdef WINDOWS_PLATFORM_TARGETED
-#include <windows.h>
-static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=1&diff=0";	// URL to goto for website
-// if the build platform is
+    #include <windows.h>
+    static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=1&diff=0";	// URL to goto for website
 #endif // WINDOWS_PLATFORM_TARGETED
 
 // Menu configuration object
@@ -96,7 +99,7 @@ GameMenu::GameMenu()
 #ifdef TSA_BUILD
     m_creditText.setString("CREDITS\nThis is the TSA Build of the\ngame and is not meant for\npublic distribution\n\nFont by: Severin Meyer\n\nLibrary Credits:\nINIH by benh...@gmail.com\nSFML by Laurent Gomez");
 #else
-    m_creditText.setString("Credits\nProgrammed By: Henry Schmale\nArtwork by: <PARTNER NAME>\n\nFont by: Severin Meyer\n\nLibrary Credits:\nINIH by benh...@gmail.com\nSFML by Laurent Gomez");
+    m_creditText.setString("Credits\nProgrammed By: Henry Schmale\nArtwork by: Matt Krammer\n\nFont by: Severin Meyer\n\nLibrary Credits:\nINIH by benh...@gmail.com\nSFML by Laurent Gomez");
 #endif
 
     // init version text
