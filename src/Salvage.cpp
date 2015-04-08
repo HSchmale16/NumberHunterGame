@@ -5,6 +5,7 @@
  */
 
 #include "../include/Salvage.h"
+#include "../include/GameMenu.h"   // For access to the GameDifficulty type
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
 #include <math.h>	// for rand
@@ -12,6 +13,8 @@
 
 #define TEXT_X_OFFSET 5
 #define TEXT_Y_OFFSET 5
+
+extern GameDifficulty DIFFICULTY; // Declared in main.cpp
 
 static inline float floatMod(float val, int r)
 {
