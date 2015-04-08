@@ -1,14 +1,15 @@
-/** FilePaths.h
-*   Contains #define'd relative file path strings to load resources for game
-*	@note if you're using GCC use (/) to indicate path
-*   @author Henry Schmale
-*   @date 9/26/2014
-*/
+/**\file FilePaths.h
+ *  Contains define'd relative file path strings to load resources 
+ *   for game
+ *	@note if you're using GCC use (/) to indicate path
+ *   @author Henry Schmale
+ *   @date 9/26/2014
+ */
 
 #ifndef FILEPATHS_H_INCLUDED
 #define FILEPATHS_H_INCLUDED
 
-/** Tell where the config files are located */
+/* Tell where the config files are located */
 #define CONFIG_FILE "resources/TSA_GAME.ini"			// the main config for game options
 #define MENU_CONFIG_FILE "resources/MenuConfig.ini"		// config file strictly for the menu
 #define LEVEL_CONFIG_FILE "resources/LevelConfig.ini"	// config file for strictly levels
@@ -16,7 +17,8 @@
 /** Tell where the window icon is located */
 #define ICON "resources/img/Icon.png"
 
-/** Define Textures used in game and their relative path from the working directory
+/* Define Textures used in game and their relative path 
+ * from the working directory
  */
 // BG Plasma Texture
 #define BG_PLASMA_TEX "resources/img/BG_PlasmaClouds.png"

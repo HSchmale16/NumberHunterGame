@@ -54,31 +54,33 @@ public:
     std::string getPlayerName();
 protected:
 private:
-    sf::RenderWindow menuWindow;
-    sf::RectangleShape m_RsBg;			// background sprite
-    std::string m_pname;
+    sf::RenderWindow menuWindow;        //!< Window menu is displayed in
+    sf::RectangleShape m_RsBg;			//!< background sprite
+    sf::RectangleShape m_HowToImg;      //!< The How to sprite, shows how to play
+    std::string m_pname;                //!< Player Name
 
-    sf::Font font;						// font used for text
+    sf::Font font;						//!< font used for text
 
     // Texture Assets
-    sf::Texture m_texBG;      // texture for menu background
-    sf::Texture m_texPlay;    // texture for play button4
-    sf::Texture m_texEasy;    // Texture for easy diff button
-    sf::Texture m_texMed;     // Texture for medium diff button
-    sf::Texture m_texHard;    // Texture for hard diff button
+    sf::Texture m_texBG;                //!< texture for menu background
+    sf::Texture m_texPlay;              //!< texture for play button4
+    sf::Texture m_texEasy;              //!< Texture for easy diff button
+    sf::Texture m_texMed;               //!< Texture for medium diff button
+    sf::Texture m_texHard;              //!< Texture for hard diff button
+    sf::Texture m_texHowTo;             //!< The How To Texture
 
     // buttons
-    MenuButton *m_mbPlay;     // play button
-    MenuButton *m_mbCredits;  // Credits Button
-    MenuButton *m_mbExit;     // exit button
-    MenuButton *m_mbDifficulty;	// Difficulty Selection Button
-    MenuButton *m_mbBack;     // back button to exit from credits screen and return to main menu;
-    MenuButton *m_mbHighScores;	// button to go to highscores page in browser
+    MenuButton *m_mbPlay;               //!< play button
+    MenuButton *m_mbCredits;            //!< Credits Button
+    MenuButton *m_mbExit;               //!< exit button
+    MenuButton *m_mbDifficulty;        	//!< Difficulty Selection Button
+    MenuButton *m_mbBack;               //!< back button to exit from credits screen and return to main menu;
+    MenuButton *m_mbHighScores;	        //!< button to go to highscores page in browser
 
     // Text Objects
-    sf::Text m_creditText;	// text to hold credits
-    sf::Text m_versionText;	// text to hold version information on main screen
-    sf::Text m_playerName;	// text that holds player name
+    sf::Text m_creditText;	            //!< text to hold credits
+    sf::Text m_versionText;	            //!< text to hold version information on main screen
+    sf::Text m_playerName;	            //!< text that holds player name
 
     // Menu Music
     sf::Music m_menuMusic;
@@ -87,8 +89,8 @@ private:
     MenuRetType m_mrt;
 
     // private member functions
-    void incrementDifficulty();	// increments the selected difficulty on m_mrt struct and updates the difficulty selection button
-    void enterName();			// prompts the player for their name
+    void incrementDifficulty();	       //!< increments the selected difficulty on m_mrt struct and updates the difficulty selection button
+    void enterName();                  //!< prompts the player for their name
 };
 
 #endif // GAMEMENU_H

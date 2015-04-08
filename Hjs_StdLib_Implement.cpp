@@ -1,7 +1,7 @@
 /** @brief  Implementation of my StdLib
  *  @author Henry J Schmale
  *  @date   Sept 25, 2014
- *  @file   Hjs_StdLib_Impelement.cpp
+ *  @file   Hjs_StdLib_Implement.cpp
  *
  *  This has no class implementation just the implementation of functions
  *  defined in `Hjs_StdLib.h`. These are mostly general functions for

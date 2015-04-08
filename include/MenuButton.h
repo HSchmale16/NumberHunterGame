@@ -2,7 +2,7 @@
  * Controls the menu and has a function that will return true if that instance was clicked
  * @author Henry Schmale
  * @date October 10, 2014
- * @file include\MenuButton.h
+ * @file MenuButton.h
  */
 
 #ifndef MENUBUTTON_H
