@@ -1,7 +1,7 @@
-/** The implementation of the Salvage class
+/**\brief  The implementation of the Salvage class
  * @author Henry J Schmale
- * @date October 2, 2014
- * @file src/Salvage.cpp
+ * @date   October 2, 2014
+ * @file   src/Salvage.cpp
  */
 
 #include "../include/Salvage.h"
@@ -15,6 +15,13 @@
 #define TEXT_Y_OFFSET 5
 
 extern GameDifficulty DIFFICULTY; // Declared in main.cpp
+
+//!< number of values inside of the KNOWN_PRIMES list
+static const int SZ_KNOWNPRIMES = 26;
+
+//!< A list of known primes
+static const int KNOWN_PRIMES[] = { 2,  3,  5,  7, 11, 13, 17, 19, 23, 29, 31, 37,
+                                   41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 
 static inline float floatMod(float val, int r)
 {
@@ -181,4 +188,8 @@ int Salvage::getValue(int index)
 int Salvage::getCount()
 {
     return SALVAGE_OBJECT_COUNT;
+}
+
+void Salvage::randNum(int i){
+
 }
