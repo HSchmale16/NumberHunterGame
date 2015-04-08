@@ -1,7 +1,7 @@
 /** The player class implementation
  * \author Henry J Schmale
  * \date September 18, 2014
- * \file src\Player.cpp
+ * \file Player.cpp
  */
 
 #include "../include/Player.h"

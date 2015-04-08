@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**@file FilePaths.h
  * @author Henry Schmale
  * @date 9/26/2014
@@ -5,21 +6,37 @@
  * @note if you're using GCC use (/) to indicate path, also Windows is stupid for using
  *       using backslash to denote directory structure as it's the same character used
  *       for escaping strings.
+=======
+/**\file FilePaths.h
+ *  Contains define'd relative file path strings to load resources 
+ *   for game
+ *	@note if you're using GCC use (/) to indicate path
+ *   @author Henry Schmale
+ *   @date 9/26/2014
+>>>>>>> 7c4115d7db83b87d29107bbed0128dc1e9c0a970
  */
 
 #ifndef FILEPATHS_H_INCLUDED
 #define FILEPATHS_H_INCLUDED
 
+<<<<<<< HEAD
 /** Tell where the config files are located */
 #define CONFIG_FILE       "resources/TSA_GAME.ini"	  // the main config for game options
 #define MENU_CONFIG_FILE  "resources/MenuConfig.ini"  // config file strictly for the menu
 #define LEVEL_CONFIG_FILE "resources/LevelConfig.ini" // config file for strictly levels
 #define BGGEN_CFG_FILE    "resources/BGGEN.ini"       // cfg for the background generator
+=======
+/* Tell where the config files are located */
+#define CONFIG_FILE "resources/TSA_GAME.ini"			// the main config for game options
+#define MENU_CONFIG_FILE "resources/MenuConfig.ini"		// config file strictly for the menu
+#define LEVEL_CONFIG_FILE "resources/LevelConfig.ini"	// config file for strictly levels
+>>>>>>> 7c4115d7db83b87d29107bbed0128dc1e9c0a970
 
 /** Tell where the window icon is located */
 #define ICON "resources/img/Icon.png"
 
-/** Define Textures used in game and their relative path from the working directory
+/* Define Textures used in game and their relative path 
+ * from the working directory
  */
 // BG Plasma Texture
 #define BG_PLASMA_TEX      "resources/img/BG_PlasmaClouds.png"
