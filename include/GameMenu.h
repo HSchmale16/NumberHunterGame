@@ -56,7 +56,8 @@ protected:
 private:
     sf::RenderWindow menuWindow;        //!< Window menu is displayed in
     sf::RectangleShape m_RsBg;			//!< background sprite
-    std::string m_pname;
+    sf::RectangleShape m_HowToImg;      //!< The How to sprite, shows how to play
+    std::string m_pname;                //!< Player Name
 
     sf::Font font;						//!< font used for text
 
@@ -66,6 +67,7 @@ private:
     sf::Texture m_texEasy;              //!< Texture for easy diff button
     sf::Texture m_texMed;               //!< Texture for medium diff button
     sf::Texture m_texHard;              //!< Texture for hard diff button
+    sf::Texture m_texHowTo;             //!< The How To Texture
 
     // buttons
     MenuButton *m_mbPlay;               //!< play button
