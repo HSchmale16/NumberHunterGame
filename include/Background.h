@@ -1,7 +1,7 @@
 /** Background Class Declaration
  * @author Henry Schmale
  * @date October 7, 2014
- * @file include\Background.h
+ * @file Background.h
  */
 
 #ifndef BACKGROUND_H

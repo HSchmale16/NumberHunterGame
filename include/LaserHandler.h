@@ -2,7 +2,7 @@
  * Handles the laser bolts and reInits them on keypress
  * @author Henry Schmale
  * @date October 14,2014
- * @file include\LaserHandler.h
+ * @file LaserHandler.h
  */
 
 #ifndef LASERHANDLER_H
@@ -18,7 +18,10 @@
 class LaserHandler: public sf::Drawable
 {
 public:
+    /**\brief Default Constructor */ 
     LaserHandler();
+
+    /**\brief Destructor */
     virtual ~LaserHandler();
 
     // Handles Laser Object Events

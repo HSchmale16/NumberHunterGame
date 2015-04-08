@@ -24,14 +24,34 @@ public:
     UI();
     virtual ~UI();
 
-    void Reset();									/// Reset this object to defaults
-    void setNewCondition();							/// Selects a new condition randomly
-    void setCondition(SalvCondition condition); 	/// selects a certain type for target salvage
-    void addPoints(int points);						/// adds @param points to m_nScore and updates ScoreText
-    void updateHealth(int n);						/// updates the health of the player
+    /**\brief Reset this object back to default values
+     */
+    void Reset();
+    
+    /**\brief Selects a new **random** condition for good salvage
+     */
+    void setNewCondition();
+    
+    /**\brief Sets a random condition based on the SalvConditon passed
+     * \param condition The Salvage Condition
+     */ 
+    void setCondition(SalvCondition condition);
+    
+    /**\brief Adds/Subtracts Points from the current score
+     * \param points How many points to give or take.
+     */
+    void addPoints(int points);
+
+    /**\brief Updates the points of player's health
+     * \param n The delta in health between then and now
+     */
+    void updateHealth(int n);
     void resetHealth();								/// reset the health of the player
 
-    bool isSalvValGood(int val);					/// checks if @param val meets current required condition
+    /**\brief Checks if the value of a salvage object meets the condition
+     * \param val the value of checked salvage object
+     */
+    bool isSalvValGood(int val);
     int getScore();									/// gets the current score
 protected:
 private:

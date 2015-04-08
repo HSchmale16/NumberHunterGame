@@ -2,7 +2,7 @@
  * Controls the player object
  * \author Henry J Schmale
  * \date September 18, 2014
- * \file include\Player.h
+ * \file Player.h
  */
 
 #ifndef PLAYER_H
