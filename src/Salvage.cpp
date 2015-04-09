@@ -126,7 +126,7 @@ void Salvage::ReInit(int i)
     m_fYCoord[i] = -20;
     m_fSpeed[i] = 2 * ((rand() % 1000 + 150) / 1000 + .15);
     // Salvage Value
-    m_Value[i] = rand() % 100;
+    this->randNum(i);
     char numStr[3];
     sprintf(numStr, "%d", m_Value[i]);
     m_TextField[i].setString(numStr);
@@ -149,9 +149,11 @@ bool Salvage::hitTest(int index, Player& p)
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
     // modified by HSchmale for use in this game
     return (
-               (( m_fXCoord[index] + m_fSideLength[index] >= p.getXCoord()) && (m_fXCoord[index] <= p.getXCoord() + p.getSideLength()))
+               (( m_fXCoord[index] + m_fSideLength[index] >= p.getXCoord())
+                  && (m_fXCoord[index] <= p.getXCoord() + p.getSideLength()))
                &&
-               (( m_fYCoord[index] + m_fSideLength[index] >= p.getYCoord()) && (m_fYCoord[index] <= p.getYCoord() + p.getSideLength()))
+               (( m_fYCoord[index] + m_fSideLength[index] >= p.getYCoord())
+                  && (m_fYCoord[index] <= p.getYCoord() + p.getSideLength()))
            );
 }
 
@@ -191,5 +193,10 @@ int Salvage::getCount()
 }
 
 void Salvage::randNum(int i){
-
+    int chance = rand() % 3;
+    if(chance == 2){ // 25 % chance of prime
+        m_Value[i] = KNOWN_PRIMES[rand() % SZ_KNOWNPRIMES];
+    }else{
+        m_Value[i] = rand() % 100;
+    }
 }
