@@ -1,10 +1,11 @@
-/** The implementation of the Salvage class
+/**\brief  The implementation of the Salvage class
  * @author Henry J Schmale
- * @date October 2, 2014
- * @file src/Salvage.cpp
+ * @date   October 2, 2014
+ * @file   src/Salvage.cpp
  */
 
 #include "../include/Salvage.h"
+#include "../include/GameMenu.h"   // For access to the GameDifficulty type
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
 #include <math.h>	// for rand
@@ -12,6 +13,15 @@
 
 #define TEXT_X_OFFSET 5
 #define TEXT_Y_OFFSET 5
+
+extern GameDifficulty DIFFICULTY; // Declared in main.cpp
+
+//!< number of values inside of the KNOWN_PRIMES list
+static const int SZ_KNOWNPRIMES = 26;
+
+//!< A list of known primes
+static const int KNOWN_PRIMES[] = { 2,  3,  5,  7, 11, 13, 17, 19, 23, 29, 31, 37,
+                                   41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 
 static inline float floatMod(float val, int r)
 {
@@ -116,7 +126,7 @@ void Salvage::ReInit(int i)
     m_fYCoord[i] = -20;
     m_fSpeed[i] = 2 * ((rand() % 1000 + 150) / 1000 + .15);
     // Salvage Value
-    m_Value[i] = rand() % 100;
+    this->randNum(i);
     char numStr[3];
     sprintf(numStr, "%d", m_Value[i]);
     m_TextField[i].setString(numStr);
@@ -139,9 +149,11 @@ bool Salvage::hitTest(int index, Player& p)
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
     // modified by HSchmale for use in this game
     return (
-               (( m_fXCoord[index] + m_fSideLength[index] >= p.getXCoord()) && (m_fXCoord[index] <= p.getXCoord() + p.getSideLength()))
+               (( m_fXCoord[index] + m_fSideLength[index] >= p.getXCoord())
+                  && (m_fXCoord[index] <= p.getXCoord() + p.getSideLength()))
                &&
-               (( m_fYCoord[index] + m_fSideLength[index] >= p.getYCoord()) && (m_fYCoord[index] <= p.getYCoord() + p.getSideLength()))
+               (( m_fYCoord[index] + m_fSideLength[index] >= p.getYCoord())
+                  && (m_fYCoord[index] <= p.getYCoord() + p.getSideLength()))
            );
 }
 
@@ -178,4 +190,13 @@ int Salvage::getValue(int index)
 int Salvage::getCount()
 {
     return SALVAGE_OBJECT_COUNT;
+}
+
+void Salvage::randNum(int i){
+    int chance = rand() % 3;
+    if(chance == 2){ // 25 % chance of prime
+        m_Value[i] = KNOWN_PRIMES[rand() % SZ_KNOWNPRIMES];
+    }else{
+        m_Value[i] = rand() % 100;
+    }
 }

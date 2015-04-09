@@ -42,6 +42,16 @@ private:
     sf::Texture *m_tex;          // Texture
     sf::Text *m_TextField;
     sf::Font font;
+
+    // Private Functions
+    /**\brief recalculates the value of the specified index, and perform this based off
+     *        of the difficulty of the game.
+     * \param i The index of salvage to reinit
+     *
+     * This uses a list of known prime numbers to select prime numbers roughly 25% of the
+     * time.
+     */
+    void randNum(int i);
 };
 
 #endif // SALVAGE_H
