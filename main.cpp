@@ -4,7 +4,7 @@
  * @file main.cpp
  *
  * \mainpage Number Hunter Game
- * 
+ *
  * \section intro_sec Introduction
  * This is a game about collecting numbers that meet a certain
  * condition. Additionally, this game is designed to be easily
@@ -14,6 +14,9 @@
  * You don't. You simply run the program from the working directory
  * making sure that you have all of the required files in the
  * resources folder.
+ *
+ * \section How To Play
+ *
  */
 
 #include <iostream>	            // for cout

@@ -27,21 +27,21 @@ public:
 protected:
 private:
     // Variables
-    uint_fast8_t SALVAGE_OBJECT_COUNT;
-    float *m_fSideLength;		//!< Length of sides
-    float *m_fXCoord;			//!< Coords
-    float *m_fYCoord;
-    float *m_fSpeed;			//!< Speed of movement
-    uint_fast8_t *m_Value;		//!< Collection Value of this
-    float *m_rotation;          //!< Current Rotation
-    float *m_rotRate;           //!< Rotation Rate
+    uint_fast8_t       SALVAGE_OBJECT_COUNT; //!< Number of salvage objects
+    float              *m_fSideLength;       //!< Length of sides
+    float              *m_fXCoord;           //!< X Coordinates - top left corner
+    float              *m_fYCoord;           //!< Y Coordinates - top left corner
+    float              *m_fSpeed;            //!< Speed of movement
+    uint_fast8_t       *m_Value;             //!< Collection Value of this
+    float              *m_rotation;          //!< Current Rotation
+    float              *m_rotRate;           //!< Rotation Rate
 
     // Graphics Handling
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
-    sf::RectangleShape *m_shape; // BG
-    sf::Texture *m_tex;          // Texture
-    sf::Text *m_TextField;
-    sf::Font font;
+    sf::RectangleShape *m_shape;             //!< The primary shape of salvage or sprite
+    sf::Texture        *m_tex;               //!< Texture used in m_shape
+    sf::Text           *m_TextField;         //!< Text field to display value of salvage
+    sf::Font           font;                 //!< Font used for displaying text
 
     // Private Functions
     /**\brief recalculates the value of the specified index, and perform this based off
