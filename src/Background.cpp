@@ -38,7 +38,9 @@ Background::Background()
     if(!m_bgMusic.openFromFile(GM_MUSIC)) {
         hjs::logToConsole("Failed to Load Music");
     } else {
+        hjs::logToConsole("Loaded Gameplay background music");
         m_bgMusic.setLoop(true);
+        m_bgMusic.setVolume(50.0);
         m_bgMusic.play();
     }
 }

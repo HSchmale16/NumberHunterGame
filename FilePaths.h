@@ -43,6 +43,7 @@
 // Laser Sound
 #define LASER_SOUND        "resources/sounds/Laser.wav"
 #define EXPLOSION_SND      "resources/sounds/bomb-02.ogg"
+#define BAD_BUZZ_SND       "resources/sounds/Buzzer-SoundBible.com-188422102.wav"
 
 // Game Music
 #define GM_MUSIC           "resources/sounds/Space_Fighter_Loop.ogg"

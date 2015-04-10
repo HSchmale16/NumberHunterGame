@@ -63,10 +63,12 @@ LevelHandler *levels;
 MenuRetType *menuRet;
 
 // Sound Stuff
-sf::SoundBuffer explosionSND;
-sf::SoundBuffer wrongSND;
-sf::Sound       hitAsteroid; //!< Sound to play on hit asteroid
-sf::Sound       badSalvage;  //!< Sound to play when collect bad salvage
+sf::SoundBuffer explosionSND; //!< Buff for explosion sound
+sf::SoundBuffer wrongSND;     //!< Buff for wrong salvage collected
+sf::SoundBuffer rightSND;     //!< Buff for sound played when correct salvage collected
+
+sf::Sound       hitAsteroid;  //!< Sound to play on hit asteroid
+sf::Sound       badSalvage;   //!< Sound to play when collect bad salvage
 
 // Declare Threads and Entry Points
 void render()	// rendering thread entry point
@@ -123,6 +125,7 @@ void handleObjectEvents()	// object event thread entry point
                     else	// the salvage doesn't meet the specified condition so you lose points
                     {
                         /// @todo add a boom sound
+                        badSalvage.play();
                         Points += PTS_BAD_SALVAGE;
                         myUI->updateHealth(-1);
                     }
@@ -138,8 +141,8 @@ void handleObjectEvents()	// object event thread entry point
                 bool hit = asteroid->hitTestPlayer(i, *player);
                 if(hit)
                 {
-                    hitAsteroid.play();
-                    Points += PTS_HIT_ASTEROID;			// lose points for hitting an asteroid
+                    hitAsteroid.play();            // Play the blow up sound
+                    Points += PTS_HIT_ASTEROID;    // lose points for hitting an asteroid
                     myUI->updateHealth(-5);
                     levels->addKilledAsteroids(1);
                     asteroid->ReInit(i);
@@ -328,8 +331,16 @@ int loadOtherGameSnds(){
         hjs::logToConsole("Couldn't load: "
                           EXPLOSION_SND); // this works because the macro has quotes
         rc = 1;
+    }else{
+        hjs::logToConsole("Loaded" EXPLOSION_SND);
+    }
+    if(!wrongSND.loadFromFile(BAD_BUZZ_SND)){
+        hjs::logToConsole("Couldn't Load: "
+                          BAD_BUZZ_SND);
+        rc = 1;
     }
     // Set Buffers
+    badSalvage.setBuffer(wrongSND);
     hitAsteroid.setBuffer(explosionSND);
-    return 0;
+    return rc;
 }
