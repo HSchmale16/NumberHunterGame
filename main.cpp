@@ -16,12 +16,13 @@
  * resources folder.
  *
  * \section How To Play
- *
+ * Arrow Keys to move. Space to shoot
  */
 
 #include <iostream>	            // for cout
 #include <SFML/System.hpp>      // for threading
 #include <SFML/Graphics.hpp>    // for windowing
+#include <SFML/Audio.hpp>
 #include "Hjs_StdLib.h"         // My STD LIB
 #include "version.h"            // for versioning information
 #include "config.h"             // for game configuration
@@ -61,6 +62,15 @@ GameMenu *gmMenu;
 LevelHandler *levels;
 MenuRetType *menuRet;
 
+// Sound Stuff
+sf::SoundBuffer explosionSND; //!< Buff for explosion sound
+sf::SoundBuffer wrongSND;     //!< Buff for wrong salvage collected
+sf::SoundBuffer rightSND;     //!< Buff for sound played when correct salvage collected
+
+sf::Sound       hitAsteroid;  //!< Sound to play on hit asteroid
+sf::Sound       badSalvage;   //!< Sound to play when collect bad salvage
+sf::Sound       goodSalvage;  //!< Sound to play on collect good salvage
+
 // Declare Threads and Entry Points
 void render()	// rendering thread entry point
 {
@@ -97,6 +107,9 @@ void handleObjectEvents()	// object event thread entry point
             salv->Move();
             asteroid->Move();
             int Points = lHandler->handleEvents(player, salv, asteroid);// laser hit test
+            if(Points){
+
+            }
             // update level handler on killed asteroids
             levels->addKilledAsteroids(lHandler->getAsteroidsDestroyedThisIter());
             // salvage hit test
@@ -108,6 +121,7 @@ void handleObjectEvents()	// object event thread entry point
                     int nSalvVal = salv->getValue(i);
                     if(myUI->isSalvValGood(nSalvVal))	// check if val is good
                     {
+                        goodSalvage.play();
                         Points += PTS_GOOD_SALVAGE;
                         levels->addCollectedSalvage(1);
                         /// @todo animation for collection of salvage
@@ -116,6 +130,7 @@ void handleObjectEvents()	// object event thread entry point
                     else	// the salvage doesn't meet the specified condition so you lose points
                     {
                         /// @todo add a boom sound
+                        badSalvage.play();
                         Points += PTS_BAD_SALVAGE;
                         myUI->updateHealth(-1);
                     }
@@ -131,7 +146,8 @@ void handleObjectEvents()	// object event thread entry point
                 bool hit = asteroid->hitTestPlayer(i, *player);
                 if(hit)
                 {
-                    Points += PTS_HIT_ASTEROID;			// lose points for hitting an asteroid
+                    hitAsteroid.play();            // Play the blow up sound
+                    Points += PTS_HIT_ASTEROID;    // lose points for hitting an asteroid
                     myUI->updateHealth(-5);
                     levels->addKilledAsteroids(1);
                     asteroid->ReInit(i);
@@ -158,6 +174,10 @@ sf::Thread objectEventThread(&handleObjectEvents);
 // fwd declaration for set-up of game objects based on difficulty
 void gameDifficultyInit(MenuRetType mrt);
 
+/**\brief Loads the sounds used in this file
+ */
+int loadOtherGameSnds();
+
 int main()
 {
     // output versioning information
@@ -179,6 +199,7 @@ int main()
         return 0;
 
     // All systems are go Init the game objects
+    loadOtherGameSnds();
     window.create(sf::VideoMode(config.GetInteger("window", "width", 375), config.GetInteger("window", "height", 650)), config.Get("Window", "Title", "Game"), sf::Style::Close);
     gameDifficultyInit(*menuRet);
     DIFFICULTY = menuRet->diff;
@@ -308,4 +329,33 @@ void gameDifficultyInit(MenuRetType mrt)
 }
 
 
-
+int loadOtherGameSnds(){
+    int rc = 0;
+    hjs::logToConsole("Loading Game Sounds");
+    // Explosion
+    if(!explosionSND.loadFromFile(EXPLOSION_SND)){
+        hjs::logToConsole("Couldn't load: " EXPLOSION_SND); // this works because the macro has quotes
+        rc = 1;
+    }else{
+        hjs::logToConsole("Loaded: " EXPLOSION_SND);
+    }
+    // Bad Buzz
+    if(!wrongSND.loadFromFile(BAD_BUZZ_SND)){
+        hjs::logToConsole("Couldn't Load: " BAD_BUZZ_SND);
+        rc = 1;
+    }else{
+        hjs::logToConsole("Loaded: " BAD_BUZZ_SND);
+    }
+    // Good Buzz
+    if(!rightSND.loadFromFile(GOOD_BUZZ_SND)){
+        hjs::logToConsole("Couldn't Load: " GOOD_BUZZ_SND);
+        rc = 1;
+    }else{
+        hjs::logToConsole("Loaded: " GOOD_BUZZ_SND);
+    }
+    // Set Buffers
+    goodSalvage.setBuffer(rightSND);
+    badSalvage.setBuffer(wrongSND);
+    hitAsteroid.setBuffer(explosionSND);
+    return rc;
+}

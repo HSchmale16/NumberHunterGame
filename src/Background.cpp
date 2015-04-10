@@ -20,7 +20,9 @@ Background::Background()
     m_sfRS.setTexture(&m_texBG, false);
 
     // Start Background Generation
+#ifdef DEBUG_BUILD
     m_bgGenerator = new bggen((uint32_t)375, (uint32_t)650);
+#endif // DEBUG_BUILD
     //m_bgGenerator->startGenerationProcess();
 
     // Set up stars
@@ -38,7 +40,9 @@ Background::Background()
     if(!m_bgMusic.openFromFile(GM_MUSIC)) {
         hjs::logToConsole("Failed to Load Music");
     } else {
+        hjs::logToConsole("Loaded Gameplay background music");
         m_bgMusic.setLoop(true);
+        m_bgMusic.setVolume(50.0);
         m_bgMusic.play();
     }
 }
