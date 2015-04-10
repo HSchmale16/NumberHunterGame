@@ -30,8 +30,10 @@ LaserHandler::LaserHandler()
     }
     // create a sound buffer for each laser
     m_sounds = new sf::Sound[m_MaxLasers];
-    for(int i = 0; i < m_MaxLasers; i++)
+    for(int i = 0; i < m_MaxLasers; i++){
         m_sounds[i].setBuffer(m_sBuff);
+        m_sounds[i].setVolume(50.0);
+    }
 }
 
 LaserHandler::~LaserHandler()
