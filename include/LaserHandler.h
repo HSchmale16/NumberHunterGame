@@ -18,7 +18,7 @@
 class LaserHandler: public sf::Drawable
 {
 public:
-    /**\brief Default Constructor */ 
+    /**\brief Default Constructor */
     LaserHandler();
 
     /**\brief Destructor */
@@ -42,8 +42,10 @@ private:
     int m_asteroidDest;
 
     // Sound Data
-    sf::SoundBuffer m_sBuff;
-    sf::Sound *m_sounds;
+    sf::SoundBuffer  m_sLaserSndBuff;
+    sf::Sound       *m_LaserSnds;
+    sf::Sound        m_blewUpSalv;   //!< Blew up salvage with laser
+    sf::Sound        m_blewUpAster;  //!< Blew up laser with salvage
 };
 
 #endif // LASERHANDLER_H

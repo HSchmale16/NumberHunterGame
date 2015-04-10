@@ -13,6 +13,7 @@ extern int PTS_BAD_SALVAGE;       //!< pts lost for collecting bad salvage
 extern int PTS_DESTROY_SALVAGE;   //!< pts lost for destroying salvage(any)
 extern int PTS_HIT_ASTEROID;      //!< pts lost for hitting an asteroid
 extern int PTS_DESTROY_ASTEROID;  //!< pts gained for destroying an asteroid by shooting it
+extern sf::SoundBuffer explosionSND; //!< Buff for explosion sound
 
 LaserHandler::LaserHandler()
 {
@@ -24,21 +25,24 @@ LaserHandler::LaserHandler()
         m_vecLaser.push_back(new Laser());
 
     // Sound
-    if(!m_sBuff.loadFromFile(LASER_SOUND))
+    if(!m_sLaserSndBuff.loadFromFile(LASER_SOUND))
     {
         hjs::logToConsole("Couldn't Load Laser Sound");
     }
     // create a sound buffer for each laser
-    m_sounds = new sf::Sound[m_MaxLasers];
+    m_LaserSnds = new sf::Sound[m_MaxLasers];
     for(int i = 0; i < m_MaxLasers; i++){
-        m_sounds[i].setBuffer(m_sBuff);
-        m_sounds[i].setVolume(50.0);
+        m_LaserSnds[i].setBuffer(m_sLaserSndBuff);
+        m_LaserSnds[i].setVolume(50.0);
     }
+    m_blewUpAster.setBuffer(explosionSND);
+    m_blewUpSalv.setBuffer(explosionSND);
 }
 
 LaserHandler::~LaserHandler()
 {
     //dtor
+    delete[] m_LaserSnds;
 }
 
 int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a)
@@ -54,7 +58,7 @@ int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a)
         {
             if(!m_vecLaser[index]->getActive())
             {
-                m_sounds[index].play();
+                m_LaserSnds[index].play();
                 m_vecLaser[index]->Activate(p->getXCoord() + (p->getSideLength() / 2.0),
                                             p->getYCoord());
                 m_LaserLimiter = 0;
@@ -78,8 +82,10 @@ int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a)
     {
         for(int lasI = 0; lasI < m_MaxLasers; lasI++)
         {
-            if((s->hitTestShot(sI, *m_vecLaser[lasI])) && (m_vecLaser[lasI]->getActive()))
+            if((m_vecLaser[lasI]->getActive())
+                && (s->hitTestShot(sI, *m_vecLaser[lasI])))
             {
+                m_blewUpSalv.play();            // Play blew up salvage sound
                 s->ReInit(sI);                  // ReInit that instance of salvage
                 m_vecLaser[lasI]->DeActivate(); // hide the laser index
                 nPoints += PTS_BAD_SALVAGE;	    // That's bad lose points for destroying salvage
@@ -94,8 +100,10 @@ int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a)
     {
         for(int lasI = 0; lasI < m_MaxLasers; lasI++)
         {
-            if((a->hitTestLaser(aI, *m_vecLaser[lasI])) && (m_vecLaser[lasI]->getActive()))
+            if((m_vecLaser[lasI]->getActive())
+                &&(a->hitTestLaser(aI, *m_vecLaser[lasI])))
             {
+                m_blewUpAster.play();
                 nPoints += PTS_DESTROY_ASTEROID;		// destroying asteroids is good so give points
                 m_asteroidDest++;						// increment asteroids killed
                 a->ReInit(aI);

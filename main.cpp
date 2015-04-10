@@ -106,6 +106,9 @@ void handleObjectEvents()	// object event thread entry point
             salv->Move();
             asteroid->Move();
             int Points = lHandler->handleEvents(player, salv, asteroid);// laser hit test
+            if(Points){
+
+            }
             // update level handler on killed asteroids
             levels->addKilledAsteroids(lHandler->getAsteroidsDestroyedThisIter());
             // salvage hit test
