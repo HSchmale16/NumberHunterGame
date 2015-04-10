@@ -65,7 +65,8 @@ MenuRetType *menuRet;
 // Sound Stuff
 sf::SoundBuffer explosionSND;
 sf::SoundBuffer wrongSND;
-
+sf::Sound       hitAsteroid; //!< Sound to play on hit asteroid
+sf::Sound       badSalvage;  //!< Sound to play when collect bad salvage
 
 // Declare Threads and Entry Points
 void render()	// rendering thread entry point
@@ -137,6 +138,7 @@ void handleObjectEvents()	// object event thread entry point
                 bool hit = asteroid->hitTestPlayer(i, *player);
                 if(hit)
                 {
+                    hitAsteroid.play();
                     Points += PTS_HIT_ASTEROID;			// lose points for hitting an asteroid
                     myUI->updateHealth(-5);
                     levels->addKilledAsteroids(1);
@@ -189,6 +191,7 @@ int main()
         return 0;
 
     // All systems are go Init the game objects
+    loadOtherGameSnds();
     window.create(sf::VideoMode(config.GetInteger("window", "width", 375), config.GetInteger("window", "height", 650)), config.Get("Window", "Title", "Game"), sf::Style::Close);
     gameDifficultyInit(*menuRet);
     DIFFICULTY = menuRet->diff;
@@ -319,5 +322,14 @@ void gameDifficultyInit(MenuRetType mrt)
 
 
 int loadOtherGameSnds(){
-
+    int rc = 0;
+    hjs::logToConsole("Loading Game Sounds");
+    if(!explosionSND.loadFromFile(EXPLOSION_SND)){
+        hjs::logToConsole("Couldn't load: "
+                          EXPLOSION_SND); // this works because the macro has quotes
+        rc = 1;
+    }
+    // Set Buffers
+    hitAsteroid.setBuffer(explosionSND);
+    return 0;
 }
