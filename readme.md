@@ -8,7 +8,7 @@ This game uses the following resources
 * A generic laser sound effect from www.soundbible.com
 * Xolonium Font available on www.dafont.com
 * www.MediaCollege.com for explosion sound FX
-* Buzzer Sound from <www.soundbible.com/1501-Buzzer.html>
+* Buzzer Sound from www.soundbible.com/1501-Buzzer.html
 
 ## Music ##
 * "Space Fighter Loop"
