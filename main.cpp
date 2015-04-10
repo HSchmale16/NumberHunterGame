@@ -16,12 +16,13 @@
  * resources folder.
  *
  * \section How To Play
- *
+ * Arrow Keys to move. Space to shoot
  */
 
 #include <iostream>	            // for cout
 #include <SFML/System.hpp>      // for threading
 #include <SFML/Graphics.hpp>    // for windowing
+#include <SFML/Audio.hpp>
 #include "Hjs_StdLib.h"         // My STD LIB
 #include "version.h"            // for versioning information
 #include "config.h"             // for game configuration
@@ -60,6 +61,11 @@ Asteroids *asteroid;
 GameMenu *gmMenu;
 LevelHandler *levels;
 MenuRetType *menuRet;
+
+// Sound Stuff
+sf::SoundBuffer explosionSND;
+sf::SoundBuffer wrongSND;
+
 
 // Declare Threads and Entry Points
 void render()	// rendering thread entry point
@@ -157,6 +163,10 @@ sf::Thread objectEventThread(&handleObjectEvents);
 
 // fwd declaration for set-up of game objects based on difficulty
 void gameDifficultyInit(MenuRetType mrt);
+
+/**\brief Loads the sounds used in this file
+ */
+int loadOtherGameSnds();
 
 int main()
 {
@@ -308,4 +318,6 @@ void gameDifficultyInit(MenuRetType mrt)
 }
 
 
+int loadOtherGameSnds(){
 
+}

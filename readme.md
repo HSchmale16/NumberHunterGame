@@ -7,6 +7,8 @@ This game uses the following resources
 * INIH available from here: http://code.google.com/p/inih/
 * A generic laser sound effect from www.soundbible.com
 * Xolonium Font available on www.dafont.com
+* www.MediaCollege.com for explosion sound FX
+* Buzzer Sound from www.soundbible.com
 
 ## Music ##
 * "Space Fighter Loop"
