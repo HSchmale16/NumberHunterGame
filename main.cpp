@@ -69,6 +69,7 @@ sf::SoundBuffer rightSND;     //!< Buff for sound played when correct salvage co
 
 sf::Sound       hitAsteroid;  //!< Sound to play on hit asteroid
 sf::Sound       badSalvage;   //!< Sound to play when collect bad salvage
+sf::Sound       goodSalvage;  //!< Sound to play on collect good salvage
 
 // Declare Threads and Entry Points
 void render()	// rendering thread entry point
@@ -120,6 +121,7 @@ void handleObjectEvents()	// object event thread entry point
                     int nSalvVal = salv->getValue(i);
                     if(myUI->isSalvValGood(nSalvVal))	// check if val is good
                     {
+                        goodSalvage.play();
                         Points += PTS_GOOD_SALVAGE;
                         levels->addCollectedSalvage(1);
                         /// @todo animation for collection of salvage
@@ -330,19 +332,29 @@ void gameDifficultyInit(MenuRetType mrt)
 int loadOtherGameSnds(){
     int rc = 0;
     hjs::logToConsole("Loading Game Sounds");
+    // Explosion
     if(!explosionSND.loadFromFile(EXPLOSION_SND)){
-        hjs::logToConsole("Couldn't load: "
-                          EXPLOSION_SND); // this works because the macro has quotes
+        hjs::logToConsole("Couldn't load: " EXPLOSION_SND); // this works because the macro has quotes
         rc = 1;
     }else{
-        hjs::logToConsole("Loaded" EXPLOSION_SND);
+        hjs::logToConsole("Loaded: " EXPLOSION_SND);
     }
+    // Bad Buzz
     if(!wrongSND.loadFromFile(BAD_BUZZ_SND)){
-        hjs::logToConsole("Couldn't Load: "
-                          BAD_BUZZ_SND);
+        hjs::logToConsole("Couldn't Load: " BAD_BUZZ_SND);
         rc = 1;
+    }else{
+        hjs::logToConsole("Loaded: " BAD_BUZZ_SND);
+    }
+    // Good Buzz
+    if(!rightSND.loadFromFile(GOOD_BUZZ_SND)){
+        hjs::logToConsole("Couldn't Load: " GOOD_BUZZ_SND);
+        rc = 1;
+    }else{
+        hjs::logToConsole("Loaded: " GOOD_BUZZ_SND);
     }
     // Set Buffers
+    goodSalvage.setBuffer(rightSND);
     badSalvage.setBuffer(wrongSND);
     hitAsteroid.setBuffer(explosionSND);
     return rc;
