@@ -11,14 +11,6 @@
 	$asteroids = $_POST['asteroids'];
 	$diff = $_POST['diff'];
 	
-	// escape the data fields to prevent sql injection
-	$level = $dbConn->real_escape_string($level);
-	$name = $dbConn->real_escape_string($name);
-	$score = $dbConn->real_escape_string($score);
-	$salvage = $dbConn->real_escape_string($salvage);
-	$asteroids = $dbConn->real_escape_string($asteroids);
-	$diff = $dbConn->real_escape_string($diff);
-	
 	if(($level > 0) and ($level <= 5))
 	{
 		// make sure table exists
