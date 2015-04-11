@@ -1,0 +1,121 @@
+/* Number Hunter CSS
+*/
+
+/* Globals */
+body{
+	background-color: #000;
+	color: #EEE;
+}
+
+a{
+	color: #EEE;
+}
+
+a:hover{
+	color: #808080;
+}
+
+a:visited{
+	color: #AAA;
+}
+
+/* Page Objects */
+div#page-container{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+div#header{
+	width: 1000px;
+	min-height: 200px;
+	margin:0 auto;
+	background-color: #555;
+}
+
+/* Navbar */
+div#navbar{
+	width: 1000px;
+	min-height: 50px;
+}
+
+div#navbar li{
+	width: 170px;
+	float: left;
+	list-style: none;
+	padding-right: 10px;
+	padding-left: 10px;
+	font-size: 18px;
+	border-right: 2px solid #FFF;
+	text-align: center;
+}
+
+div#navbar li.last{
+	border-right: none;
+}
+
+div#navbar a{
+	font-size: 18px;
+	color: #EEE;
+	width: auto;
+	text-decoration: none;
+}
+div#navbar a:hover{
+	color: #808080;
+	text-decoration: underline;
+}
+
+/* Main Content */
+div#main-content{
+	width: 1000px;
+	min-height: 100px;
+}
+
+/* General Items */
+ul.minimenu{
+	width: 500px;
+}
+	ul.minimenu li{
+		width: 50px;
+		padding-right: 15px;
+		font-size: 12px;
+		float: left;
+		list-style: none;
+	}
+
+p.author{
+	font-size: 10px;
+	text-indent: 20px;
+}
+
+pre.news{
+	width: 650px;
+	font-size: 16px;
+	white-space: pre-wrap;
+}
+/* HighScores Table */
+table#Highscores{
+	width: 950px;
+	margin: 0 auto;
+}
+
+td.RowNum{
+	border: none;
+	text-align: left;
+	padding-right: 5px;
+}
+
+table#Highscores td{
+	padding-right: 25px;
+	text-align: center;
+}
+
+/* Available Downloads */
+table#AvailDownloads{
+	border: 1px solid #FFF;
+}
+
+table#AvailDownloads td, th{
+	border: 1px solid #FFF;
+	border-collapse: collapse;
+	padding: 15px;
+}
