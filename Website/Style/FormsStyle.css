@@ -1,0 +1,14 @@
+/* FormsStyle.css
+*	Contains css to style forms Elements
+*/
+
+body{
+	
+}
+
+form textarea {
+	width: 50%;
+	height: 10em;
+	overflow-y: scroll;
+	resize: vertical;
+} 
