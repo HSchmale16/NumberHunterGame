@@ -7,8 +7,11 @@ $diff = $_POST['diff'];
 $tbName = getHiS_Tb_Name($lvl);
 $sql = "Select NAME, SCORE from $tbName where DIFFICULTY=$diff order by SCORE DESC LIMIT 10;";
 $result = $dbConn->query($sql);
-foreach($result as $row)
+if($result->num_rows > 0)
 {
-    echo $row["NAME"]." ".$row["SCORE"]." ";
+	while($row = $result->fetch_assoc())
+	{
+		echo $row["NAME"]." ".$row["SCORE"]." ";
+	}
 }
 ?>

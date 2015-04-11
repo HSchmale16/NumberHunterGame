@@ -10,7 +10,6 @@
 <head>
 	<title>Number Hunter Game</title>
 	<LINK REL=StyleSheet HREF="/Style/MainStyle.css" TYPE="text/css" MEDIA=screen>
-    <meta name="google-site-verification" content="Aqr6pwcYBsizFVN2b2g_UtUou53qoDpJoqKSU488d-0" />
 </head>
 
 <body>
