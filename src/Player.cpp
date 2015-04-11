@@ -10,8 +10,7 @@
 
 INIReader pr(CONFIG_FILE);
 
-Player::Player()
-{
+Player::Player() {
     //ctor
     // load texture
     if(!m_texture.loadFromFile(pr.Get("player", "t", "resources/img/player.png")))
@@ -33,29 +32,34 @@ Player::Player()
     m_ps = new ParticleSystem(100);
 }
 
-Player::~Player()
-{
+Player::~Player() {
     //dtor
     delete m_ps;
 }
 
-void Player::Move()
-{
+void Player::Move() {
     // check movement keys
-    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && (m_fXCoord > -(m_fSideLength / 2)))
-    {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
+            || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            && (m_fXCoord > -(m_fSideLength / 2))) {
         m_fXCoord -= m_fXSpeed;
     }
-    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && (m_fXCoord < 355))
-    {
+    // Move Right
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
+            || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            && (m_fXCoord < 355)) {
         m_fXCoord += m_fXSpeed;
     }
-    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && (m_fYCoord > 0))
-    {
+    // Move Up
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
+            || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            && (m_fYCoord > 0)) {
         m_fYCoord -= m_fYSpeed;
     }
-    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) && (m_fYCoord < 630))
-    {
+    // Move Down
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
+            || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            && (m_fYCoord < 630)) {
         m_fYCoord += m_fYSpeed;
     }
     s.setPosition(m_fXCoord, m_fYCoord);	// update position
@@ -63,23 +67,19 @@ void Player::Move()
     m_ps->update(m_clock.restart());
 }
 
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states)const
-{
+void Player::draw(sf::RenderTarget &target, sf::RenderStates states)const {
     target.draw(s, states);
     target.draw(*m_ps, states);
 }
 
 
 /// GETTERS
-float Player::getSideLength()
-{
+float Player::getSideLength() {
     return m_fSideLength;
 }
-float Player::getXCoord()
-{
+float Player::getXCoord() {
     return m_fXCoord;
 }
-float Player::getYCoord()
-{
+float Player::getYCoord() {
     return m_fYCoord;
 }
