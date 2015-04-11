@@ -24,6 +24,15 @@ static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=
 // Menu configuration object
 INIReader gmR(MENU_CONFIG_FILE);
 
+static const char HOW_TO_PLAY_STR[] =
+    "Instructions\n"
+    "Arrow Keys or WASD to Move\n"
+    "Space Bar shoots Lasers\n\n"
+    "Shoot the asteroids\n"
+    "Collect the salvage that meets\n"
+    "condition at the bottom of the screen\n"
+    "Click to Continue";
+
 // ctor
 GameMenu::GameMenu() {
     //ctor
@@ -58,7 +67,7 @@ GameMenu::GameMenu() {
         m_menuMusic.setLoop(true);
         m_menuMusic.play();
     }else{
-        hjs::logToConsole("Failed to load: Menu Music - This is not a big deal");
+        hjs::logToConsole("Failed to load: Menu Music - This is not a big deal. DON'T PANIC!");
     }
     // create buttons
     m_mbPlay = new MenuButton(gmR.GetInteger("play_button", "xpos", 100),
@@ -136,6 +145,13 @@ GameMenu::GameMenu() {
     m_playerName.setFont(font);
     m_playerName.setColor(sf::Color::White);
 
+    // init how2play text
+    m_how2Play.setCharacterSize(14);
+    m_how2Play.setPosition(10, 10);
+    m_how2Play.setFont(font);
+    m_how2Play.setColor(sf::Color::White);
+    m_how2Play.setString(HOW_TO_PLAY_STR);
+
     // init menu background
     m_RsBg.setTexture(&m_texBG);
     m_RsBg.setSize(sf::Vector2f(gmR.GetInteger("menu_window", "width", 300),
@@ -153,6 +169,8 @@ GameMenu::GameMenu() {
 
 GameMenu::~GameMenu() {
     //dtor
+    hjs::logToConsole("Dtor of GameMenu Called");
+    m_menuMusic.stop();
     delete m_mbBack;
     delete m_mbCredits;
     delete m_mbDifficulty;
@@ -160,8 +178,12 @@ GameMenu::~GameMenu() {
     delete m_mbPlay;
 }
 
+static const int MAIN_SCR_ID     = 0; //!< Main Menu Screen Id
+static const int CREDITS_SCR_ID  = 1; //!< Credit Screen Id
+static const int HOW2PLAY_SCR_ID = 2; //!< How to play screen Id
+
 MenuRetType GameMenu::getSelection() {
-    bool bShowCreditScreen = false;
+    int  screenNum     = 0;
     menuWindow.create(sf::VideoMode(gmR.GetInteger("menu_window", "width", 300),
                                     gmR.GetInteger("menu_window", "height", 300)),
                       "TSA Game 2015 Starter",
@@ -169,11 +191,11 @@ MenuRetType GameMenu::getSelection() {
     // get player name first
     enterName();
     m_playerName.setString("Logged in as: " + getPlayerName());
-    while(menuWindow.isOpen()) {
+    while(menuWindow.isOpen()){
         // Handle Events
         sf::Event event;
-        while(menuWindow.pollEvent(event)) {
-            if(event.type == sf::Event::Closed) {
+        while(menuWindow.pollEvent(event)){
+            if(event.type == sf::Event::Closed){
                 menuWindow.close();
                 m_mrt.select = EXIT_GAME;
             }
@@ -181,15 +203,15 @@ MenuRetType GameMenu::getSelection() {
             // mouse hover checks
             sf::Vector2i mouselocalPosition = sf::Mouse::getPosition(menuWindow);
             // only test for these if the credits screen is not shown
-            if(!bShowCreditScreen) {
+            if(screenNum == MAIN_SCR_ID) {
                 // play button
                 if((m_mbPlay->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
-                    menuWindow.close();
+                    screenNum    = HOW2PLAY_SCR_ID;
                     m_mrt.select = PLAY_GAME;
                 }
                 // credits button
                 if((m_mbCredits->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
-                    bShowCreditScreen = true;
+                    screenNum = CREDITS_SCR_ID;
                 }
                 // exit button
                 if((m_mbExit->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
@@ -202,23 +224,29 @@ MenuRetType GameMenu::getSelection() {
                 }
                 // open highscores in browser, windows only
                 if((m_mbHighScores->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
-#ifdef WINDOWS_PLATFORM_TARGETED
+                    #ifdef WINDOWS_PLATFORM_TARGETED
                     // windows only way to open browser
                     ShellExecute(NULL, "open", HighscoresURL, NULL, NULL, SW_SHOWNORMAL);
-#endif // WINDOWS_PLATFORM_TARGETED
+                    #endif // WINDOWS_PLATFORM_TARGETED
                 }
-            } else {	// handle stuff on credits screen
+            } else if(screenNum == CREDITS_SCR_ID){	// handle stuff on credits screen
                 // back button
                 if((m_mbBack->mouseHoverCheck(mouselocalPosition.x, mouselocalPosition.y)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
-                    bShowCreditScreen = false;
+                    screenNum = MAIN_SCR_ID;
+                }
+            } else if(screenNum == HOW2PLAY_SCR_ID){
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                    menuWindow.close();
                 }
             }
-        }
+        } // End of event processing
 
         // Render
         menuWindow.clear(sf::Color::Black);
         menuWindow.draw(m_RsBg);
-        if(!bShowCreditScreen) {
+
+        switch(screenNum){
+        case MAIN_SCR_ID:
             menuWindow.draw(*m_mbPlay);
             menuWindow.draw(*m_mbCredits);
             menuWindow.draw(*m_mbExit);
@@ -226,13 +254,19 @@ MenuRetType GameMenu::getSelection() {
             menuWindow.draw(m_versionText);
             menuWindow.draw((m_playerName));
             menuWindow.draw(*m_mbHighScores);
-        } else {
+            break;
+        case CREDITS_SCR_ID:
             menuWindow.draw(*m_mbBack);
             menuWindow.draw(m_creditText);
+            break;
+        case HOW2PLAY_SCR_ID:
+            menuWindow.draw(m_how2Play);
+            break;
         }
         menuWindow.display();
-    }
+    } // Window is not open anymore
     for(int i = 100; i > 10; i -= 10) {
+        // fade the menu music out
         m_menuMusic.setVolume(i);
         sf::sleep(sf::milliseconds(i));
     }
