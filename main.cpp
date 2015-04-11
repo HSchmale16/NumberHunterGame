@@ -4,6 +4,7 @@
  * @file main.cpp
  *
  * \mainpage Number Hunter Game
+ * ![Gameplay]( @ref Doc/Gameplay.PNG)
  *
  * \section intro_sec Introduction
  * This is a game about collecting numbers that meet a certain
