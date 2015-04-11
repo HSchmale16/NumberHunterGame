@@ -1,13 +1,15 @@
-/** Game Menu Class Declaration
-*	Creates a window with a menu and waits for input blocking the main thread until input is received.
-*	This object is pretty much a launcher in of itself, but for full cross-platform compatibility it is
-*	integrated directly into the program. It will then return the selected option for the main thread to
-*	take action on.
-*	@note Requires the MenuButton class to work
-*	@note Instances of this class should Dynamically allocated for memory management purposes
-*	@author Henry Schmale
-*	@date October 10, 2014
-*/
+/** \brief Game Menu Class Declaration
+ *
+ *	Creates a window with a menu and waits for input blocking the main thread until input is received.
+ *	This object is pretty much a launcher in of itself, but for full cross-platform compatibility it is
+ *	integrated directly into the program. It will then return the selected option for the main thread to
+ *	take action on.
+ *
+ *	\note Requires the MenuButton class to work
+ *	\note Instances of this class should Dynamically allocated for memory management purposes
+ *	\author Henry Schmale
+ *	\date October 10, 2014
+ */
 
 #ifndef GAMEMENU_H
 #define GAMEMENU_H
@@ -19,37 +21,50 @@
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
 
-// Possible Options for what happens on the menu
+/**\brief Possible options that could be returned from the game menu
+ */
 enum MenuOptions
 {
-    PLAY_GAME,
-    EXIT_GAME
+    PLAY_GAME, //!< Play Button Selected
+    EXIT_GAME  //!< Exit Button Selected or Menu Window was closed
 };
 
+/**\brief Game play Difficulty Levels
+ */
 enum GameDifficulty
 {
-    EASY = 0,
-    MEDIMUM = 1,
-    HARD = 2
+    EASY = 0,    //!< Easy Mode
+    MEDIMUM = 1, //!< Medium Mode
+    HARD = 2     //!< Hard Mode
 };
 
-
+/**\brief A struct that contains the selected menu options
+ */
 struct MenuRetType
 {
-    MenuOptions select;
-    GameDifficulty diff;
+    MenuOptions select;  //!< Which option was selected from the menu
+    GameDifficulty diff; //!< Selected Difficulty
 };
 
+/**\brief The Launcher - shows a menu to start the game and displays various information
+ *        about the game.
+ */
 class GameMenu
 {
 public:
+    /**\brief Default CTOR */
     GameMenu();
+
+    /**\brief Destructor */
     virtual ~GameMenu();
 
-    // Enters the event loop of this object
-    // Create a window for the menu and will take care of the menu
-    // it will only return if the EXIT_GAME or PLAY_GAME button is
-    // pressed
+    /**\brief Enters the event loop of this object
+     * \return a MenuRetType struct containing the selected options on the menu
+     *
+     * Create a window for the menu and will take care of the menu
+     * it will only return if the EXIT_GAME or PLAY_GAME button is
+     * pressed
+     */
     MenuRetType getSelection();
     std::string getPlayerName();
 protected:
@@ -90,7 +105,7 @@ private:
     MenuRetType m_mrt;
 
     // private member functions
-    void incrementDifficulty();	       //!< increments the selected difficulty on m_mrt struct and updates the difficulty selection button
+    void incrementDifficulty();	       //!< increments the selected difficulty on m_mrt and updates the difficulty selection button
     void enterName();                  //!< prompts the player for their name
 };
 

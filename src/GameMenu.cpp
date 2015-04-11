@@ -25,12 +25,14 @@ static LPCSTR HighscoresURL = "http://numberhuntergame.com/highscores.php?Level=
 INIReader gmR(MENU_CONFIG_FILE);
 
 static const char HOW_TO_PLAY_STR[] =
-    "Instructions\n"
+    "Instructions\n\n"
     "Arrow Keys or WASD to Move\n"
     "Space Bar shoots Lasers\n\n"
     "Shoot the asteroids\n"
     "Collect the salvage that meets\n"
     "condition at the bottom of the screen\n"
+    "by running into it. Don't hit the salvage\n"
+    "that fails to meet the condition.\n\n"
     "Click to Continue";
 
 // ctor
@@ -120,14 +122,20 @@ GameMenu::GameMenu() {
                                     font);
     // init credit screen text
     m_creditText.setPosition(sf::Vector2f(gmR.GetInteger("credits_text", "xpos", 25), gmR.GetInteger("credits_text", "ypos", 20)));
-    m_creditText.setCharacterSize(14);
+    m_creditText.setCharacterSize(12);
     m_creditText.setColor(sf::Color::White);
     m_creditText.setFont(font);
 #ifdef TSA_BUILD
-    m_creditText.setString("CREDITS\nThis is the TSA Build of the\ngame and is not meant for\npublic distribution\n\nFont by: Severin Meyer\n\nLibrary Credits:\nINIH by benh...@gmail.com\nSFML by Laurent Gomez");
+    m_creditText.setString("CREDITS\nThis is the TSA Build of the\n"
+                           "game and is not meant for\npublic distribution"
+                           "\n\nFont by Severin Meyer\n\nLibrary Credits:\n"
+                           "INIH by benh...@gmail.com\nSFML by Laurent Gomez");
 #else
-    m_creditText.setString("Credits\nProgrammed By: Henry Schmale\nArtwork by: Matt Krammer\n\nFont by: Severin Meyer\n\nLibrary Credits:\nINIH by benh...@gmail.com\nSFML by Laurent Gomez");
-#endif
+    m_creditText.setString("Credits\nProgrammed By: Henry Schmale\n"
+                           "Artwork by: Matt Krammer\n\n"
+                           "Font by Severin Meyer\n\nLibrary Credits:\n"
+                           "INIH by benh...@gmail.com\nSFML by Laurent Gomez");
+#endif // TSA_BUILD
 
     // init version text
     m_versionText.setPosition(sf::Vector2f(gmR.GetInteger("version_text", "xpos", 10), gmR.GetInteger("version_text", "ypos", 320)));
