@@ -3,7 +3,7 @@
 *	This object is pretty much a launcher in of itself, but for full cross-platform compatibility it is
 *	integrated directly into the program. It will then return the selected option for the main thread to
 *	take action on.
-*	@note Requires the menu button class to work
+*	@note Requires the MenuButton class to work
 *	@note Instances of this class should Dynamically allocated for memory management purposes
 *	@author Henry Schmale
 *	@date October 10, 2014
@@ -81,9 +81,10 @@ private:
     sf::Text m_creditText;	            //!< text to hold credits
     sf::Text m_versionText;	            //!< text to hold version information on main screen
     sf::Text m_playerName;	            //!< text that holds player name
+    sf::Text m_how2Play;                //!< Text containing instructions to play
 
     // Menu Music
-    sf::Music m_menuMusic;
+    sf::Music m_menuMusic;              //!< The music played on the menu
 
     // return type
     MenuRetType m_mrt;
