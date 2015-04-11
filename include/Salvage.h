@@ -7,6 +7,8 @@
 #include "Player.h"			// for hitTest
 #include "Laser.h"
 
+/**\brief handles the salvage instances on screen
+ */
 class Salvage: public sf::Drawable
 {
 public:

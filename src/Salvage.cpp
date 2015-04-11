@@ -8,8 +8,8 @@
 #include "../include/GameMenu.h"   // For access to the GameDifficulty type
 #include "../FilePaths.h"
 #include "../Hjs_StdLib.h"
-#include <math.h>	// for rand
-#include <stdio.h>	// for sprintf
+#include <cmath>	// for rand
+#include <cstdio>	// for sprintf
 
 #define TEXT_X_OFFSET 5
 #define TEXT_Y_OFFSET 5
@@ -63,7 +63,7 @@ Salvage::Salvage(uint_fast8_t count)	// ctor
             exit(2);
         }
         m_fXCoord[i] = rand() % 325 + 25;
-        m_fYCoord[i] = rand() % 400;
+        m_fYCoord[i] = rand() % 300; // No more than halfway down the screen on init
         m_fSpeed[i] = 2 * ((rand() % 1000 + 150) / 1000 + .15);
         m_Value[i] = rand() % 100;
 
