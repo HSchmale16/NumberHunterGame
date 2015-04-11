@@ -29,7 +29,7 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
 
     m_nCount = nCount;
     // allocate memory
-    m_s = new sf::RectangleShape[m_nCount];
+    m_shape = new sf::RectangleShape[m_nCount];
     m_tex = new sf::Texture[m_nCount];
     m_xCoord = new float[m_nCount];
     m_yCoord = new float[m_nCount];
@@ -54,7 +54,7 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
         }
 
         m_xCoord[i] = rand() % 375;
-        m_yCoord[i] = rand() % 600;
+        m_yCoord[i] = rand() % 300;
         m_width[i] = 20 + (rand() % 20);
         m_height[i] = m_width[i];          // Just make it a square the math is easier
         m_yspeed[i] = float(rand() % 1001 / 1000.0f ) * 2 + .05;// somewhere between [0.02, 2.02]
@@ -74,12 +74,12 @@ Asteroids::Asteroids(int nCount, float trajDeviation)
         // setup graphics
         //m_s[i].setOutlineColor(sf::Color::Magenta);
         //m_s[i].setOutlineThickness(2.0);
-        m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0);
-        m_s[i].setTexture(&m_tex[i]);
-        m_s[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
+        m_shape[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0);
+        m_shape[i].setTexture(&m_tex[i]);
+        m_shape[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
         // m_s[i].setFillColor(sf::Color::Cyan);
-        m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
-        m_s[i].setRotation(m_angle[i]);
+        m_shape[i].setPosition(m_xCoord[i], m_yCoord[i]);
+        m_shape[i].setRotation(m_angle[i]);
     }
 }
 
@@ -87,7 +87,7 @@ Asteroids::~Asteroids()
 {
     //dtor
     // deallocate memory for member variables
-    delete[] m_s;
+    delete[] m_shape;
     delete[] m_xCoord;
     delete[] m_yCoord;
     delete[] m_width;
@@ -108,9 +108,9 @@ void Asteroids::Move()
         m_xCoord[i] += m_xspeed[i];
         m_yCoord[i] += m_yspeed[i];
         m_angle[i] = floatMod((m_angle[i] + m_rotRate[i]), 360);
-        m_s[i].setPosition(m_xCoord[i] + (m_width[i] / 2.0f),
+        m_shape[i].setPosition(m_xCoord[i] + (m_width[i] / 2.0f),
                            m_yCoord[i] + (m_height[i] / 2.0f));
-        m_s[i].setRotation(m_angle[i]);
+        m_shape[i].setRotation(m_angle[i]);
 
         // reInit the selected index because that index is off screen
         if((m_yCoord[i] > 650) || (m_xCoord[i] < -50) || (m_xCoord[i] > 400))
@@ -142,11 +142,11 @@ void Asteroids::ReInit(int i)
     else
         m_xspeed[i] = (m_yspeed[i] * -(m_MAX_DEVIAT/2));
 
-    m_s[i].setOrigin(0, 0);
-    m_s[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
-    m_s[i].setPosition(m_xCoord[i], m_yCoord[i]);
-    m_s[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0f);
-    m_s[i].setRotation(m_angle[i]);
+    m_shape[i].setOrigin(0, 0);
+    m_shape[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
+    m_shape[i].setPosition(m_xCoord[i], m_yCoord[i]);
+    m_shape[i].setOrigin(m_width[i] / 2.0f, m_height[i] / 2.0f);
+    m_shape[i].setRotation(m_angle[i]);
 }
 
 bool Asteroids::hitTestPlayer(int index, Player &p)
@@ -189,6 +189,6 @@ int Asteroids::getCount()
 void Asteroids::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
     for(int i = 0; i < m_nCount; i++)
-        target.draw(m_s[i], states);
+        target.draw(m_shape[i], states);
 }
 
