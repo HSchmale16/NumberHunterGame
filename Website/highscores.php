@@ -1,6 +1,6 @@
 <!-- highscores.php
- 	 Displays HighScores for game
-     December 8, 2014
+--	Displays HighScores for game
+--	December 8, 2014
 -->
 
 <?php
@@ -83,12 +83,14 @@
  					$tbName = getHiS_Tb_Name($lvl);
 					$sql = "Select DATE, NAME, SCORE, SALVAGE_COLLECTED, ASTEROIDS_DESTROYED from $tbName where DIFFICULTY=$diff order by SCORE DESC LIMIT 100;";
 					$result = $dbConn->query($sql);
-					$x = 1;
-					foreach($result as $row) {
-						echo "<td class=\"RowNum\">".$x."</td><td>".$row["DATE"]."</td>";
-						echo "<td>".$row["NAME"]."</td><td>".$row["SCORE"]."</td><td>".$row["SALVAGE_COLLECTED"];
-						echo "</td><td>".$row["ASTEROIDS_DESTROYED"]."</td></tr>\n";
-						$x = $x + 1;
+					if($result->num_rows > 0) {
+						$x = 1;
+						while($row = $result->fetch_assoc()) {
+							echo "<td class=\"RowNum\">".$x."</td><td>".$row["DATE"]."</td>";
+							echo "<td>".$row["NAME"]."</td><td>".$row["SCORE"]."</td><td>".$row["SALVAGE_COLLECTED"];
+							echo "</td><td>".$row["ASTEROIDS_DESTROYED"]."</td></tr>\n";
+							$x = $x + 1;
+						}
 					}
 				?>
 			</table>

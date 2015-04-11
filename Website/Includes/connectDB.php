@@ -4,11 +4,17 @@
 // connects to the data base	and provides funtions to get the name of a table
 
 
-try{
-    $dbConn = new PDO('sqlite:scores.sqlite');
-}catch(PDOException $e){
-    print 'Exception: '.$e->getMessage();
+$mysql_host = "mydb.db";
+$mysql_database = "numhunter";
+$mysql_user = "scoremanager";
+$mysql_password = "47Ju822pmPqaGLjx";
+
+$dbConn = new mysqli($mysql_host, $mysql_user, $mysql_password, $mysql_database);
+
+if ($dbConn->connect_error) {
+    die("Connection failed: " . $dbConn->error);
 }
+
 // gets the name of a highscore table
 function getHiS_Tb_Name($level) {
     return "Lvl" . "$level" . "Scores";
