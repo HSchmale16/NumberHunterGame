@@ -7,11 +7,8 @@ include_once("Includes/connectDB.php");
 
 // iterate over Tables with highscores
 for($level = 1; $level<=5; $level++){
-	$tbName =getHiS_Tb_Name($level);
-	$sql = "DELETE FROM $tbName where SCORE <= 0;";
-	if($dbConn->query($sql) === false)
-	{
-			die("Failed to clean $tbName: " . $conn->error);		
-	}
+	$tbName = getHiS_Tb_Name($level);
+	$sql    = "DELETE FROM $tbName where SCORE <= 0;";
+    $result = $dbConn->query($sql);
 }
 ?>
