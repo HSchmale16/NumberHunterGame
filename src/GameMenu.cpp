@@ -63,6 +63,11 @@ GameMenu::GameMenu() {
         hjs::logToConsole("Failed to load: Hard Difficulty Button Texture");
         exit(2);
     }
+    // This is a really quick thing just to get the game ready for TSA States
+    // so I'm just using the ICON
+    if(!m_texLogo.loadFromFile(ICON)){
+        hjs::logToConsole("Failed to load: " ICON);
+    }
 
     // Open Menu Music file and play
     if(m_menuMusic.openFromFile(MENU_MUSIC)) {
@@ -138,7 +143,8 @@ GameMenu::GameMenu() {
 #endif // TSA_BUILD
 
     // init version text
-    m_versionText.setPosition(sf::Vector2f(gmR.GetInteger("version_text", "xpos", 10), gmR.GetInteger("version_text", "ypos", 320)));
+    m_versionText.setPosition(sf::Vector2f(gmR.GetInteger("version_text", "xpos", 10),
+                                           gmR.GetInteger("version_text", "ypos", 320)));
     m_versionText.setCharacterSize(gmR.GetInteger("version_text", "font_size", 10));
     m_versionText.setColor(sf::Color::White);
     m_versionText.setFont(font);
@@ -166,8 +172,13 @@ GameMenu::GameMenu() {
                                 gmR.GetInteger("menu_window", "height", 300)));
     m_RsBg.setPosition(0, 0);
 
+    // Logo Setup
+    m_logoShape.setSize(sf::Vector2f(60, 60));
+    m_logoShape.setPosition(30, 20);
+    m_logoShape.setTexture(&m_texLogo);
+
     // init vars
-    m_mrt.select = EXIT_GAME;	// quit by default
+    m_mrt.select = EXIT_GAME;	// q`uit by default
     m_mrt.diff = EASY;
 
     // Finished
@@ -259,8 +270,9 @@ MenuRetType GameMenu::getSelection() {
         menuWindow.clear(sf::Color::Black);
         menuWindow.draw(m_RsBg);
 
-        switch(screenNum){
+        switch(screenNum){ // Change the things drawn based on the screen id
         case MAIN_SCR_ID:
+            menuWindow.draw(m_logoShape);
             menuWindow.draw(*m_mbPlay);
             menuWindow.draw(*m_mbCredits);
             menuWindow.draw(*m_mbExit);
