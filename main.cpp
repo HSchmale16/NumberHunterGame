@@ -201,7 +201,9 @@ int main()
 
     // All systems are go Init the game objects
     loadOtherGameSnds();
-    window.create(sf::VideoMode(config.GetInteger("window", "width", 375), config.GetInteger("window", "height", 650)), config.Get("Window", "Title", "Game"), sf::Style::Close);
+    window.create(sf::VideoMode(config.GetInteger("window", "width", 375),
+                                config.GetInteger("window", "height", 650)),
+                  config.Get("Window", "Title", "Game"), sf::Style::Close);
     gameDifficultyInit(*menuRet);
     DIFFICULTY = menuRet->diff;
 
