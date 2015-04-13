@@ -229,7 +229,10 @@ void LevelHandler::incrementLevel()
     // add a record for the current level
     char buff2[30];
     snprintf(buff2, 30, TB_LVL_FSTR, m_currentLevel);
-    m_gDB->addScoreRecord(m_PlayerName, m_currStats->score, m_currStats->salvageCollected, m_currStats->asteroidsKilled, m_currentLevel);
+    m_gDB->addScoreRecord(m_PlayerName, m_currStats->score,
+                          m_currStats->salvageCollected,
+                          m_currStats->asteroidsKilled,
+                          m_currentLevel);
 
     if(m_currentLevel < m_totalNumLevels)
     {
@@ -320,28 +323,35 @@ LevelType LevelHandler::parseType()
     char buff[100];
     if(str.compare("SURVIVAL") == 0)
     {
-        snprintf(buff, 100, "Survive For %d Seconds", m_settings->timeLimit);
+        snprintf(buff, 100, "Survive For %d Seconds",
+                 m_settings->timeLimit);
         m_TargetStr = buff;
         m_GoalText.setString(m_TargetStr);
         return SURVIVAL;
     }
     if(str.compare("MIN_SCORE") == 0)
     {
-        snprintf(buff, 100, "Score %d pts in %d Seconds", m_settings->minScore, m_settings->timeLimit);
+        snprintf(buff, 100, "Score %d pts in %d Seconds",
+                 m_settings->minScore,
+                 m_settings->timeLimit);
         m_TargetStr = buff;
         m_GoalText.setString(m_TargetStr);
         return SCORE_TARGET;
     }
     if(str.compare("COLLECT_SALVAGE") == 0)
     {
-        snprintf(buff, 100, "Collect %d Salvage in %d Seconds", m_settings->salvCollect, m_settings->timeLimit);
+        snprintf(buff, 100, "Collect %d Salvage in\n%d Seconds",
+                 m_settings->salvCollect,
+                 m_settings->timeLimit);
         m_TargetStr = buff;
         m_GoalText.setString(m_TargetStr);
         return SALVAGE_COLLECTION_TARGET;
     }
     if(str.compare("CLEAR_ASTEROIDS"))
     {
-        snprintf(buff, 100, "Destroy %d Asteroids in %d Seconds", m_settings->asteClearGoal, m_settings->timeLimit);
+        snprintf(buff, 100, "Destroy %d Asteroids in\n%d Seconds",
+                m_settings->asteClearGoal,
+                m_settings->timeLimit);
         m_TargetStr = buff;
         m_GoalText.setString(m_TargetStr);
         return CLEAR_ASTEROIDS;
