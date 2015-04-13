@@ -196,6 +196,12 @@ MenuRetType GameMenu::getSelection() {
                                     gmR.GetInteger("menu_window", "height", 300)),
                       "TSA Game 2015 Starter",
                       sf::Style::Close);
+    sf::Image m_icon;	// load an icon
+    if(!m_icon.loadFromFile(ICON)){
+        hjs::logToConsole("Failed to load Window Icon");
+    }else{
+        menuWindow.setIcon(32, 32, m_icon.getPixelsPtr());
+    }
     // get player name first
     enterName();
     m_playerName.setString("Logged in as: " + getPlayerName());
