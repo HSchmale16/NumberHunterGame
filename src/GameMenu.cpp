@@ -32,7 +32,8 @@ static const char HOW_TO_PLAY_STR[] =
     "Collect the salvage that meets\n"
     "condition at the bottom of the screen\n"
     "by running into it. Don't hit the salvage\n"
-    "that fails to meet the condition.\n\n"
+    "that fails to meet the condition.\n"
+    "Don't Hit the asteroids\n\n"
     "Click to Continue";
 
 // ctor
