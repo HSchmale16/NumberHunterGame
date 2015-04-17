@@ -10,7 +10,8 @@
 <html>
 <head>
 	<title>Number Hunter Game</title>
-	<LINK REL=StyleSheet HREF="/Style/MainStyle.css" TYPE="text/css" MEDIA=screen>
+	<LINK REL=StyleSheet HREF="/Style/MainStyle.css" TYPE="text/css" />
+    <LINK REL=StyleSheet HREF="/Style/generic.css" TYPE="text/css" />
 </head>
 
 <body>

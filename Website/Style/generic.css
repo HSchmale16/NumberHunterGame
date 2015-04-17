@@ -1,0 +1,9 @@
+/* The Generic StyleSheet
+ * Contains Random Stylings
+ * Henry J Schmale
+ * 2015-04-17
+ */
+
+img.float-left{
+    float: left;
+}
