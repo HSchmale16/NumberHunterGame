@@ -1,6 +1,6 @@
 <!-- about.php
---	About page for game
---	December 8, 2014
+	About page for game
+    December 8, 2014
 -->
 
 <?php
@@ -33,6 +33,7 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<h1>About Number Hunter</h1>
+            <img class="float-left" src="Img/Gameplay.PNG" />
 			<p>Number Hunter is about building number recognition skills in early childhood.
 			It helps children learn to differintate between several types of numbers
 			such as prime, even or odd.</p>
@@ -51,18 +52,20 @@
 			<h2>Credits</h2>
 			<ul>
 				<li>Programmed By: Henry J Schmale</li>
-				<li>Art by: Anon</li>
-				<li>Sound from: <a href="Soundbible.com">Soundbible.com</a></li>
+				<li>Art by: Matt Kramer</li>
+				<li>Sound from: <a href="http://Soundbible.com">Soundbible.com</a></li>
 				<li>Music From: <a href="http://incompetech.com/">http://incompetech.com/</a></li>
 				<ul>
 					<li>"Ready Aim Fire"
 						Kevin MacLeod (incompetech.com)
 						Licensed under Creative Commons: By Attribution 3.0
-						http://creativecommons.org/licenses/by/3.0/</li>
+						<a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a>
+                    </li>
 					<li>"Space Fighter Loop"
 						Kevin MacLeod (incompetech.com)
 						Licensed under Creative Commons: By Attribution 3.0
-						http://creativecommons.org/licenses/by/3.0/</li>
+						<a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a>
+                     </li>
 				</ul>
 			</ul>
 		</div><!-- close main-content -->
