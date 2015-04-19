@@ -35,15 +35,16 @@
 			<?php
 				// News Post
 				$tbName = getNews_Tb_Name();
-				$sql = "Select POSTER, DATE, TITLE, BODY FROM $tbName ORDER BY ID DESC LIMIT 10;";
+				$sql = "Select POSTER, DTPOSTED, TITLE, BODY FROM $tbName ORDER BY DTPOSTED DESC LIMIT 5;";
 				$result = $dbConn->query($sql);
 				if($result->num_rows > 0)
 				{
 					while($row = $result->fetch_assoc())
 					{
 						echo "<h1>".$row["TITLE"]."</h1>\n";
-						echo "<pre class=\"news\">" . $row["BODY"] . "</pre>";
-						echo "<p class=\"author\">-" . $row["POSTER"] . "</p>";
+						echo $row["BODY"];
+						echo "<p class=\"author\">" . $row["POSTER"];
+                        echo " on " . $row['DTPOSTED'] . "</p>";
 					}
 				}
 				else

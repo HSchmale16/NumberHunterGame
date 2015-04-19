@@ -74,16 +74,17 @@ div#main-content{
 ul.minimenu{
 	width: 500px;
 }
-	ul.minimenu li{
-		width: 50px;
-		padding-right: 15px;
-		font-size: 12px;
-		float: left;
-		list-style: none;
-	}
+
+ul.minimenu li{
+	width: 50px;
+	padding-right: 15px;
+	font-size: 12px;
+	float: left;
+	list-style: none;
+}
 
 p.author{
-	font-size: 10px;
+	font-size: 11px;
 	text-indent: 20px;
 }
 
