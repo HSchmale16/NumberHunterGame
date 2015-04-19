@@ -32,8 +32,12 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<h1>Support</h1>
-			<p>For assistance with the website please email: <a href="mailto:webmaster@numberhuntergame.hostyd.net">webmaster@numberhuntergame.hostyd.net</a></p>
-			<p>For assistance with the game please email: <a href="mailto:gamesupport@numberhuntergame.hostyd.net">gamesupport@numberhuntergame.hostyd.net</a></p>
+            <p>Wiki: <a href="https://github.com/HSchmale16/NumberHunterGame/wiki">
+              https://github.com/HSchmale16/NumberHunterGame/wiki</a></p>
+
+            <p>For assistance with bugs and the website, please email: 
+               <a href="mailto:hschmale16@gmail.com">hschmale16@gmail.com</a> with a
+               subject line of "Number Hunter Game Support".</p>
 		</div><!-- close main-content -->
 		
 		<?
