@@ -33,7 +33,8 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<h1>About Number Hunter</h1>
-            <img class="float-left" src="Img/Gameplay.PNG" />
+            <img class="float-left" src="Img/Gameplay.PNG" 
+                 width=290 height=500 />
 			<p>Number Hunter is about building number recognition skills in early childhood.
 			It helps children learn to differintate between several types of numbers
 			such as prime, even or odd.</p>

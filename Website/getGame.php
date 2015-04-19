@@ -32,9 +32,10 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<h1>Get The Game</h1>
-			<p>Right now this game is only available as source code, through this link
-				<a href="http://adf.ly/wY8l7">http://adf.ly/wY8l7</a>.</p>
-			<p>A binary release should be up here in a couple of days.</p>
+			<p>This game is available as source code and a binary release. The source code
+               may be found at <a href="http://adf.ly/wY8l7">http://adf.ly/wY8l7</a>.
+               A binary release may be found at <a href="http://adf.ly/1FMxPi">
+               http://adf.ly/1FMxPi</a>.</p>
 			
 			<!-- Available Downloads Table -->
 			<h2>Available Downloads</h2>
@@ -49,8 +50,8 @@
 				</tr>
 				<tr><!-- Windows Binary Release -->
 					<td>Windows Binary Release <br/>
-					This is a self-extracting archive.</td>
-					<td>Link to be posted</td>
+					This is a zip archive.</td>
+					<td><a href="http://adf.ly/1FMxPi">Release Github</a></td>
 				</tr>
 			</table>
 		</div><!-- close main-content -->
