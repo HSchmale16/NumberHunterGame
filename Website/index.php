@@ -10,6 +10,9 @@
 <head>
 	<title>Number Hunter Game</title>
 	<LINK REL=StyleSheet HREF="/Style/MainStyle.css" TYPE="text/css" MEDIA=screen>
+    <link rel="icon"
+          type="image/ico"
+          href="favicon.ico" />
     <meta name="msvalidate.01" content="975F95807D670C15E30D60749AD6F6F1" />
     <meta name="google-site-verification" content="Aqr6pwcYBsizFVN2b2g_UtUou53qoDpJoqKSU488d-0" />
 </head>
