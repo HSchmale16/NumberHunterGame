@@ -122,8 +122,6 @@
 			<Add directory="SQLite/lib" />
 		</Linker>
 		<Unit filename="FilePaths.h" />
-		<Unit filename="Gradient.cpp" />
-		<Unit filename="Gradient.h" />
 		<Unit filename="Hjs_StdLib.h" />
 		<Unit filename="Hjs_StdLib_Implement.cpp" />
 		<Unit filename="INIReader.cpp" />
