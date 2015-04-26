@@ -15,30 +15,6 @@ const short PORT = 80;
 
 extern GameDifficulty DIFFICULTY;
 
-/// define sql scripts used, these should be FILE GLOBALS
-/// @note sql script strings have 'sql_' prefixed
-
-// creates a table to hold high scores and who got thems
-static const char sql_StatsTBCreateFSTR[] = "create table if not exists %s(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "DATE TEXT NOT NULL,"
-        "NAME TEXT NOT NULL,"
-        "SCORE INTEGER NOT NULL,"
-        "Salvage_Collected Integer,"
-        "Asteroids_Destroyed Integer);";
-
-/// adds a record to scores table, note this is a format string for snprintf
-static const char sql_ScoreInsertFSTR[] = "Insert into %s(DATE, NAME, Score, Salvage_COLLECTED, Asteroids_Destroyed) Values(CURRENT_TIMESTAMP, '%s', %d, %d, %d);";
-
-/// fetches a list of highscores with just names and score sorted so that highest is at the top
-static const char sql_FetchHighScores[] = "Select name, score from %s where score > 0 order by score desc limit %d;";
-
-// func needed for sqlite execution
-static int callback(void *NotUsed, int argc, char **argv, char **azColName)
-{
-    return 0;
-}
-
-// sqlite callback for sql scores
 static std::vector<std::string> vecStrHS;
 std::stringstream ss1;
 std::stringstream ss2;
@@ -60,30 +36,12 @@ static int retHighScores(void *data, int argc, char **argv, char **azColName)
 gameDB::gameDB(int totalLvls)
 {
     //ctor
-    //char *zErrMsg = 0;
-    int rc = sqlite3_open(DB_PATH, &m_db);
-    if( rc )
-    {
-        hjs::logTimeToConsole();
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(m_db));
-        exit(0);
-    }
-    else
-    {
-        hjs::logToConsole("Opened Database Success");
-    }
-    /*initStatsTable((char*)(TB_HIGHSCORES));
-    for(int i = 1; i <= totalLvls; i++)
-    {
-    	char buff[20];
-    	snprintf(buff, 20, TB_LVL_FSTR, i);
-    	initStatsTable(buff);
-    }*/
+    hjs::logToConsole("Instance of gameDB created");
 }
 
 gameDB::~gameDB()
 {
-    sqlite3_close(m_db);
+
 }
 
 /// public funcs
@@ -198,27 +156,3 @@ std::vector<std::string> gameDB::getHighScoreString(int level, int limit)
         return vecStrHS;
     }
 }
-
-/// Private funcs
-void gameDB::initStatsTable(char *tbname)
-{
-    // create insert statement using FSTR and Arguments
-    char sql[512];
-    snprintf(sql, 512, sql_StatsTBCreateFSTR, tbname);
-
-    char *zErrMsg = 0;
-    int  rc;
-    // create highscores table
-    rc = sqlite3_exec(m_db, sql, callback, 0, &zErrMsg);
-    if( rc != SQLITE_OK )
-    {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-    }
-    else
-    {
-        hjs::logTimeToConsole();
-        fprintf(stdout, "%s Table created successfully\n", tbname);
-    }
-}
-

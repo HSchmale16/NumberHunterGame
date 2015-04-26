@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <sqlite3.h>
+//#include <sqlite3.h>
 #include "../Hjs_StdLib.h"
 
 // defines for database paths
@@ -28,16 +28,31 @@ public:
     gameDB(int totalLvls);
     ~gameDB();
 
-    /// adds a score record to the selected tbName
-    void addScoreRecord(std::string name, int score, int salvageCount, int asteroidCount, int level);
+    /**\brief  adds a score record to the selected level table
+     * \param  player        name of player
+     * \param  score         score gotten on level
+     * \param  salvageCount  good salvage collected
+     * \param  asteroidCount asteroids destroyed
+     * \param  level         the level the values are good for.
+     * \return nothing
+     * \note   Can be blocking due to network latency and socket timeouts, because it
+     *         makes an HTTP request to a web server.
+     */
+    void addScoreRecord(std::string name, int score, int salvageCount, int asteroidCount,
+                        int level);
 
-    /// gets the limit num of records sorted for a highscores table from tbName
+    /**\brief  gets limit high scores sorted descending for the selected level
+     * \param  level the level to get scores for
+     * \param  limit number of scores to get
+     * \return a vector of strings with appropriate headers. Element 0 of the vector
+     *         contains the names of players. Element 1 contains the scores. Each string
+     *         has the values delimited by newlines.
+     * \note   This function makes a network request for the scores and it can be
+     *         blocking depending on socket timeouts on the client system.
+     */
     std::vector<std::string> getHighScoreString(int level, int limit);
 protected:
 private:
-    // private funcs
-    void initStatsTable(char *tbname);
-
     // Submit to server
     bool pingServer(); // returns true on successful connection to server
     void addScoreNetwork(std::string name, int score, int salvageCount, int asteroidCount, int level);
@@ -48,7 +63,6 @@ private:
     std::vector<std::string> getHS_Local(int level, int limit);
 
     // private objects
-    sqlite3 *m_db;
     bool m_NetworkIsAvailable;
 };
 

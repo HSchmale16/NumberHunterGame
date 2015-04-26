@@ -96,34 +96,14 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
-					<Add option="-std=c++11" />
 					<Add option="-Wall" />
-					<Add directory="include" />
 				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add option="-lsqlite3" />
-					<Add option="-lsfml-audio" />
-					<Add option="-lsfml-network" />
-					<Add option="-lsfml-graphics" />
-					<Add option="-lsfml-window" />
-					<Add option="-lsfml-system" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="SQLite/include" />
 		</Compiler>
-		<Linker>
-			<Add library="SQLite\lib\libSQLite.a" />
-			<Add directory="SQLite/lib" />
-		</Linker>
 		<Unit filename="FilePaths.h" />
-		<Unit filename="Gradient.cpp" />
-		<Unit filename="Gradient.h" />
 		<Unit filename="Hjs_StdLib.h" />
 		<Unit filename="Hjs_StdLib_Implement.cpp" />
 		<Unit filename="INIReader.cpp" />
@@ -131,7 +111,6 @@
 		<Unit filename="LevelDatTypes.h" />
 		<Unit filename="config.h" />
 		<Unit filename="include/Asteroids.h" />
-		<Unit filename="include/BGGen.h" />
 		<Unit filename="include/Background.h" />
 		<Unit filename="include/GameMenu.h" />
 		<Unit filename="include/Laser.h" />
@@ -151,7 +130,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="networkSystem.h" />
 		<Unit filename="src/Asteroids.cpp" />
-		<Unit filename="src/BGGen.cpp" />
 		<Unit filename="src/Background.cpp" />
 		<Unit filename="src/GameMenu.cpp" />
 		<Unit filename="src/Laser.cpp" />
