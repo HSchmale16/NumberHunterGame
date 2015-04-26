@@ -113,8 +113,8 @@ void bggen::drawPlanet(){
     // A variant of the midpoint circle algorithm
     while(x >= y){
         // Draw the Planet's Colors using a random stripe algorithim
-        // DrawStripe(x + x0, y + y0, -x + y0,  y + y0);
-        // DrawStripe(x + x0, y - y0, -x + y0, -y + y0);
+        // drawPlanetStripe(x + x0, y + y0, -x + y0,  y + y0);
+        // drawPlanetStripe(x + x0, y - y0, -x + y0, -y + y0);
         // DrawStripe(y + x0, x + y0, -y + y0,  x + y0);
         // DrawStripe(y + x0, x - y0, -y + y0, -x + x0);
         y++;

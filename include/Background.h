@@ -13,7 +13,6 @@
 #include <SFML/Audio.hpp>
 #include "../Hjs_StdLib.h"
 #include "../FilePaths.h"
-#include "BGGen.h"
 
 class Background: public sf::Drawable
 {
@@ -29,7 +28,6 @@ private:
     // Main Background Image
     sf::RectangleShape m_sfRS;
     sf::Texture        m_texBG;
-    bggen*             m_bgGenerator;               //!< Background Generator System
 
     // Stars
     sf::Thread starMove;                            //!< Thread to handle moving the stars

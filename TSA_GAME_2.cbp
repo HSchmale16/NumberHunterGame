@@ -131,7 +131,6 @@
 		<Unit filename="LevelDatTypes.h" />
 		<Unit filename="config.h" />
 		<Unit filename="include/Asteroids.h" />
-		<Unit filename="include/BGGen.h" />
 		<Unit filename="include/Background.h" />
 		<Unit filename="include/GameMenu.h" />
 		<Unit filename="include/Laser.h" />
@@ -151,7 +150,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="networkSystem.h" />
 		<Unit filename="src/Asteroids.cpp" />
-		<Unit filename="src/BGGen.cpp" />
 		<Unit filename="src/Background.cpp" />
 		<Unit filename="src/GameMenu.cpp" />
 		<Unit filename="src/Laser.cpp" />

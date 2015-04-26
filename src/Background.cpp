@@ -19,12 +19,6 @@ Background::Background()
     m_sfRS.setSize(sf::Vector2f(375, 650));
     m_sfRS.setTexture(&m_texBG, false);
 
-    // Start Background Generation
-#ifdef DEBUG_BUILD
-    m_bgGenerator = new bggen((uint32_t)375, (uint32_t)650);
-#endif // DEBUG_BUILD
-    //m_bgGenerator->startGenerationProcess();
-
     // Set up stars
     for(unsigned int i = 0; i < STAR_COUNT; i++) {
         m_vecStarX.push_back(rand() % 375);
@@ -49,7 +43,6 @@ Background::Background()
 
 Background::~Background() {
     //dtor
-    delete m_bgGenerator;
 }
 
 void Background::draw(sf::RenderTarget &target, sf::RenderStates states)const {
@@ -61,7 +54,7 @@ void Background::draw(sf::RenderTarget &target, sf::RenderStates states)const {
 }
 
 void Background::moveStars() {
-    while(hjs::gameIsActive()) {	// window is not accessible to this object, so use my library to check if window was called
+    while(hjs::gameIsActive()) {	// window is not accessible to this object, so use my library to check if window was closed
         for(unsigned int i = 0; i < STAR_COUNT; i++) {
             m_vecStarY[i] += 1;
             if(m_vecStarY[i] > 650) {
@@ -71,10 +64,5 @@ void Background::moveStars() {
             m_vecStars[i].setPosition(m_vecStarX[i], m_vecStarY[i]);
         }
         sf::sleep(sf::milliseconds(30));
-#ifdef DEBUG_BUILD
-        if(m_bgGenerator->getGenerationStatus() == true){
-
-        }
-#endif // DEBUG_BUILD
     }
 }
