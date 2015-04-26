@@ -17,8 +17,10 @@
 class Background: public sf::Drawable
 {
 public:
-    /** Default constructor */
-    Background();
+    /**\brief Default CTOR
+     */
+     Background();
+
     /** Default destructor */
     ~Background();
 protected:
@@ -31,12 +33,12 @@ private:
 
     // Stars
     sf::Thread starMove;                            //!< Thread to handle moving the stars
-    void moveStars();                               //!< Entry Point to starMove
+    void moveStars();                               //!< Entry Point to starMove Thread
     std::vector<sf::CircleShape> m_vecStars;
     std::vector<int> m_vecStarX;
     std::vector<int> m_vecStarY;
 
-    static const unsigned int STAR_COUNT = 100;     //!< Stars on Screen
+    const unsigned int STAR_COUNT;     //!< Stars on Screen
     // Background Music
     sf::Music m_bgMusic;
 };

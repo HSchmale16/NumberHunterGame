@@ -8,7 +8,8 @@
 #include "../config.h"
 
 Background::Background()
-    :starMove(&Background::moveStars, this) {	// Init the starMove Thread
+    :starMove(&Background::moveStars, this),
+     STAR_COUNT(100){
     //ctor
     // Set up main bg
     if(!m_texBG.loadFromFile(BG_PLASMA_TEX)) {
