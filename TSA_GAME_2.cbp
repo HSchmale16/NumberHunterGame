@@ -96,31 +96,13 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
-					<Add option="-std=c++11" />
 					<Add option="-Wall" />
-					<Add directory="include" />
 				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add option="-lsqlite3" />
-					<Add option="-lsfml-audio" />
-					<Add option="-lsfml-network" />
-					<Add option="-lsfml-graphics" />
-					<Add option="-lsfml-window" />
-					<Add option="-lsfml-system" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="SQLite/include" />
 		</Compiler>
-		<Linker>
-			<Add library="SQLite\lib\libSQLite.a" />
-			<Add directory="SQLite/lib" />
-		</Linker>
 		<Unit filename="FilePaths.h" />
 		<Unit filename="Hjs_StdLib.h" />
 		<Unit filename="Hjs_StdLib_Implement.cpp" />
