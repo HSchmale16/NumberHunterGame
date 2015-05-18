@@ -54,8 +54,8 @@
 			<ul>
 				<li>Programmed By: Henry J Schmale</li>
 				<li>Art by: Matt Kramer</li>
-				<li>Sound from: <a href="http://Soundbible.com">Soundbible.com</a></li>
-				<li>Music From: <a href="http://incompetech.com/">http://incompetech.com/</a></li>
+				<li>Sound from: <a href="http://www.Soundbible.com">Soundbible.com</a></li>
+				<li>Music From: <a href="http://www.incompetech.com/">http://incompetech.com/</a></li>
 				<ul>
 					<li>"Ready Aim Fire"
 						Kevin MacLeod (incompetech.com)
