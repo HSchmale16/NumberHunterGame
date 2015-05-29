@@ -8,6 +8,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <cstdint>
+#include "Player.h"
+#include "Laser.h"
 
 /**\brief The Enemy(Space Pirates) manager class
  *
@@ -21,12 +23,14 @@ public:
 
     uint16_t getLaserCount();
     uint16_t getEnemyCount();
+    bool     hitTestPlayer(Player *p);
 protected:
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
     /* Data Members */
-    uint16_t            m_count;
+    uint64_t            m_enemyCount;
+    uint64_t            m_laserCount;
     float*              m_width;
     float*              m_height;
     float*              m_xPos;
@@ -39,8 +43,11 @@ private:
         ~EnemyLaser();
     private:
         void draw(sf::RenderTarget &target, sf::RenderStates states)const;
-        float m_xPos;
-        float m_yPos;
+        sf::RectangleShape m_shape;
+        float              m_xPos;
+        float              m_yPos;
+        float              m_ySpeed;
+        bool               m_active;
     }* m_lasers;
 };
 
