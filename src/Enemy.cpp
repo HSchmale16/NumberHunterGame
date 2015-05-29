@@ -9,6 +9,20 @@
 
 Enemy::Enemy() {
     //ctor
+    m_enemyCount = config.GetInteger("enemies", "count", 3);
+    m_laserCount = m_enemyCount * config.GetInteger("enemies", "lasers", 5);
+    m_lasers     = new Enemy::EnemyLaser[m_laserCount];
+    m_rect       = new sf::RectangleShape[m_enemyCount];
+    m_width      = new float[m_enemyCount];
+    m_height     = new float[m_enemyCount];
+    m_xPos       = new float[m_enemyCount];
+    m_yPos       = new float[m_enemyCount];
+    m_lua        = new lua_State*[m_enemyCount];
+
+    for(uint64_t i  = 0; i < m_enemyCount; i++){
+        m_lua[i] = luaL_newstate();
+        luaL_openlibs(m_lua[i]);
+    }
 }
 
 Enemy::~Enemy() {
@@ -22,6 +36,14 @@ Enemy::~Enemy() {
 
 // Drawing Function for the enemy itself
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
+
+}
+
+Enemy::EnemyLaser::EnemyLaser(){
+
+}
+
+Enemy::EnemyLaser::~EnemyLaser(){
 
 }
 

@@ -105,6 +105,9 @@
 			<Add option="-Wall" />
 			<Add directory="Lua5-3" />
 		</Compiler>
+		<Linker>
+			<Add directory="." />
+		</Linker>
 		<Unit filename="FilePaths.h" />
 		<Unit filename="Hjs_StdLib.h" />
 		<Unit filename="Hjs_StdLib_Implement.cpp" />

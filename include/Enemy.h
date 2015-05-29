@@ -42,11 +42,14 @@ private:
     float*              m_xPos;
     float*              m_yPos;
     sf::RectangleShape* m_rect;
+    lua_State**         m_lua;
 
     class EnemyLaser: public sf::Drawable {
     public:
         EnemyLaser();
         ~EnemyLaser();
+        void move();
+        void init(float x, float y);
     private:
         void draw(sf::RenderTarget &target, sf::RenderStates states)const;
         sf::RectangleShape m_shape;
