@@ -8,6 +8,7 @@
 #include "../config.h"
 #include "../Hjs_StdLib.h"
 #include <cstdio>
+#include <cstdlib>
 
 Enemy::Enemy() {
     //ctor
@@ -33,9 +34,11 @@ Enemy::Enemy() {
         if(!lua_isfunction(m_lua[i], -1)){
             lua_pop(m_lua[i], 1);
             hjs::logToConsole("init is not a function. This is really bad.");
+            exit(0);
         }
         if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
             hjs::logToConsole("Error Returning Function");
+            exit(0);
         }
     }
 }
