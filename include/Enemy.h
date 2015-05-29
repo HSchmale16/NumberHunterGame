@@ -11,6 +11,12 @@
 #include "Player.h"
 #include "Laser.h"
 
+extern "C" {
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+}
+
 /**\brief The Enemy(Space Pirates) manager class
  *
  * This class manages the enemies displayed on screen. It also manages their lasers

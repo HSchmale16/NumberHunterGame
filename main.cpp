@@ -35,6 +35,7 @@
 #include "include/Asteroids.h"
 #include "include/LevelHandler.h"
 #include "include/GameMenu.h"
+#include "include/Enemy.h"
 
 // Declare Global Variables
 bool bGameIsPaused = false;		// Is the game paused?

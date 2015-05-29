@@ -103,6 +103,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="Lua5-3" />
 		</Compiler>
 		<Unit filename="FilePaths.h" />
 		<Unit filename="Hjs_StdLib.h" />
