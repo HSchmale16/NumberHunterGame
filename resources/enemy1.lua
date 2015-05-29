@@ -6,13 +6,20 @@
 -- halfway, and move back and forth shooting at the player. Each enemy has
 -- it's own Lua VM.
 
-shotLimiter = 30;
-shotTimer = 0;
+shotLimiter = 45
+shotTimer   =  0
+xPos        =  0
+yPos        =  0
+xSpeed      =  1
+ySpeed      =  1
 
 -- This function is called once on the loading of the enemy. This
--- function should determine where to place the enemy.
+-- function should determine where to place the enemy. It should
+-- also set your globals to their initial values.
 init = function()
-
+    math.randomseed(os.time)
+    xPos = math.random() * 325 + 25
+    yPos = -20
 end
 
 -- This function determines if this enemy can shoot or not.
@@ -33,5 +40,13 @@ end
 -- new position and return 0 to the caller on success, returning any other
 -- value indicates failure.
 moveEnemy = function()
+    if yPos < 200 then
+        yPos = yPos + 1
+        return 0
+    end
+    if xPos < 50 or xPos > 350 then
+        xSpeed = xSpeed * -1  -- invert travel direction
+    end
+    xPos = xPos + xSpeed;
     return 0
 end
