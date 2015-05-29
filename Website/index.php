@@ -51,7 +51,7 @@
 						echo "<h1>".$row["TITLE"]."</h1>\n";
 						echo $body;
 						echo "<p class=\"author\">" . $row["POSTER"];
-                        echo " on " . $row['DTPOSTED'] . "</p>";
+                        echo " on " . $row['DTPOSTED'] . "</p>\n";
 					}
 				}
 				else
