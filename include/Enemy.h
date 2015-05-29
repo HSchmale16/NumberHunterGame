@@ -30,6 +30,7 @@ public:
     uint16_t getLaserCount();
     uint16_t getEnemyCount();
     bool     hitTestPlayer(Player *p);
+    bool     hitTestLaser(Laser* l);
 protected:
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;

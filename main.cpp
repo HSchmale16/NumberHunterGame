@@ -54,15 +54,16 @@ GameDifficulty DIFFICULTY;          //!< Difficulty of the game
 sf::RenderWindow window;
 
 // dynamically allocate the following objects
-Player *player;
-Salvage *salv;
-UI *myUI;
-Background *bg;
-LaserHandler *lHandler;
-Asteroids *asteroid;
-GameMenu *gmMenu;
-LevelHandler *levels;
-MenuRetType *menuRet;
+Player*       player;
+Salvage*      salv;
+UI*           myUI;
+Background*   bg;
+LaserHandler* lHandler;
+Asteroids*    asteroid;
+GameMenu*     gmMenu;
+LevelHandler* levels;
+MenuRetType*  menuRet;
+Enemy*        enemy;
 
 // Sound Stuff
 sf::SoundBuffer explosionSND; //!< Buff for explosion sound
@@ -278,6 +279,7 @@ int main()
     delete lHandler;
     delete levels;
     delete menuRet;
+    delete enemy;
     hjs::logToConsole("Finished Clean up in main thread");
     return 0;
 }
@@ -286,11 +288,12 @@ int main()
 void gameDifficultyInit(MenuRetType mrt)
 {
     // init objects that doesn't depend on difficulty
-    levels = new LevelHandler(gmMenu->getPlayerName());
-    myUI = new UI;
-    bg = new Background;
+    levels   = new LevelHandler(gmMenu->getPlayerName());
+    myUI     = new UI;
+    bg       = new Background;
     lHandler = new LaserHandler;
-    player = new Player;
+    player   = new Player;
+    enemy    = new Enemy;
 
     // init the rest of the objects that depend
     switch(mrt.diff)

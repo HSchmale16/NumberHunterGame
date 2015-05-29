@@ -32,6 +32,9 @@ Enemy::~Enemy() {
     delete[] m_xPos;
     delete[] m_yPos;
     delete[] m_lasers;
+    for(uint64_t i = 0; i < m_enemyCount; i++){
+        lua_close(m_lua[i]);
+    }
 }
 
 // Drawing Function for the enemy itself
@@ -39,6 +42,7 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
 
 }
 
+// Implementation of Enemy::EnemyLaser Below
 Enemy::EnemyLaser::EnemyLaser(){
 
 }
