@@ -36,33 +36,30 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<?php
-				// News Post
-				$tbName = getNews_Tb_Name();
-				$sql = "Select POSTER, DTPOSTED, TITLE, BODY FROM $tbName ORDER BY DTPOSTED DESC LIMIT 5;";
-				$result = $dbConn->query($sql);
-				if($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-					{
-                        $body  = trim($row["BODY"]);
-                        $start = strpos($body, "<p>");
-                        $end   = strpos($body, "</p>") + 4;
-                        $body  = substr($body, $start, $end);
-						echo "<h1>".$row["TITLE"]."</h1>\n";
-						echo $body;
-						echo "<p class=\"author\">" . $row["POSTER"];
-                        echo " on " . $row['DTPOSTED'] . "</p>\n";
-					}
+			// News Post
+			$tbName = getNews_Tb_Name();
+			$sql = "Select POSTER, DTPOSTED, TITLE, BODY FROM $tbName ORDER BY DTPOSTED DESC LIMIT 5;";
+			$result = $dbConn->query($sql);
+			if($result->num_rows > 0){
+				while($row = $result->fetch_assoc()){
+                    $body  = trim($row["BODY"]);
+                    $start = strpos($body, "<p>");
+                    $end   = strpos($body, "</p>") + 4;
+                    $body  = substr($body, $start, $end);
+					echo "<h1>".$row["TITLE"]."</h1>\n";
+					echo $body;
+					echo "<p class=\"author\">" . $row["POSTER"];
+                    echo " on " . $row['DTPOSTED'] . "</p>\n";
 				}
-				else
-				{
-					echo "<h1>No News Posts Available</h1>\n";
-				}
+			}
+			else{
+				echo "<h1>No News Posts Available</h1>\n";
+			}
 			?>
 		</div><!-- close main-content -->
 		
 		<?
-			include("Includes/Footer.php");
+		include("Includes/Footer.php");
 		?>
 	</div><!-- close page-container -->
 </body>
