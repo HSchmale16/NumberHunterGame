@@ -23,6 +23,7 @@ Enemy::Enemy() {
     m_lua        = new lua_State*[m_enemyCount];
 
     for(uint64_t i  = 0; i < m_enemyCount; i++) {
+        // Init the Lua VM
         m_lua[i] = luaL_newstate();
         luaL_openlibs(m_lua[i]);
         if(luaL_loadfile(m_lua[i],
@@ -37,9 +38,15 @@ Enemy::Enemy() {
             exit(0);
         }
         if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
-            hjs::logToConsole("Error Returning Function");
+            hjs::logTimeToConsole();
+            fprintf(stderr, "Err: Returning 'init': %s\n", lua_tostring(m_lua[i], -1));
             exit(0);
         }
+        // Set default Values
+        lua_getglobal(m_lua[i], "xPos");
+        m_xPos[i] = lua_tonumber(m_lua[i], -1);
+        lua_getglobal(m_lua[i], "yPos");
+        m_yPos[i] = lua_tonumber(m_lua[i], -1);
     }
 }
 

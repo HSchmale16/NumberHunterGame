@@ -15,11 +15,13 @@ ySpeed      =  1
 
 -- This function is called once on the loading of the enemy. This
 -- function should determine where to place the enemy. It should
--- also set your globals to their initial values.
+-- also set your globals to their initial values. Returns 0 on
+-- success.
 init = function()
-    math.randomseed(os.time)
+    math.randomseed(os.time())
     xPos = math.random() * 325 + 25
     yPos = -20
+    return 0
 end
 
 -- This function determines if this enemy can shoot or not.
