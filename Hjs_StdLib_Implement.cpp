@@ -11,7 +11,8 @@
  */
 
 #include "Hjs_StdLib.h"
-#include <math.h>
+#include <cmath>
+#include <cstdio>
 
 /// Variables that are for internal use by Hjs_StdLib
 time_t startTime;                 // time in program execution lib was init'd
@@ -48,7 +49,7 @@ void hjs::logToConsole(const char * ch)
 #ifdef DEBUG_BUILD
     // output time
     logTimeToConsole();
-    std::cout << ch << std::endl;
+    fprintf(stderr, "%s\n", ch);
 #endif // DEBUG_BUILD
 }
 

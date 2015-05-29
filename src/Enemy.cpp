@@ -6,6 +6,8 @@
 
 #include "Enemy.h"
 #include "../config.h"
+#include "../Hjs_StdLib.h"
+#include <cstdio>
 
 Enemy::Enemy() {
     //ctor
@@ -19,9 +21,22 @@ Enemy::Enemy() {
     m_yPos       = new float[m_enemyCount];
     m_lua        = new lua_State*[m_enemyCount];
 
-    for(uint64_t i  = 0; i < m_enemyCount; i++){
+    for(uint64_t i  = 0; i < m_enemyCount; i++) {
         m_lua[i] = luaL_newstate();
         luaL_openlibs(m_lua[i]);
+        if(luaL_loadfile(m_lua[i],
+                         config.Get("enemies", "script1", "resources/enemy1.lua").c_str())
+           || lua_pcall(m_lua[i], 0, 0, 0)) {
+            fprintf(stderr, "Lua Error = %s", lua_tostring(m_lua[i], -1));
+        }
+        lua_getglobal(m_lua[i], "init");
+        if(!lua_isfunction(m_lua[i], -1)){
+            lua_pop(m_lua[i], 1);
+            hjs::logToConsole("init is not a function. This is really bad.");
+        }
+        if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
+            hjs::logToConsole("Error Returning Function");
+        }
     }
 }
 
@@ -32,7 +47,7 @@ Enemy::~Enemy() {
     delete[] m_xPos;
     delete[] m_yPos;
     delete[] m_lasers;
-    for(uint64_t i = 0; i < m_enemyCount; i++){
+    for(uint64_t i = 0; i < m_enemyCount; i++) {
         lua_close(m_lua[i]);
     }
 }
@@ -43,11 +58,11 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
 }
 
 // Implementation of Enemy::EnemyLaser Below
-Enemy::EnemyLaser::EnemyLaser(){
+Enemy::EnemyLaser::EnemyLaser() {
 
 }
 
-Enemy::EnemyLaser::~EnemyLaser(){
+Enemy::EnemyLaser::~EnemyLaser() {
 
 }
 

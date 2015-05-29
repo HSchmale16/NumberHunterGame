@@ -39,7 +39,7 @@ end
 -- about 30 times per second roughly. It should update xPos and yPos to the
 -- new position and return 0 to the caller on success, returning any other
 -- value indicates failure.
-moveEnemy = function()
+function moveEnemy()
     if yPos < 200 then
         yPos = yPos + 1
         return 0
