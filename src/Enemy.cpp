@@ -17,7 +17,14 @@ Enemy::~Enemy()
     //dtor
 }
 
+// ==============================================
+// Drawing Functions
+// ==============================================
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
+
+}
+
+void Enemy::EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const{
 
 }

@@ -97,6 +97,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-Wall" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -109,9 +110,11 @@
 		<Unit filename="INIReader.cpp" />
 		<Unit filename="INIReader.h" />
 		<Unit filename="LevelDatTypes.h" />
+		<Unit filename="config.cpp" />
 		<Unit filename="config.h" />
 		<Unit filename="include/Asteroids.h" />
 		<Unit filename="include/Background.h" />
+		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/GameMenu.h" />
 		<Unit filename="include/Laser.h" />
 		<Unit filename="include/LaserHandler.h" />
@@ -131,6 +134,7 @@
 		<Unit filename="networkSystem.h" />
 		<Unit filename="src/Asteroids.cpp" />
 		<Unit filename="src/Background.cpp" />
+		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/GameMenu.cpp" />
 		<Unit filename="src/Laser.cpp" />
 		<Unit filename="src/LaserHandler.cpp" />

@@ -29,7 +29,19 @@ private:
     uint16_t            m_count;
     float*              m_width;
     float*              m_height;
+    float*              m_xPos;
+    float*              m_yPos;
     sf::RectangleShape* m_rect;
+
+    class EnemyLaser: public sf::Drawable {
+    public:
+        EnemyLaser();
+        ~EnemyLaser();
+    private:
+        void draw(sf::RenderTarget &target, sf::RenderStates states)const;
+        float m_xPos;
+        float m_yPos;
+    }* m_lasers;
 };
 
 #endif // ENEMY_H
