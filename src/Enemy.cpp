@@ -1,10 +1,11 @@
-/**\file   Enemy.h
+/**\file   Enemy.cpp
  * \author Henry J Schmale
  * \date   May 29, 2015
- * \brief  The Enemy Class Declaration File
+ * \brief  The Enemy Class Implementation File
  */
 
 #include "Enemy.h"
+#include "../config.h"
 
 Enemy::Enemy()
 {
@@ -14,4 +15,9 @@ Enemy::Enemy()
 Enemy::~Enemy()
 {
     //dtor
+}
+
+void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const
+{
+
 }

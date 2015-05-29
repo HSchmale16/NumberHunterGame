@@ -8,7 +8,7 @@
 #include "../FilePaths.h"
 #include "../config.h"
 #include <stdio.h>    // for sprintf
-#include <math.h>			// for SQR
+#include <math.h>     // for sqrt
 
 UI::UI()
 {

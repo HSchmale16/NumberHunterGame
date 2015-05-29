@@ -7,15 +7,29 @@
 #define ENEMY_H
 
 #include <SFML/Graphics.hpp>
+#include <cstdint>
 
+/**\brief The Enemy(Space Pirates) manager class
+ *
+ * This class manages the enemies displayed on screen. It also manages their lasers
+ * and attacks.
+ */
 class Enemy: public sf::Drawable {
 public:
-    Enemy(std::string actionFile);
+    Enemy();
     virtual ~Enemy();
+
+    uint16_t getLaserCount();
+    uint16_t getEnemyCount();
 protected:
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
+    /* Data Members */
+    uint16_t            m_count;
+    float*              m_width;
+    float*              m_height;
+    sf::RectangleShape* m_rect;
 };
 
 #endif // ENEMY_H
