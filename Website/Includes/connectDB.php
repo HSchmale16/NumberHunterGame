@@ -22,7 +22,7 @@ function getHiS_Tb_Name($level) {
 
 // get the name of the table that holds game news
 function getNews_Tb_Name() {
-    return "GameNewsCDN";
+    return "GameNewsCMS";
 }
 
 // gets the name of the table that contains list of web admins

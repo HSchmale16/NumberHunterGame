@@ -44,10 +44,14 @@
 				{
 					while($row = $result->fetch_assoc())
 					{
+                        $body  = trim($row["BODY"]);
+                        $start = strpos($body, "<p>");
+                        $end   = strpos($body, "</p>") + 4;
+                        $body  = substr($body, $start, $end);
 						echo "<h1>".$row["TITLE"]."</h1>\n";
-						echo $row["BODY"];
+						echo $body;
 						echo "<p class=\"author\">" . $row["POSTER"];
-                        echo " on " . $row['DTPOSTED'] . "</p>";
+                        echo " on " . $row['DTPOSTED'] . "</p>\n";
 					}
 				}
 				else

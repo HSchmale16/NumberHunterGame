@@ -4,7 +4,26 @@
 -->
 
 <?php
-	include_once("Includes/connectDB.php");
+include_once("Includes/connectDB.php");
+
+function printLinks($adf, $git){
+    if(empty($adf) || empty($git)){
+        echo "Unavailable";
+    }else{
+        echo '<a href="'.$adf.'">Adfly</a><br/>';
+        echo '<a href="'.$git.'">Github</a>';
+    }
+}
+
+function printDLRow($row){
+    echo '<tr><td>'.$row['dtime'].'</td>';
+    echo '<td>'.$row['version'].'</td>';
+    echo '<td>';
+    printLinks($row['adfly-bin'], $row['github-bin']);
+    echo '</td><td>';
+    printLinks($row['adfly-src'], $row['github-src']);
+    echo "</td></tr>\n";
+}
 ?>
 
 <html>
@@ -41,18 +60,18 @@
 			<h2>Available Downloads</h2>
 			<table id="AvailDownloads">
 				<tr>
-					<th>Release Target</th>
-					<th>Link</th>
+					<th>Date</th>
+					<th>Version</th>
+                    <th>Binary</th>
+                    <th>Source</th>
 				</tr>
-				<tr> <!-- Source Code Link -->
-					<td>Source Code</td>
-					<td><a href="http://adf.ly/wY8l7">Adfly Link to github</a></td>
-				</tr>
-				<tr><!-- Windows Binary Release -->
-					<td>Windows Binary Release <br/>
-					This is a zip archive.</td>
-					<td><a href="http://adf.ly/1FMxPi">Release Github</a></td>
-				</tr>
+                <?php
+                $sql = "SELECT * from Downloads ORDER BY id DESC;";
+                $result = $dbConn->query($sql);
+                foreach($result as $row){
+                    printDLRow($row);
+                }
+                ?>
 			</table>
 		</div><!-- close main-content -->
 		
