@@ -51,13 +51,12 @@ function printDLRow($row){
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<h1>Get The Game</h1>
-			<p>This game is available as source code and a binary release. The source code
-               may be found at <a href="http://adf.ly/wY8l7">http://adf.ly/wY8l7</a>.
-               A binary release may be found at <a href="http://adf.ly/1FMxPi">
-               http://adf.ly/1FMxPi</a>.</p>
-			
+			<p>This page has the downloads available for the game.</p>
 			<!-- Available Downloads Table -->
 			<h2>Available Downloads</h2>
+            <p>The github link provides an ad-free experience. However, if you
+            want to support the game, and this website, please use the adfly
+            link</p>
 			<table id="AvailDownloads">
 				<tr>
 					<th>Date</th>
