@@ -29,8 +29,8 @@ public:
 
     uint16_t getLaserCount();
     uint16_t getEnemyCount();
-    bool     hitTestPlayer(Player *p);
-    bool     hitTestLaser(Laser* l);
+    uint16_t hitTestPlayer(Player *p);
+    uint16_t hitTestLaser(Laser* l);
     void     move();
 protected:
 private:
@@ -43,7 +43,7 @@ private:
     float*              m_height;
     float*              m_xPos;
     float*              m_yPos;
-    sf::RectangleShape* m_rect;
+    sf::RectangleShape* m_shape;
     lua_State**         m_lua;
 
     class EnemyLaser: public sf::Drawable {
@@ -51,14 +51,17 @@ private:
         EnemyLaser();
         ~EnemyLaser();
         void move();
-        void init(float x, float y);
+        void init(float x, float y, float dx, float dy);
+        bool getActive();
     private:
         void draw(sf::RenderTarget &target, sf::RenderStates states)const;
-        sf::RectangleShape m_shape;
-        float              m_xPos;
-        float              m_yPos;
-        float              m_ySpeed;
-        bool               m_active;
+
+        sf::CircleShape m_shape;
+        float           m_xPos;
+        float           m_yPos;
+        float           m_xSpeed;
+        float           m_ySpeed;
+        bool            m_active;
     }* m_lasers;
 };
 

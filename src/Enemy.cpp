@@ -15,7 +15,7 @@ Enemy::Enemy() {
     m_enemyCount = config.GetInteger("enemies", "count", 3);
     m_laserCount = m_enemyCount * config.GetInteger("enemies", "lasers", 5);
     m_lasers     = new Enemy::EnemyLaser[m_laserCount];
-    m_rect       = new sf::RectangleShape[m_enemyCount];
+    m_shape      = new sf::RectangleShape[m_enemyCount];
     m_width      = new float[m_enemyCount];
     m_height     = new float[m_enemyCount];
     m_xPos       = new float[m_enemyCount];
@@ -47,6 +47,10 @@ Enemy::Enemy() {
         m_xPos[i] = lua_tonumber(m_lua[i], -1);
         lua_getglobal(m_lua[i], "yPos");
         m_yPos[i] = lua_tonumber(m_lua[i], -1);
+        // Init the shape
+        m_shape[i].setSize(sf::Vector2f(20, 20));
+        m_shape[i].setFillColor(sf::Color::Green);
+        m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
     }
 }
 
@@ -62,21 +66,49 @@ Enemy::~Enemy() {
     }
 }
 
+void Enemy::move(){
+    for(uint64_t i = 0; i < m_enemyCount; i++){
+        lua_getglobal(m_lua[i], "moveEnemy");
+        if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
+            //!\todo Handle Error
+        }
+        lua_getglobal(m_lua[i], "xPos");
+        m_xPos[i] = lua_tonumber(m_lua[i], -1);
+        lua_getglobal(m_lua[i], "yPos");
+        m_yPos[i] = lua_tonumber(m_lua[i], -1);
+        m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
+    }
+}
+
 // Drawing Function for the enemy itself
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
-
+    for(uint64_t i = 0; i < m_enemyCount; i++){
+        target.draw(m_shape[i]);
+    }
 }
 
 // Implementation of Enemy::EnemyLaser Below
-Enemy::EnemyLaser::EnemyLaser() {
-
+Enemy::EnemyLaser::EnemyLaser()
+:m_xPos(0), m_yPos(0), m_xSpeed(0), m_ySpeed(0), m_active(false){
+    m_shape.setRadius(2.5);
+    m_shape.setFillColor(sf::Color::Blue);
 }
 
 Enemy::EnemyLaser::~EnemyLaser() {
 
 }
 
+void Enemy::EnemyLaser::move(){
+
+}
+
+void Enemy::EnemyLaser::init(float x, float y, float dx, float dy){
+
+}
+
+bool Enemy::EnemyLaser::getActive(){return m_active;}
+
 // Drawing Function for the enemy laser
 void Enemy::EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const {
-
+    target.draw(m_shape);
 }
