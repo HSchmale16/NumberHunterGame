@@ -1,6 +1,6 @@
-<!-- index.php
---	Main page for game, displays news
---	December 8, 2014
+<!-- tos.php
+     Website Terms of Service
+	 December 8, 2014
 -->
 <?php
 	include_once("Includes/connectDB.php");
@@ -35,27 +35,21 @@
 		
 		<!-- Begin Main-Content -->
 		<div id="main-content">
-			<?php
-			// News Post
-			$tbName = getNews_Tb_Name();
-			$sql = "Select POSTER, DTPOSTED, TITLE, BODY FROM $tbName ORDER BY DTPOSTED DESC LIMIT 5;";
-			$result = $dbConn->query($sql);
-			if($result->num_rows > 0){
-				while($row = $result->fetch_assoc()){
-                    $body  = trim($row["BODY"]);
-                    $start = strpos($body, "<p>");
-                    $end   = strpos($body, "</p>") + 4;
-                    $body  = substr($body, $start, $end);
-					echo "<h1>".$row["TITLE"]."</h1>\n";
-					echo $body;
-					echo "<p class=\"author\">" . $row["POSTER"];
-                    echo " on " . $row['DTPOSTED'] . "</p>\n";
-				}
-			}
-			else{
-				echo "<h1>No News Posts Available</h1>\n";
-			}
-			?>
+        <h1>Terms of Service</h1>
+        <p>This page states the terms of service for this game. These rules
+           are meant to encourge fair play of the game, and foster
+           competition between players.</p>
+        <ol>
+            <li>This game may collect information about the players. Possible
+                information collected includes the score gotten and general
+                gameplay statistics, this is only logged if submitting to the
+                high scores server is enabled.</li>
+            <li>You may not attempt to hack the server.</li>
+            <li>You may not cheat or attempt to upload scores that were gained
+                by using nonoffical config files.</li>
+            <li>Offical config files are defined as any set of config files
+                available in the git repo.</li>
+        </ol>
 		</div><!-- close main-content -->
 		
 		<?
