@@ -36,11 +36,19 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
         <h1>Terms of Service</h1>
-        <p>This page states the terms of service for this game.</p>
+        <p>This page states the terms of service for this game. These rules
+           are meant to encourge fair play of the game, and foster
+           competition between players.</p>
         <ol>
-            <li>You may not attempt to hack the server</li>
-            <li>You may not cheat or attempt to upload scores that gained
-                using nonoffical config files.</li>
+            <li>This game may collect information about the players. Possible
+                information collected includes the score gotten and general
+                gameplay statistics, this is only logged if submitting to the
+                high scores server is enabled.</li>
+            <li>You may not attempt to hack the server.</li>
+            <li>You may not cheat or attempt to upload scores that were gained
+                by using nonoffical config files.</li>
+            <li>Offical config files are defined as any set of config files
+                available in the git repo.</li>
         </ol>
 		</div><!-- close main-content -->
 		
