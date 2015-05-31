@@ -148,6 +148,7 @@ void Enemy::initLaser(int index) {
             m_lasers[i].init(m_xPos[i] + (m_width[i] / 2.0),
                              m_yPos[i] + (m_height[i] / 2.0),
                              bdx, bdy);
+            std::cerr << bdx << "  " << bdy << std::endl;
             break;
         }
     }

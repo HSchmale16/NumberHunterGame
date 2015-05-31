@@ -17,24 +17,26 @@ shotTimer   = 0
 xSpeed      = 1
 ySpeed      = 1
 yBound      = 300 * math.random()
+bspeed      = 0
 -- Variables that the host program accesses
 xPos        = 0   -- current x position of this enemy
 yPos        = 0   -- current y position of this enemy
 bullet_dx   = 0   -- bullet x speed
 bullet_dy   = 0   -- bullet y speed. positive goes down on screen
 -- Variables that the host program gives this script
-player_x    = 0   -- player x position
-player_y    = 0   -- player y position
+player_x    = 0   -- player x position last iteration
+player_y    = 0   -- player y position last iteration
 
 -- This function is called once on the loading of the enemy. This
 -- function should determine where to place the enemy. It should
 -- also set your globals to their initial values. Returns 0 on
 -- success.
 init = function()
-    xPos = math.random() * 325 + 25
-    yPos = -1 * math.floor(math.random() * 100)
+    xPos   = math.random() * 325 + 25
+    yPos   = -1 * math.floor(math.random() * 100)
     xSpeed = math.random() * 2 + .02
     ySpeed = math.random() + .25
+    bspeed = 2
     return 0
 end
 
@@ -43,9 +45,11 @@ end
 -- same rate that moveEnemy is called. It also needs to set bullet_dx and
 -- bullet_dy if it returns true
 shoot = function()
-    shotTimer = shotTimer + 1
     if shotTimer > shotLimiter then
-        shotTimer = 0
+        shotTimer = 0 -- reset shot timer
+        angle = math.atan(player_y, player_x)
+        bullet_dx = math.cos(angle) * bspeed
+        bullet_dy = math.sin(angle) * bspeed
         return true;
     end
     return false
@@ -61,6 +65,7 @@ function moveEnemy()
         yPos = yPos + 1
         return 0
     end
+    shotTimer = shotTimer + 1
     if xPos < 20 or xPos > 350 then
         xSpeed = xSpeed * -1
     end
