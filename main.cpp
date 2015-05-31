@@ -84,6 +84,7 @@ void render()	// rendering thread entry point
         window.draw(*bg);
         window.draw(*salv);
         window.draw(*asteroid);
+        window.draw(*enemy);
         window.draw(*player);
         window.draw(*lHandler);
         window.draw(*myUI);
@@ -109,6 +110,7 @@ void handleObjectEvents()	// object event thread entry point
             player->Move();
             salv->Move();
             asteroid->Move();
+            enemy->Move();
             int Points = lHandler->handleEvents(player, salv, asteroid);// laser hit test
             if(Points){
 

@@ -21,6 +21,8 @@ init = function()
     math.randomseed(os.time())
     xPos = math.random() * 325 + 25
     yPos = -20
+    xSpeed = math.random() * 2 + .02;
+    ySpeed = math.random() + .25;
     return 0
 end
 

@@ -31,7 +31,7 @@ public:
     uint16_t getEnemyCount();
     uint16_t hitTestPlayer(Player *p);
     uint16_t hitTestLaser(Laser* l);
-    void     move();
+    void     Move();
 protected:
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
@@ -50,7 +50,7 @@ private:
     public:
         EnemyLaser();
         ~EnemyLaser();
-        void move();
+        void Move();
         void init(float x, float y, float dx, float dy);
         bool getActive();
     private:

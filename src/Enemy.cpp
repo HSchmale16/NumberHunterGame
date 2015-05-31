@@ -12,7 +12,7 @@
 
 Enemy::Enemy() {
     //ctor
-    m_enemyCount = config.GetInteger("enemies", "count", 3);
+    m_enemyCount = 1;
     m_laserCount = m_enemyCount * config.GetInteger("enemies", "lasers", 5);
     m_lasers     = new Enemy::EnemyLaser[m_laserCount];
     m_shape      = new sf::RectangleShape[m_enemyCount];
@@ -48,9 +48,10 @@ Enemy::Enemy() {
         lua_getglobal(m_lua[i], "yPos");
         m_yPos[i] = lua_tonumber(m_lua[i], -1);
         // Init the shape
-        m_shape[i].setSize(sf::Vector2f(20, 20));
+        m_shape[i].setSize(sf::Vector2f(rand() % 40 + 20, 20));
         m_shape[i].setFillColor(sf::Color::Green);
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
+        hjs::logToConsole("Enemy Created");
     }
 }
 
@@ -66,7 +67,7 @@ Enemy::~Enemy() {
     }
 }
 
-void Enemy::move(){
+void Enemy::Move(){
     for(uint64_t i = 0; i < m_enemyCount; i++){
         lua_getglobal(m_lua[i], "moveEnemy");
         if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
@@ -98,7 +99,7 @@ Enemy::EnemyLaser::~EnemyLaser() {
 
 }
 
-void Enemy::EnemyLaser::move(){
+void Enemy::EnemyLaser::Move(){
 
 }
 
