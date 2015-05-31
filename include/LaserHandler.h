@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Salvage.h"
 #include "Asteroids.h"
+#include "Enemy.h"
 
 class LaserHandler: public sf::Drawable
 {
@@ -26,7 +27,7 @@ public:
 
     // Handles Laser Object Events
     // Returns how many points have been gained by lasers
-    int handleEvents(Player *p, Salvage *s, Asteroids *a);
+    int handleEvents(Player *p, Salvage *s, Asteroids *a, Enemy *e);
 
     int getSalvageDestroyedThisIter();		// gets the count of salvage destroyed during the current iteration
     int getAsteroidsDestroyedThisIter();	// gets the number of asteroids destroyed during the current iteration

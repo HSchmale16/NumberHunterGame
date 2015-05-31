@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <iostream>
 
-Enemy::Enemy(){
+Enemy::Enemy() {
     //ctor
     m_enemyCount = config.GetInteger("enemies", "count", 3);
     m_laserCount = m_enemyCount * config.GetInteger("enemies", "lasers", 5);
@@ -30,16 +30,16 @@ Enemy::Enemy(){
         luaL_openlibs(m_lua[i]);
         if(luaL_loadfile(m_lua[i],
                          config.Get("enemies", "script1", "resources/enemy1.lua").c_str())
-           || lua_pcall(m_lua[i], 0, 0, 0)) {
+                || lua_pcall(m_lua[i], 0, 0, 0)) {
             fprintf(stderr, "Lua Error = %s", lua_tostring(m_lua[i], -1));
         }
         lua_getglobal(m_lua[i], "init");
-        if(!lua_isfunction(m_lua[i], -1)){
+        if(!lua_isfunction(m_lua[i], -1)) {
             lua_pop(m_lua[i], 1);
             hjs::logToConsole("init is not a function. This is really bad.");
             exit(0);
         }
-        if(lua_pcall(m_lua[i], 0, 0, 0) != 0){
+        if(lua_pcall(m_lua[i], 0, 0, 0) != 0) {
             hjs::logTimeToConsole();
             fprintf(stderr, "Err: Returning 'init': %s\n", lua_tostring(m_lua[i], -1));
             exit(0);
@@ -50,9 +50,11 @@ Enemy::Enemy(){
         lua_getglobal(m_lua[i], "yPos");
         m_yPos[i] = (float)lua_tonumber(m_lua[i], -1);
         lua_pop(m_lua[i], 2);
-        // Init the shape
+        // Init the other values
         m_width[i] = 30;
         m_height[i] = 30;
+        m_active[i] = true;
+        // Init the shape
         m_shape[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
         m_shape[i].setFillColor(sf::Color::Green);
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
@@ -74,11 +76,30 @@ Enemy::~Enemy() {
     }
 }
 
-void Enemy::Move(){
-    for(uint64_t i = 0; i < m_enemyCount; i++){
+void Enemy::ReInit(int index){
+    m_active[index] = true;
+    lua_getglobal(m_lua[index], "init");
+    if(lua_pcall(m_lua[index], 0, 0, 0) != 0) {
+        hjs::logTimeToConsole();
+        fprintf(stderr, "Err: Returning 'init': %s\n", lua_tostring(m_lua[index], -1));
+        exit(0);
+    }
+    lua_getglobal(m_lua[index], "xPos");
+    m_xPos[index] = (float)lua_tonumber(m_lua[index], -1);
+    lua_getglobal(m_lua[index], "yPos");
+    m_yPos[index] = (float)lua_tonumber(m_lua[index], -1);
+    lua_pop(m_lua[index], 2);
+    m_shape[index].setPosition(m_xPos[index], m_yPos[index]);
+}
+
+void Enemy::Move() {
+    for(uint64_t i = 0; i < m_enemyCount; i++) {
+        if(m_active[i] != true) {
+            continue;
+        }
         // run the lua virtual machine for this iteration
         lua_getglobal(m_lua[i], "moveEnemy");
-        if(lua_pcall(m_lua[i], 0, 0, 0) != 0){
+        if(lua_pcall(m_lua[i], 0, 0, 0) != 0) {
             //!\todo Handle Error
         }
         lua_getglobal(m_lua[i], "xPos");
@@ -87,46 +108,78 @@ void Enemy::Move(){
         m_yPos[i] = (float)lua_tonumber(m_lua[i], -1);
         // check if it can shoot
         lua_getglobal(m_lua[i], "shoot");
-        if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
+        if(lua_pcall(m_lua[i], 0, 1, 0) != 0) {
             //!< \todo handle error
+        }
+        bool shoot = lua_toboolean(m_lua[i], -1);
+        if(shoot) {
+            this->initLaser(i);
         }
         // Clean up and update position
         lua_pop(m_lua[i], 2); // Free the some memory
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
-        //hjs::logTimeToConsole();
-        /*std::cerr << "enemy" << i << "  x= " << m_xPos[i] << "  y= " << m_yPos[i]
-                  << std::endl;*/
     }
-    for(uint64_t i = 0; i < m_laserCount; i++){
+    for(uint64_t i = 0; i < m_laserCount; i++) {
         m_lasers[i].Move();
     }
 }
 
 // Drawing Function for the enemy itself
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
-    for(uint64_t i = 0; i < m_enemyCount; i++){
-        if(m_active[i]){
+    for(uint64_t i = 0; i < m_laserCount; i++) {
+        target.draw(m_lasers[i]);
+    }
+    for(uint64_t i = 0; i < m_enemyCount; i++) {
+        if(m_active[i]) {
             target.draw(m_shape[i]);
         }
     }
-    for(uint64_t i = 0; i < m_enemyCount; i++){
-        target.draw(m_lasers[i]);
+}
+
+void Enemy::initLaser(int index) {
+    for(uint64_t i = 0; i < m_laserCount; i++) {
+        if(m_lasers[i].getActive() == false) {
+            lua_getglobal(m_lua[index], "bull_dx");
+            float bdx = (float)lua_tonumber(m_lua[index], -1);
+            lua_pop(m_lua[index], 1);
+            lua_getglobal(m_lua[index], "bull_dy");
+            float bdy = (float)lua_tonumber(m_lua[index], -1);
+            lua_pop(m_lua[index], 1);
+            m_lasers[i].init(m_xPos[i] + (m_width[i] / 2.0),
+                             m_yPos[i] + (m_height[i] / 2.0),
+                             bdx, bdy);
+            break;
+        }
     }
 }
 
-void Enemy::initLaser(int index){
-    for(uint64_t i = 0; i < m_laserCount; i++){
-        if(m_lasers[i].getActive() == false){
+bool Enemy::hitTestLaser(uint64_t index, Laser &l) {
+// verify index is within bounds
+    if((index > m_enemyCount) || (index < 0))
+        return false;
 
-        }
-    }
+    // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
+    // modified by H. Schmale for use in this game
+    return (
+               (( m_xPos[index] + m_width[index] >= l.getX()) && (m_xPos[index] <= l.getX()))
+               &&
+               (( m_yPos[index] + m_height[index] >= l.getY()) && (m_yPos[index] <= l.getY()))
+           );
+}
+
+// Getter Methods
+uint64_t Enemy::getEnemyCount() {
+    return m_enemyCount;
+}
+uint64_t Enemy::getLaserCount() {
+    return m_laserCount;
 }
 
 // ==============================================
 // Implementation of Enemy::EnemyLaser Below
 // ==============================================
 Enemy::EnemyLaser::EnemyLaser()
-:m_xPos(0), m_yPos(0), m_xSpeed(0), m_ySpeed(0), m_active(false){
+    :m_xPos(0), m_yPos(0), m_xSpeed(0), m_ySpeed(0), m_active(false) {
     m_shape.setRadius(2.5);
     m_shape.setFillColor(sf::Color::Blue);
 }
@@ -135,18 +188,20 @@ Enemy::EnemyLaser::~EnemyLaser() {
 
 }
 
-void Enemy::EnemyLaser::Move(){
-    if(!m_active){return;}
+void Enemy::EnemyLaser::Move() {
+    if(!m_active) {
+        return;
+    }
     m_xPos += m_xSpeed;
     m_yPos += m_ySpeed;
-    if((m_xPos < 0) || (m_xPos > 375) || (m_yPos < 0) || (m_yPos > 650)){
+    if((m_xPos < 0) || (m_xPos > 375) || (m_yPos < 0) || (m_yPos > 650)) {
         m_active = false;
     }
 }
 
 
 
-void Enemy::EnemyLaser::init(float x, float y, float dx, float dy){
+void Enemy::EnemyLaser::init(float x, float y, float dx, float dy) {
     m_active = true;
     m_xPos   = x;
     m_yPos   = y;
@@ -154,11 +209,13 @@ void Enemy::EnemyLaser::init(float x, float y, float dx, float dy){
     m_ySpeed = dy;
 }
 
-bool Enemy::EnemyLaser::getActive(){return m_active;}
+bool Enemy::EnemyLaser::getActive() {
+    return m_active;
+}
 
 // Drawing Function for the enemy laser
 void Enemy::EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const {
-    if(m_active){
+    if(m_active) {
         target.draw(m_shape);
     }
 }

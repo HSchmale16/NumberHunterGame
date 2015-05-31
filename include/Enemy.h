@@ -27,15 +27,12 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    bool     create();
-    uint16_t getLaserCount();
-    uint16_t getEnemyCount();
-    /**\brief Perform a hittest against the player on all enemy instances
-     * \param p The Player object to perform a hittest against
-     * \return The number of enemies hit
-     */
-    uint64_t hitTestPlayer(Player *p);
-    uint64_t hitTestLaser(Laser* l);
+    void     ReInit(int index);
+    uint64_t getLaserCount();
+    uint64_t getEnemyCount();
+
+    bool     hitTestPlayer(uint64_t index, Player& p);
+    bool     hitTestLaser(uint64_t index, Laser& l);
     void     Move();
 protected:
 private:
