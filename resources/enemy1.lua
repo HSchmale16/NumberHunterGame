@@ -20,8 +20,11 @@ yBound      = 300 * math.random()
 -- Variables that the host program accesses
 xPos        = 0   -- current x position of this enemy
 yPos        = 0   -- current y position of this enemy
-bull_dx     = 0   -- bullet x speed
-bull_dy     = 0   -- bullet y speed
+bullet_dx   = 0   -- bullet x speed
+bullet_dy   = 0   -- bullet y speed. positive goes down on screen
+-- Variables that the host program gives this script
+player_x    = 0   -- player x position
+player_y    = 0   -- player y position
 
 -- This function is called once on the loading of the enemy. This
 -- function should determine where to place the enemy. It should
@@ -37,7 +40,8 @@ end
 
 -- This function determines if this enemy can shoot or not.
 -- It returns true if it should shoot this iteration. It is called at the
--- same rate that moveEnemy is called.
+-- same rate that moveEnemy is called. It also needs to set bullet_dx and
+-- bullet_dy if it returns true
 shoot = function()
     shotTimer = shotTimer + 1
     if shotTimer > shotLimiter then

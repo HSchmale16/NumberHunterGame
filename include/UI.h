@@ -18,6 +18,10 @@ enum SalvCondition
 };
 
 // class declaration
+/**\todo Implement game over on run out of health
+ * \note This class only handles the lower User Interface of the game.
+ *
+ */
 class UI: public sf::Drawable
 {
 public:
@@ -27,16 +31,16 @@ public:
     /**\brief Reset this object back to default values
      */
     void Reset();
-    
+
     /**\brief Selects a new **random** condition for good salvage
      */
     void setNewCondition();
-    
+
     /**\brief Sets a random condition based on the SalvConditon passed
      * \param condition The Salvage Condition
-     */ 
+     */
     void setCondition(SalvCondition condition);
-    
+
     /**\brief Adds/Subtracts Points from the current score
      * \param points How many points to give or take.
      */

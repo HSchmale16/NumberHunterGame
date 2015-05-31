@@ -154,7 +154,17 @@ void handleObjectEvents()	// object event thread entry point
                     levels->addKilledAsteroids(1);
                     asteroid->ReInit(i);
                     hjs::logTimeToConsole();
-                    std::cout << "Asteroid(" << i << ") has hit player" << std::endl;
+                    std::cerr << "Asteroid(" << i << ") has hit player" << std::endl;
+                }
+            }
+
+            // enemy hittest
+            for(uint64_t i = 0; i < enemy->getEnemyCount(); i++){
+                bool hit = enemy->hitTestPlayer(i, *player);
+                if(hit){
+                    //!\todo Finish implementing what happens when player hits enemy
+                    myUI->updateHealth(-5);
+                    enemy->ReInit(i);
                 }
             }
             // add points
