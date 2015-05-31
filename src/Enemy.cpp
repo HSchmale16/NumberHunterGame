@@ -9,18 +9,20 @@
 #include "../Hjs_StdLib.h"
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 
-Enemy::Enemy() {
+Enemy::Enemy(){
     //ctor
-    m_enemyCount = 1;
+    m_enemyCount = config.GetInteger("enemies", "count", 3);
     m_laserCount = m_enemyCount * config.GetInteger("enemies", "lasers", 5);
-    m_lasers     = new Enemy::EnemyLaser[m_laserCount];
-    m_shape      = new sf::RectangleShape[m_enemyCount];
     m_width      = new float[m_enemyCount];
     m_height     = new float[m_enemyCount];
     m_xPos       = new float[m_enemyCount];
     m_yPos       = new float[m_enemyCount];
+    m_active     = new bool[m_enemyCount];
     m_lua        = new lua_State*[m_enemyCount];
+    m_shape      = new sf::RectangleShape[m_enemyCount];
+    m_lasers     = new Enemy::EnemyLaser[m_laserCount];
 
     for(uint64_t i  = 0; i < m_enemyCount; i++) {
         // Init the Lua VM
@@ -37,18 +39,21 @@ Enemy::Enemy() {
             hjs::logToConsole("init is not a function. This is really bad.");
             exit(0);
         }
-        if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
+        if(lua_pcall(m_lua[i], 0, 0, 0) != 0){
             hjs::logTimeToConsole();
             fprintf(stderr, "Err: Returning 'init': %s\n", lua_tostring(m_lua[i], -1));
             exit(0);
         }
         // Set default Values
         lua_getglobal(m_lua[i], "xPos");
-        m_xPos[i] = lua_tonumber(m_lua[i], -1);
+        m_xPos[i] = (float)lua_tonumber(m_lua[i], -1);
         lua_getglobal(m_lua[i], "yPos");
-        m_yPos[i] = lua_tonumber(m_lua[i], -1);
+        m_yPos[i] = (float)lua_tonumber(m_lua[i], -1);
+        lua_pop(m_lua[i], 2);
         // Init the shape
-        m_shape[i].setSize(sf::Vector2f(rand() % 40 + 20, 20));
+        m_width[i] = 30;
+        m_height[i] = 30;
+        m_shape[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
         m_shape[i].setFillColor(sf::Color::Green);
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
         hjs::logToConsole("Enemy Created");
@@ -61,6 +66,8 @@ Enemy::~Enemy() {
     delete[] m_height;
     delete[] m_xPos;
     delete[] m_yPos;
+    delete[] m_shape;
+    delete[] m_active;
     delete[] m_lasers;
     for(uint64_t i = 0; i < m_enemyCount; i++) {
         lua_close(m_lua[i]);
@@ -69,26 +76,55 @@ Enemy::~Enemy() {
 
 void Enemy::Move(){
     for(uint64_t i = 0; i < m_enemyCount; i++){
+        // run the lua virtual machine for this iteration
         lua_getglobal(m_lua[i], "moveEnemy");
-        if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
+        if(lua_pcall(m_lua[i], 0, 0, 0) != 0){
             //!\todo Handle Error
         }
         lua_getglobal(m_lua[i], "xPos");
-        m_xPos[i] = lua_tonumber(m_lua[i], -1);
+        m_xPos[i] = (float)lua_tonumber(m_lua[i], -1);
         lua_getglobal(m_lua[i], "yPos");
-        m_yPos[i] = lua_tonumber(m_lua[i], -1);
+        m_yPos[i] = (float)lua_tonumber(m_lua[i], -1);
+        // check if it can shoot
+        lua_getglobal(m_lua[i], "shoot");
+        if(lua_pcall(m_lua[i], 0, 1, 0) != 0){
+            //!< \todo handle error
+        }
+        // Clean up and update position
+        lua_pop(m_lua[i], 2); // Free the some memory
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
+        //hjs::logTimeToConsole();
+        /*std::cerr << "enemy" << i << "  x= " << m_xPos[i] << "  y= " << m_yPos[i]
+                  << std::endl;*/
+    }
+    for(uint64_t i = 0; i < m_laserCount; i++){
+        m_lasers[i].Move();
     }
 }
 
 // Drawing Function for the enemy itself
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
     for(uint64_t i = 0; i < m_enemyCount; i++){
-        target.draw(m_shape[i]);
+        if(m_active[i]){
+            target.draw(m_shape[i]);
+        }
+    }
+    for(uint64_t i = 0; i < m_enemyCount; i++){
+        target.draw(m_lasers[i]);
     }
 }
 
+void Enemy::initLaser(int index){
+    for(uint64_t i = 0; i < m_laserCount; i++){
+        if(m_lasers[i].getActive() == false){
+
+        }
+    }
+}
+
+// ==============================================
 // Implementation of Enemy::EnemyLaser Below
+// ==============================================
 Enemy::EnemyLaser::EnemyLaser()
 :m_xPos(0), m_yPos(0), m_xSpeed(0), m_ySpeed(0), m_active(false){
     m_shape.setRadius(2.5);
@@ -100,16 +136,29 @@ Enemy::EnemyLaser::~EnemyLaser() {
 }
 
 void Enemy::EnemyLaser::Move(){
-
+    if(!m_active){return;}
+    m_xPos += m_xSpeed;
+    m_yPos += m_ySpeed;
+    if((m_xPos < 0) || (m_xPos > 375) || (m_yPos < 0) || (m_yPos > 650)){
+        m_active = false;
+    }
 }
 
-void Enemy::EnemyLaser::init(float x, float y, float dx, float dy){
 
+
+void Enemy::EnemyLaser::init(float x, float y, float dx, float dy){
+    m_active = true;
+    m_xPos   = x;
+    m_yPos   = y;
+    m_xSpeed = dx;
+    m_ySpeed = dy;
 }
 
 bool Enemy::EnemyLaser::getActive(){return m_active;}
 
 // Drawing Function for the enemy laser
 void Enemy::EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const {
-    target.draw(m_shape);
+    if(m_active){
+        target.draw(m_shape);
+    }
 }

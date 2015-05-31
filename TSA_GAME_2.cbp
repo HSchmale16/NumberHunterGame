@@ -29,6 +29,7 @@
 					<Add option="-DWINDOWS_PLATFORM_TARGETED" />
 					<Add directory="SFML-2.1/include" />
 					<Add directory="include" />
+					<Add directory="Lua5-3" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg -lgmon" />
@@ -38,7 +39,9 @@
 					<Add library="SFML-2.1\lib\libsfml-graphics-s-d.a" />
 					<Add library="SFML-2.1\lib\libsfml-window-s-d.a" />
 					<Add library="SFML-2.1\lib\libsfml-system-s-d.a" />
+					<Add library="Lua5-3\liblua5-3-0-s-d.a" />
 					<Add directory="SFML-2.1/lib" />
+					<Add directory="Lua5-3" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -54,6 +57,7 @@
 					<Add option="-DWINDOWS_PLATFORM_TARGETED" />
 					<Add directory="SFML-2.1/include" />
 					<Add directory="include" />
+					<Add directory="Lua5-3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -62,7 +66,9 @@
 					<Add library="SFML-2.1\lib\libsfml-graphics-s.a" />
 					<Add library="SFML-2.1\lib\libsfml-window-s.a" />
 					<Add library="SFML-2.1\lib\libsfml-system-s.a" />
+					<Add library="Lua5-3\liblua5-3-0.a" />
 					<Add directory="SFML-2.1/lib" />
+					<Add directory="Lua5-3" />
 				</Linker>
 			</Target>
 			<Target title="TSA_BUILD">
@@ -103,13 +109,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="Lua5-3" />
 		</Compiler>
-		<Linker>
-			<Add library="Lua5-3\liblua5-3-0.a" />
-			<Add directory="." />
-			<Add directory="Lua5-3" />
-		</Linker>
 		<Unit filename="FilePaths.h" />
 		<Unit filename="Hjs_StdLib.h" />
 		<Unit filename="Hjs_StdLib_Implement.cpp" />
@@ -137,7 +137,6 @@
 		</Unit>
 		<Unit filename="ini.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="networkSystem.h" />
 		<Unit filename="src/Asteroids.cpp" />
 		<Unit filename="src/Background.cpp" />
 		<Unit filename="src/Enemy.cpp" />

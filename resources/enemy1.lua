@@ -6,23 +6,32 @@
 -- halfway, and move back and forth shooting at the player. Each enemy has
 -- it's own Lua VM.
 
+-- Set up random number generator. This is a nasty hack that abuses
+-- the random number generator and time to get a pseudo random number
+-- for multiple lua instances at the same time.
+math.randomseed(math.random(os.time()) * os.time())
+
+-- Do any initial setup here
 shotLimiter = 45
-shotTimer   =  0
-xPos        =  0
-yPos        =  0
-xSpeed      =  1
-ySpeed      =  1
+shotTimer   = 0
+xSpeed      = 1
+ySpeed      = 1
+yBound      = 300 * math.random()
+-- Variables that the host program accesses
+xPos        = 0   -- current x position of this enemy
+yPos        = 0   -- current y position of this enemy
+bull_dx     = 0   -- bullet x speed
+bull_dy     = 0   -- bullet y speed
 
 -- This function is called once on the loading of the enemy. This
 -- function should determine where to place the enemy. It should
 -- also set your globals to their initial values. Returns 0 on
 -- success.
 init = function()
-    math.randomseed(os.time())
     xPos = math.random() * 325 + 25
-    yPos = -20
-    xSpeed = math.random() * 2 + .02;
-    ySpeed = math.random() + .25;
+    yPos = -1 * math.floor(math.random() * 100)
+    xSpeed = math.random() * 2 + .02
+    ySpeed = math.random() + .25
     return 0
 end
 
@@ -44,13 +53,13 @@ end
 -- new position and return 0 to the caller on success, returning any other
 -- value indicates failure.
 function moveEnemy()
-    if yPos < 200 then
+    if yPos < yBound then
         yPos = yPos + 1
         return 0
     end
-    if xPos < 50 or xPos > 350 then
-        xSpeed = xSpeed * -1  -- invert travel direction
+    if xPos < 20 or xPos > 350 then
+        xSpeed = xSpeed * -1
     end
-    xPos = xPos + xSpeed;
+    xPos = xPos + xSpeed
     return 0
 end

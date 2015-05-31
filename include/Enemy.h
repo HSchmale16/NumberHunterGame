@@ -27,14 +27,23 @@ public:
     Enemy();
     virtual ~Enemy();
 
+    bool     create();
     uint16_t getLaserCount();
     uint16_t getEnemyCount();
-    uint16_t hitTestPlayer(Player *p);
-    uint16_t hitTestLaser(Laser* l);
+    /**\brief Perform a hittest against the player on all enemy instances
+     * \param p The Player object to perform a hittest against
+     * \return The number of enemies hit
+     */
+    uint64_t hitTestPlayer(Player *p);
+    uint64_t hitTestLaser(Laser* l);
     void     Move();
 protected:
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
+    /**\brief Makes a laser at the center of the enemy
+     * \param index The enemy index to create laser at
+     */
+    void initLaser(int index);
 
     /* Data Members */
     uint64_t            m_enemyCount;
@@ -43,6 +52,7 @@ private:
     float*              m_height;
     float*              m_xPos;
     float*              m_yPos;
+    bool*               m_active;
     sf::RectangleShape* m_shape;
     lua_State**         m_lua;
 
