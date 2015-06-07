@@ -21,7 +21,9 @@ extern "C" {
 class EnemyLaser: public sf::Drawable {
 public:
     EnemyLaser();
+    EnemyLaser(float x, float y, float dx, float dy);
     ~EnemyLaser();
+
     void Move();
     void init(float x, float y, float dx, float dy);
     bool getActive();
@@ -62,16 +64,16 @@ private:
     void initLaser(uint64_t index);
 
     /* Data Members */
-    uint64_t            m_enemyCount;
-    uint64_t            m_laserCount;
-    float*              m_width;
-    float*              m_height;
-    float*              m_xPos;
-    float*              m_yPos;
-    bool*               m_active;
-    sf::RectangleShape* m_shape;
-    lua_State**         m_lua;
-    std::vector<EnemyLaser*> m_lasers;
+    uint64_t                    m_enemyCount;
+    uint64_t                    m_laserCount;
+    float*                      m_width;
+    float*                      m_height;
+    float*                      m_xPos;
+    float*                      m_yPos;
+    bool*                       m_active;
+    sf::RectangleShape*         m_shape;
+    lua_State**                 m_lua;
+    std::vector<EnemyLaser*>    m_lasers;
 };
 
 #endif // ENEMY_H

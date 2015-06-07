@@ -16,7 +16,7 @@ shotLimiter = 45
 shotTimer   = 0
 xSpeed      = 1
 ySpeed      = 1
-yBound      = 300 * math.random()
+yBound      = 240 * math.random() + 50
 bspeed      = 0
 -- Variables that the host program accesses
 xPos        = 0   -- current x position of this enemy
@@ -36,7 +36,7 @@ init = function()
     yPos   = -1 * math.floor(math.random() * 100)
     xSpeed = math.random() * 2 + .02
     ySpeed = math.random() + .25
-    bspeed = 2
+    bspeed = .5
     return 0
 end
 
