@@ -119,7 +119,7 @@ void Enemy::Move() {
     }
     for(uint64_t i = 0; i < m_lasers.size(); i++) {
         m_lasers[i]->Move();
-        if(!m_lasers[i]->getActive()){
+        if(!m_lasers[i]->getActive()) {
             m_lasers.erase(m_lasers.begin() + i);
             i--;
         }
@@ -200,6 +200,10 @@ uint64_t Enemy::getLaserCount() {
     return m_lasers.size();
 }
 
+EnemyLaser* Enemy::getLaser(uint64_t i) {
+    return m_lasers[i];
+}
+
 // ==============================================
 // Implementation of Enemy::EnemyLaser Below
 // ==============================================
@@ -208,7 +212,7 @@ EnemyLaser::EnemyLaser() {
 }
 
 EnemyLaser::EnemyLaser(float x, float y, float dx, float dy)
-:m_active(true), m_xPos(x), m_yPos(y), m_ySpeed(dy), m_xSpeed(dx){
+    :m_active(true), m_xPos(x), m_yPos(y), m_ySpeed(dy), m_xSpeed(dx) {
     m_shape.setRadius(5);
     m_shape.setFillColor(sf::Color::Red);
     //hjs::logTimeToConsole();
@@ -236,14 +240,27 @@ bool EnemyLaser::getActive() {
     return m_active;
 }
 
-void EnemyLaser::init(float x, float y, float dx, float dy)
-{
+void EnemyLaser::init(float x, float y, float dx, float dy) {
 
+}
+
+bool EnemyLaser::hitTestPlayer(Player& p) {
+    bool hit = (
+               (( m_xPos >= p.getXCoord()) &&
+                (m_xPos <= p.getXCoord() + p.getSideLength()))
+               &&
+               (( m_yPos >= p.getYCoord()) &&
+                (m_yPos <= p.getYCoord() + p.getSideLength()))
+           );
+    if(hit){
+        m_active = false; // deactivate so that Enemy class can gc this
+    }
+    return hit;
 }
 
 // Drawing Function for the enemy laser
 void EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const {
-    if(m_active){
+    if(m_active) {
         target.draw(m_shape, states);
     }
 }

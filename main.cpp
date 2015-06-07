@@ -142,7 +142,7 @@ void handleObjectEvents()	// object event thread entry point
                     std::cout << "Salvage(" << i << ") has hit player" << std::endl;
                 }
             }
-            // asteroid hittest
+            // asteroid hit test
             for(int i = 0; i < asteroid->getCount(); i++)
             {
                 bool hit = asteroid->hitTestPlayer(i, *player);
@@ -157,14 +157,20 @@ void handleObjectEvents()	// object event thread entry point
                     std::cerr << "Asteroid(" << i << ") has hit player" << std::endl;
                 }
             }
-
             // enemy hittest
             for(uint64_t i = 0; i < enemy->getEnemyCount(); i++){
                 bool hit = enemy->hitTestPlayer(i, *player);
                 if(hit){
-                    //!\todo Finish implementing what happens when player hits enemy
+                    //!<\todo Finish implementing what happens when player hits enemy
                     myUI->updateHealth(-5);
                     enemy->ReInit(i);
+                }
+            }
+            // enemy laser hit test on the player
+            for(uint64_t i = 0; i < enemy->getLaserCount(); i++){
+                bool hit = enemy->getLaser(i)->hitTestPlayer(*player);
+                if(hit){
+                    //!<\todo Implement what happens when EnemyLaser hits the player
                 }
             }
             // add points

@@ -18,6 +18,9 @@ extern "C" {
 #include "Player.h"
 #include "Laser.h"
 
+/**\brief A class defining the Enemy's Lasers. They are how the enemies attack the
+ * player, and the enemies only way can do so, other than ramming the player.
+ */
 class EnemyLaser: public sf::Drawable {
 public:
     EnemyLaser();
@@ -27,6 +30,7 @@ public:
     void Move();
     void init(float x, float y, float dx, float dy);
     bool getActive();
+    bool hitTestPlayer(Player& p);
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
@@ -48,9 +52,10 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    void     ReInit(uint64_t index);
-    uint64_t getLaserCount();
-    uint64_t getEnemyCount();
+    void        ReInit(uint64_t index);
+    uint64_t    getLaserCount();
+    uint64_t    getEnemyCount();
+    EnemyLaser* getLaser(uint64_t i);
 
     bool     hitTestPlayer(uint64_t index, Player& p);
     bool     hitTestLaser(uint64_t index, Laser& l);
