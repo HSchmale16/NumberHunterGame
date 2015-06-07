@@ -98,7 +98,7 @@ int LaserHandler::handleEvents(Player *p, Salvage *s, Asteroids *a, Enemy *e) {
     }
 
     // hittest enemies
-    for(int eI = 0; eI < e->getEnemyCount(); eI++) {
+    for(uint64_t eI = 0; eI < e->getEnemyCount(); eI++) {
         for(int lasI = 0; lasI < m_MaxLasers; lasI++) {
             if(m_vecLaser[lasI]->getActive()
                 && (e->hitTestLaser((uint64_t)eI, *m_vecLaser[lasI]))){

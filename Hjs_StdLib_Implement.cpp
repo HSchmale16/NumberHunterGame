@@ -13,6 +13,8 @@
 #include "Hjs_StdLib.h"
 #include <cmath>
 #include <cstdio>
+#include <iomanip>
+#include <ios>
 
 /// Variables that are for internal use by Hjs_StdLib
 time_t startTime;                 // time in program execution lib was init'd
@@ -25,6 +27,7 @@ void hjs::init_Hjs_StdLib()
     // check if lib is not init'd, because this should only be called once
     if(!bLibIsInit)
     {
+        std::setprecision(5);
         bLibIsInit = true;
         startTime = clock();
 #ifdef DEBUG_BUILD

@@ -47,7 +47,7 @@ end
 shoot = function()
     if shotTimer > shotLimiter then
         shotTimer = 0 -- reset shot timer
-        angle = math.atan(player_y, player_x)
+        angle = math.atan(player_y - yPos, player_x - xPos)
         bullet_dx = math.cos(angle) * bspeed
         bullet_dy = math.sin(angle) * bspeed
         return true;

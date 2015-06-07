@@ -22,7 +22,6 @@ Enemy::Enemy() {
     m_active     = new bool[m_enemyCount];
     m_lua        = new lua_State*[m_enemyCount];
     m_shape      = new sf::RectangleShape[m_enemyCount];
-    m_lasers     = new Enemy::EnemyLaser[m_laserCount];
 
     for(uint64_t i  = 0; i < m_enemyCount; i++) {
         // Init the Lua VM
@@ -70,13 +69,12 @@ Enemy::~Enemy() {
     delete[] m_yPos;
     delete[] m_shape;
     delete[] m_active;
-    delete[] m_lasers;
     for(uint64_t i = 0; i < m_enemyCount; i++) {
         lua_close(m_lua[i]);
     }
 }
 
-void Enemy::ReInit(int index){
+void Enemy::ReInit(uint64_t index){
     m_active[index] = true;
     lua_getglobal(m_lua[index], "init");
     if(lua_pcall(m_lua[index], 0, 0, 0) != 0) {
@@ -103,9 +101,9 @@ void Enemy::Move() {
             //!\todo Handle Error
         }
         lua_getglobal(m_lua[i], "xPos");
-        m_xPos[i] = (float)lua_tonumber(m_lua[i], -1);
+        m_xPos[i] = (float)lua_tonumber(m_lua[i], -1) - m_width[i] / 2.0;
         lua_getglobal(m_lua[i], "yPos");
-        m_yPos[i] = (float)lua_tonumber(m_lua[i], -1);
+        m_yPos[i] = (float)lua_tonumber(m_lua[i], -1) - m_height[i] / 2.0;
         // check if it can shoot
         lua_getglobal(m_lua[i], "shoot");
         if(lua_pcall(m_lua[i], 0, 1, 0) != 0) {
@@ -120,14 +118,14 @@ void Enemy::Move() {
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
     }
     for(uint64_t i = 0; i < m_laserCount; i++) {
-        m_lasers[i].Move();
+        m_lasers[i]->Move();
     }
 }
 
 // Drawing Function for the enemy itself
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
     for(uint64_t i = 0; i < m_laserCount; i++) {
-        target.draw(m_lasers[i], states);
+        target.draw(*m_lasers[i], states);
     }
     for(uint64_t i = 0; i < m_enemyCount; i++) {
         if(m_active[i]) {
@@ -136,20 +134,21 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states)const {
     }
 }
 
-void Enemy::initLaser(int index) {
+void Enemy::initLaser(uint64_t index) {
+    if(index > m_enemyCount || index < 0){return;}
     for(uint64_t i = 0; i < m_laserCount; i++) {
-        if(m_lasers[i].getActive() == false) {
+        if(m_lasers[i]->getActive() == false) {
             lua_getglobal(m_lua[index], "bullet_dx");
             float bdx = (float)lua_tonumber(m_lua[index], -1);
             lua_pop(m_lua[index], 1);
             lua_getglobal(m_lua[index], "bullet_dy");
             float bdy = (float)lua_tonumber(m_lua[index], -1);
             lua_pop(m_lua[index], 1);
-            m_lasers[i].init(m_xPos[i] + (m_width[i] / 2.0),
-                             m_yPos[i] + (m_height[i] / 2.0),
-                             bdx, bdy);
-            std::cerr << bdx << "  " << bdy << std::endl;
-            break;
+            hjs::logTimeToConsole();
+            std::cerr << index << "  ";
+            std::cerr << m_xPos[index] << "  " << m_yPos[index] << "  " << bdy / bdx
+                      << std::endl;
+            return; // init only ONE laser
         }
     }
 }
@@ -181,9 +180,11 @@ bool Enemy::hitTestPlayer(uint64_t index, Player &p){
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
     // modified by HSchmale for use in this game
     return (
-               (( m_xPos[index] + m_width[index] >= p.getXCoord()) && (m_xPos[index] <= p.getXCoord() + p.getSideLength()))
+               (( m_xPos[index] + m_width[index] >= p.getXCoord()) &&
+                (m_xPos[index] <= p.getXCoord() + p.getSideLength()))
                &&
-               (( m_yPos[index] + m_height[index] >= p.getYCoord()) && (m_yPos[index] <= p.getYCoord() + p.getSideLength()))
+               (( m_yPos[index] + m_height[index] >= p.getYCoord()) &&
+                (m_yPos[index] <= p.getYCoord() + p.getSideLength()))
            );
 }
 
@@ -198,17 +199,17 @@ uint64_t Enemy::getLaserCount() {
 // ==============================================
 // Implementation of Enemy::EnemyLaser Below
 // ==============================================
-Enemy::EnemyLaser::EnemyLaser()
-:m_xPos(0), m_yPos(0), m_xSpeed(0), m_ySpeed(0), m_active(false) {
+EnemyLaser::EnemyLaser(){
+    m_active = false;
     m_shape.setRadius(2.5);
-    m_shape.setFillColor(sf::Color::Blue);
+    m_shape.setFillColor(sf::Color::Red);
 }
 
-Enemy::EnemyLaser::~EnemyLaser() {
+EnemyLaser::~EnemyLaser() {
 
 }
 
-void Enemy::EnemyLaser::Move() {
+void EnemyLaser::Move() {
     if(!m_active) {
         return;
     }
@@ -220,7 +221,7 @@ void Enemy::EnemyLaser::Move() {
     m_shape.setPosition(m_xPos, m_yPos);
 }
 
-void Enemy::EnemyLaser::init(float x, float y, float dx, float dy) {
+void EnemyLaser::init(float x, float y, float dx, float dy) {
     m_active = true;
     m_xPos   = x;
     m_yPos   = y;
@@ -229,12 +230,12 @@ void Enemy::EnemyLaser::init(float x, float y, float dx, float dy) {
     m_shape.setPosition(m_xPos, m_yPos);
 }
 
-bool Enemy::EnemyLaser::getActive() {
+bool EnemyLaser::getActive() {
     return m_active;
 }
 
 // Drawing Function for the enemy laser
-void Enemy::EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const {
+void EnemyLaser::draw(sf::RenderTarget &target, sf::RenderStates states)const {
     if(m_active) {
         target.draw(m_shape, states);
     }
