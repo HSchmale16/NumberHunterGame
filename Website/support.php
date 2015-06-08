@@ -32,10 +32,14 @@
 		<!-- Begin Main-Content -->
 		<div id="main-content">
 			<h1>Support</h1>
+            <p>Bug reports can be made at
+                <a href="https://github.com/HSchmale16/NumberHunterGame/issues">github.com</a>.
+                They can also be directly emailed to at the email address below.</p>
+
             <p>Wiki: <a href="https://github.com/HSchmale16/NumberHunterGame/wiki">
               https://github.com/HSchmale16/NumberHunterGame/wiki</a></p>
 
-            <p>For assistance with bugs and the website, please email: 
+            <p>For assistance with the website or game, please email: 
                <a href="mailto:hschmale16@gmail.com">hschmale16@gmail.com</a> with a
                subject line of "Number Hunter Game Support".</p>
 		</div><!-- close main-content -->
