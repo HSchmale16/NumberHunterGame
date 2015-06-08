@@ -23,13 +23,14 @@
 	{
 		// make sure table exists
 		$tbName = getHiS_Tb_Name($level);
-		$sql = "Create Table if not exists $tbName (ID INT PRIMARY KEY AUTO_INCREMENT,
-													DATE TIMESTAMP,
-													NAME TEXT,
-													SCORE INT,
-													SALVAGE_COLLECTED INT,
-													ASTEROIDS_DESTROYED INT,
-													DIFFICULTY INT);";
+		$sql = "Create Table if not exists $tbName (ID INT PRIMARY KEY AUTO_INCREMENT,".
+											        "DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,".
+													"NAME TEXT,".
+													"SCORE INT,".
+													"SALVAGE_COLLECTED INT,".
+													"ASTEROIDS_DESTROYED INT,".
+													"DIFFICULTY INT,".
+                                                    "EnemiesKilled INT DEFAULT 0);";
 		if($dbConn->query($sql) === false)
 		{
 			die("Failed to create table" . $dbConn->error);		
