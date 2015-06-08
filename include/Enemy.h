@@ -84,7 +84,7 @@ private:
     float*                      m_yPos;
     bool*                       m_active;
     sf::RectangleShape*         m_shape;
-    sf::Texture*                m_texture;
+    sf::Texture                 m_texture;
     lua_State**                 m_lua;
     std::vector<EnemyLaser*>    m_lasers;
 };

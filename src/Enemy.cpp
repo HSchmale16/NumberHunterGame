@@ -23,6 +23,10 @@ Enemy::Enemy() {
     m_lua        = new lua_State*[m_enemyCount];
     m_shape      = new sf::RectangleShape[m_enemyCount];
 
+    if(!m_texture.loadFromFile("resources/img/Enemy.png")){
+        //!< \todo Screw up logic for file load fail
+    }
+
     for(uint64_t i  = 0; i < m_enemyCount; i++) {
         // Init the Lua VM
         m_lua[i] = luaL_newstate();
@@ -57,6 +61,7 @@ Enemy::Enemy() {
         m_shape[i].setSize(sf::Vector2f(m_width[i], m_height[i]));
         m_shape[i].setFillColor(sf::Color::Green);
         m_shape[i].setPosition(m_xPos[i], m_yPos[i]);
+        m_shape[i].setTexture(&m_texture);
         hjs::logToConsole("Enemy Created");
     }
 }
@@ -69,7 +74,6 @@ Enemy::~Enemy() {
     delete[] m_yPos;
     delete[] m_shape;
     delete[] m_active;
-    delete[] m_texture;
     for(uint64_t i = 0; i < m_enemyCount; i++) {
         lua_close(m_lua[i]);
     }
