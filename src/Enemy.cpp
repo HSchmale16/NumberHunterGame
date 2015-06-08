@@ -69,6 +69,7 @@ Enemy::~Enemy() {
     delete[] m_yPos;
     delete[] m_shape;
     delete[] m_active;
+    delete[] m_texture;
     for(uint64_t i = 0; i < m_enemyCount; i++) {
         lua_close(m_lua[i]);
     }
@@ -165,9 +166,11 @@ bool Enemy::hitTestLaser(uint64_t index, Laser &l) {
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
     // modified by H. Schmale for use in this game
     return (
-               (( m_xPos[index] + m_width[index] >= l.getX()) && (m_xPos[index] <= l.getX()))
+               (( m_xPos[index] + m_width[index] >= l.getX()) &&
+                (m_xPos[index] <= l.getX()))
                &&
-               (( m_yPos[index] + m_height[index] >= l.getY()) && (m_yPos[index] <= l.getY()))
+               (( m_yPos[index] + m_height[index] >= l.getY()) &&
+                (m_yPos[index] <= l.getY()))
            );
 }
 
@@ -211,8 +214,12 @@ EnemyLaser::EnemyLaser() {
     m_active = false;
 }
 
-EnemyLaser::EnemyLaser(float x, float y, float dx, float dy)
-    :m_active(true), m_xPos(x), m_yPos(y), m_ySpeed(dy), m_xSpeed(dx) {
+EnemyLaser::EnemyLaser(float x, float y, float dx, float dy){
+    m_active = true;
+    m_xPos   = x;
+    m_xSpeed = dx;
+    m_yPos   = y;
+    m_ySpeed = dy;
     m_shape.setRadius(5);
     m_shape.setFillColor(sf::Color::Red);
     //hjs::logTimeToConsole();
@@ -238,10 +245,6 @@ void EnemyLaser::Move() {
 
 bool EnemyLaser::getActive() {
     return m_active;
-}
-
-void EnemyLaser::init(float x, float y, float dx, float dy) {
-
 }
 
 bool EnemyLaser::hitTestPlayer(Player& p) {

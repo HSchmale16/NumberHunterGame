@@ -17,7 +17,11 @@
  * resources folder.
  *
  * \section How To Play
- * Arrow Keys to move. Space to shoot
+ * Arrow Keys to move. Space to shoot.
+ * Avoid the asteroids. Collect the salvage that meets the condition displayed
+ * at the bottom of the screen. Avoid the enemies' lasers. Complete the mission
+ * displayed at the top of the screen. Compete with your friends for the top
+ * high score on the online leader board.
  */
 
 #include <iostream>	            // for cout
@@ -171,6 +175,7 @@ void handleObjectEvents()	// object event thread entry point
                 bool hit = enemy->getLaser(i)->hitTestPlayer(*player);
                 if(hit){
                     //!<\todo Implement what happens when EnemyLaser hits the player
+                    myUI->updateHealth(-5);
                 }
             }
             // add points

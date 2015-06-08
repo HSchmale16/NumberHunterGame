@@ -28,8 +28,13 @@ public:
     ~EnemyLaser();
 
     void Move();
-    void init(float x, float y, float dx, float dy);
     bool getActive();
+    /**\brief Handles hit tests against a Player object and this object
+     * \return true if it was hit, otherwise false
+     * \param p Player object to hit test against
+     * \note This function will cause the active state of this object to be set to false
+     * on returning true.
+     */
     bool hitTestPlayer(Player& p);
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states)const;
@@ -59,6 +64,8 @@ public:
 
     bool     hitTestPlayer(uint64_t index, Player& p);
     bool     hitTestLaser(uint64_t index, Laser& l);
+    /**\brief Moves all objects that are managed by this class on screen.
+     */
     void     Move();
 protected:
 private:
@@ -77,6 +84,7 @@ private:
     float*                      m_yPos;
     bool*                       m_active;
     sf::RectangleShape*         m_shape;
+    sf::Texture*                m_texture;
     lua_State**                 m_lua;
     std::vector<EnemyLaser*>    m_lasers;
 };
