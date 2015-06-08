@@ -11,7 +11,10 @@
  */
 
 #include "Hjs_StdLib.h"
-#include <math.h>
+#include <cmath>
+#include <cstdio>
+#include <iomanip>
+#include <ios>
 
 /// Variables that are for internal use by Hjs_StdLib
 time_t startTime;                 // time in program execution lib was init'd
@@ -24,6 +27,7 @@ void hjs::init_Hjs_StdLib()
     // check if lib is not init'd, because this should only be called once
     if(!bLibIsInit)
     {
+        std::setprecision(5);
         bLibIsInit = true;
         startTime = clock();
 #ifdef DEBUG_BUILD
@@ -34,22 +38,21 @@ void hjs::init_Hjs_StdLib()
 
 void hjs::logTimeToConsole()
 {
-    // time output
-#ifdef DEBUG_BUILD
+#ifndef NDEBUG
     time_t t = clock();     // Get the Time
     float elaps = (float(t) - startTime) / CLOCKS_PER_SEC;
-    std::cerr << "[" << elaps << "] \t";
-#endif // DEBUG_BUILD
+    fprintf(stderr, "[%4f]\t", elaps);
+#endif // NDEBUG
 }
 
 /// Logs a message to stdOutput with the time since execution begin
 void hjs::logToConsole(const char * ch)
 {
-#ifdef DEBUG_BUILD
+#ifndef NDEBUG
     // output time
     logTimeToConsole();
-    std::cout << ch << std::endl;
-#endif // DEBUG_BUILD
+    puts(ch);
+#endif // NDEBUG
 }
 
 /// Allows the any thread to end the whole program by calling this function

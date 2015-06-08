@@ -152,7 +152,7 @@ void Asteroids::ReInit(int i)
 bool Asteroids::hitTestPlayer(int index, Player &p)
 {
     // default case if the index is not valid
-    if((index > m_nCount) | (index < 0))
+    if((index > m_nCount) || (index < 0))
         return false;
 
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5
@@ -167,7 +167,7 @@ bool Asteroids::hitTestPlayer(int index, Player &p)
 bool Asteroids::hitTestLaser(int index, Laser &l)
 {
     // verify index is within bounds
-    if((index > m_nCount) | (index < 0))
+    if((index > m_nCount) || (index < 0))
         return false;
 
     // algorithm taken from: http://en.wikipedia.org/wiki/Hit-testing on Oct 5

@@ -17,7 +17,11 @@
  * resources folder.
  *
  * \section How To Play
- * Arrow Keys to move. Space to shoot
+ * Arrow Keys to move. Space to shoot.
+ * Avoid the asteroids. Collect the salvage that meets the condition displayed
+ * at the bottom of the screen. Avoid the enemies' lasers. Complete the mission
+ * displayed at the top of the screen. Compete with your friends for the top
+ * high score on the online leader board.
  */
 
 #include <iostream>	            // for cout
@@ -35,6 +39,7 @@
 #include "include/Asteroids.h"
 #include "include/LevelHandler.h"
 #include "include/GameMenu.h"
+#include "include/Enemy.h"
 
 // Declare Global Variables
 bool bGameIsPaused = false;		// Is the game paused?
@@ -53,15 +58,16 @@ GameDifficulty DIFFICULTY;          //!< Difficulty of the game
 sf::RenderWindow window;
 
 // dynamically allocate the following objects
-Player *player;
-Salvage *salv;
-UI *myUI;
-Background *bg;
-LaserHandler *lHandler;
-Asteroids *asteroid;
-GameMenu *gmMenu;
-LevelHandler *levels;
-MenuRetType *menuRet;
+Player*       player;
+Salvage*      salv;
+UI*           myUI;
+Background*   bg;
+LaserHandler* lHandler;
+Asteroids*    asteroid;
+GameMenu*     gmMenu;
+LevelHandler* levels;
+MenuRetType*  menuRet;
+Enemy*        enemy;
 
 // Sound Stuff
 sf::SoundBuffer explosionSND; //!< Buff for explosion sound
@@ -82,6 +88,7 @@ void render()	// rendering thread entry point
         window.draw(*bg);
         window.draw(*salv);
         window.draw(*asteroid);
+        window.draw(*enemy);
         window.draw(*player);
         window.draw(*lHandler);
         window.draw(*myUI);
@@ -107,10 +114,8 @@ void handleObjectEvents()	// object event thread entry point
             player->Move();
             salv->Move();
             asteroid->Move();
-            int Points = lHandler->handleEvents(player, salv, asteroid);// laser hit test
-            if(Points){
-
-            }
+            enemy->Move();
+            int Points = lHandler->handleEvents(player, salv, asteroid, enemy);// laser hit test
             // update level handler on killed asteroids
             levels->addKilledAsteroids(lHandler->getAsteroidsDestroyedThisIter());
             // salvage hit test
@@ -141,7 +146,7 @@ void handleObjectEvents()	// object event thread entry point
                     std::cout << "Salvage(" << i << ") has hit player" << std::endl;
                 }
             }
-            // asteroid hittest
+            // asteroid hit test
             for(int i = 0; i < asteroid->getCount(); i++)
             {
                 bool hit = asteroid->hitTestPlayer(i, *player);
@@ -153,7 +158,24 @@ void handleObjectEvents()	// object event thread entry point
                     levels->addKilledAsteroids(1);
                     asteroid->ReInit(i);
                     hjs::logTimeToConsole();
-                    std::cout << "Asteroid(" << i << ") has hit player" << std::endl;
+                    std::cerr << "Asteroid(" << i << ") has hit player" << std::endl;
+                }
+            }
+            // enemy hittest
+            for(uint64_t i = 0; i < enemy->getEnemyCount(); i++){
+                bool hit = enemy->hitTestPlayer(i, *player);
+                if(hit){
+                    //!<\todo Finish implementing what happens when player hits enemy
+                    myUI->updateHealth(-5);
+                    enemy->ReInit(i);
+                }
+            }
+            // enemy laser hit test on the player
+            for(uint64_t i = 0; i < enemy->getLaserCount(); i++){
+                bool hit = enemy->getLaser(i)->hitTestPlayer(*player);
+                if(hit){
+                    //!<\todo Implement what happens when EnemyLaser hits the player
+                    myUI->updateHealth(-5);
                 }
             }
             // add points
@@ -277,6 +299,7 @@ int main()
     delete lHandler;
     delete levels;
     delete menuRet;
+    delete enemy;
     hjs::logToConsole("Finished Clean up in main thread");
     return 0;
 }
@@ -285,11 +308,12 @@ int main()
 void gameDifficultyInit(MenuRetType mrt)
 {
     // init objects that doesn't depend on difficulty
-    levels = new LevelHandler(gmMenu->getPlayerName());
-    myUI = new UI;
-    bg = new Background;
+    levels   = new LevelHandler(gmMenu->getPlayerName());
+    myUI     = new UI;
+    bg       = new Background;
     lHandler = new LaserHandler;
-    player = new Player;
+    player   = new Player;
+    enemy    = new Enemy;
 
     // init the rest of the objects that depend
     switch(mrt.diff)
